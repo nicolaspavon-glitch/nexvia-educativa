@@ -1,0 +1,1111 @@
+/* ============================================================
+   CONFIGURACIÓN GENERAL
+   ============================================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #ffffff;
+    color: #172033;
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    font-family: inherit;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+
+/* ============================================================
+   COLORES PRINCIPALES
+   
+   ESTE ES UNO DE LOS LUGARES MÁS IMPORTANTES PARA MODIFICAR
+   LA IDENTIDAD VISUAL DE TODA LA WEB.
+   ============================================================ */
+
+:root {
+
+    --azul-institucional: #1557a6;
+    --azul-oscuro: #0b2f5b;
+    --azul-acento: #2f8fe6;
+
+    --fondo-claro: #f5f8fc;
+    --fondo-gris: #eef3f8;
+
+    --blanco: #ffffff;
+
+    --texto-principal: #172033;
+    --texto-secundario: #667085;
+
+    --borde: #dfe6ef;
+
+}
+
+
+/* ============================================================
+   CONTENEDOR GENERAL
+   Controla el ancho máximo del contenido.
+   ============================================================ */
+
+.contenedor {
+    width: min(1120px, 90%);
+    margin: 0 auto;
+}
+
+
+/* ============================================================
+   ENCABEZADO / NAVBAR
+   ============================================================ */
+
+.encabezado {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.96);
+    border-bottom: 1px solid var(--borde);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar {
+    min-height: 78px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+
+/* LOGO */
+
+/* ============================================================
+   MARCA / LOGO
+   ============================================================ */
+
+.marca {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-nexvia {
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+}
+
+.marca-texto {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+}
+
+.marca-texto strong {
+    font-size: 18px;
+    letter-spacing: 1.5px;
+    color: var(--azul-oscuro);
+}
+
+.marca-texto span {
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: var(--azul-institucional);
+    margin-top: 5px;
+}
+
+
+/* MENÚ */
+
+.menu {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+.menu a {
+    color: var(--texto-secundario);
+    font-size: 14px;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.menu a:hover {
+    color: var(--azul-institucional);
+}
+/* ============================================================
+   CERTIFICACIÓN / SUBMENÚ
+   ============================================================ */
+
+.menu-certificacion {
+    position: relative;
+}
+
+.certificacion-titulo {
+    color: var(--texto-secundario);
+    font-size: 14px;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.certificacion-titulo:hover {
+    color: var(--azul-institucional);
+}
+
+
+/* SUBMENÚ OCULTO */
+
+.submenu-certificacion {
+    position: absolute;
+
+    top: 100%;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    min-width: 190px;
+
+    padding-top: 12px;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition: 0.2s;
+}
+
+
+/* CAJA DEL SUBMENÚ */
+
+.submenu-certificacion a {
+    display: block;
+
+    padding: 12px 16px;
+
+    background: var(--blanco);
+
+    border: 1px solid var(--borde);
+    border-radius: 8px;
+
+    color: var(--texto-principal);
+
+    font-size: 13px;
+    font-weight: 600;
+
+    box-shadow: 0 10px 25px rgba(18, 53, 90, 0.10);
+
+    white-space: nowrap;
+}
+
+
+/* APARECE AL PASAR EL MOUSE */
+
+.menu-certificacion:hover .submenu-certificacion {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+/* EFECTO AL PASAR SOBRE LA OPCIÓN */
+
+.submenu-certificacion a:hover {
+    color: var(--azul-institucional);
+    background: var(--fondo-claro);
+}
+
+/* ============================================================
+   BOTONES
+   
+   Si querés modificar el aspecto general de los botones,
+   este es uno de los lugares principales.
+   ============================================================ */
+
+.boton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 13px 22px;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    transition: 0.25s;
+}
+
+
+/* BOTÓN PRINCIPAL */
+
+.boton-principal {
+    background: var(--azul-institucional);
+    color: var(--blanco);
+}
+
+.boton-principal:hover {
+    background: var(--azul-oscuro);
+    transform: translateY(-2px);
+}
+
+
+/* BOTÓN SECUNDARIO */
+
+.boton-secundario {
+    border: 1px solid var(--borde);
+    color: var(--texto-principal);
+    background: var(--blanco);
+}
+
+.boton-secundario:hover {
+    border-color: var(--azul-institucional);
+    color: var(--azul-institucional);
+}
+
+
+/* BOTÓN DEL NAV */
+
+.boton-nav {
+    background: var(--azul-institucional);
+    color: var(--blanco);
+    padding: 10px 18px;
+}
+
+
+/* BOTÓN BLANCO */
+
+.boton-blanco {
+    background: var(--blanco);
+    color: var(--azul-oscuro);
+}
+
+.boton-blanco:hover {
+    transform: translateY(-2px);
+}
+
+
+/* MENÚ MÓVIL */
+
+.menu-movil {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 26px;
+    cursor: pointer;
+}
+
+
+/* ============================================================
+   HERO / PORTADA
+   ============================================================ */
+
+.hero {
+    min-height: 680px;
+    background:
+        radial-gradient(circle at 80% 20%, rgba(47, 143, 230, 0.12), transparent 30%),
+        linear-gradient(180deg, #ffffff 0%, #f5f8fc 100%);
+
+    display: flex;
+    align-items: center;
+}
+
+.hero-contenido {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    align-items: center;
+    gap: 80px;
+}
+
+
+/* TEXTO DEL HERO */
+
+.hero-texto {
+    max-width: 620px;
+}
+
+.etiqueta {
+    display: inline-block;
+    margin-bottom: 16px;
+
+    color: var(--azul-institucional);
+
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+}
+
+
+.hero h1 {
+    font-size: clamp(44px, 5vw, 72px);
+    line-height: 1.05;
+    letter-spacing: -2px;
+    margin-bottom: 25px;
+}
+
+.hero h1 span {
+    display: block;
+    color: var(--azul-institucional);
+}
+
+.hero-texto > p {
+    max-width: 570px;
+    color: var(--texto-secundario);
+    font-size: 18px;
+    margin-bottom: 32px;
+}
+
+
+/* BOTONES DEL HERO */
+
+.hero-botones {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+
+/* ============================================================
+   TARJETA VISUAL DEL HERO
+   ============================================================ */
+
+.hero-visual {
+    display: flex;
+    justify-content: center;
+}
+
+.tarjeta-hero {
+    width: 100%;
+    max-width: 440px;
+
+    background: var(--blanco);
+
+    padding: 45px;
+
+    border: 1px solid var(--borde);
+    border-radius: 20px;
+
+    box-shadow: 0 25px 70px rgba(18, 53, 90, 0.10);
+}
+
+.icono-hero {
+    width: 300px;
+    height: 300px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: transparent;
+    border-radius: 5;
+
+    font-size: 10px;
+
+    margin: 0 auto 15px;
+}
+
+.tarjeta-hero > span {
+    color: var(--azul-institucional);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+}
+
+.tarjeta-hero h3 {
+    font-size: 30px;
+    line-height: 1.2;
+    margin: 12px 0;
+}
+
+.tarjeta-hero p {
+    color: var(--texto-secundario);
+}
+
+.linea-hero {
+    height: 1px;
+    background: var(--borde);
+    margin: 30px 0;
+}
+
+.datos-hero {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.datos-hero div {
+    display: flex;
+    flex-direction: column;
+}
+
+.datos-hero strong {
+    font-size: 20px;
+    color: var(--azul-oscuro);
+}
+
+.datos-hero span {
+    font-size: 12px;
+    color: var(--texto-secundario);
+}
+
+
+/* ============================================================
+   SECCIONES GENERALES
+   ============================================================ */
+
+.seccion {
+    padding: 110px 0;
+}
+
+
+/* ENCABEZADO DE CADA SECCIÓN */
+
+.encabezado-seccion {
+    max-width: 650px;
+    margin-bottom: 55px;
+}
+
+.encabezado-seccion h2 {
+    font-size: clamp(34px, 4vw, 48px);
+    line-height: 1.1;
+    margin-bottom: 18px;
+    letter-spacing: -1px;
+}
+
+.encabezado-seccion p {
+    color: var(--texto-secundario);
+}
+
+
+/* ============================================================
+   CURSOS
+   ============================================================ */
+
+.cursos {
+    background: var(--blanco);
+}
+
+.cursos-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.curso-card {
+    overflow: hidden;
+
+    background: var(--blanco);
+
+    border: 1px solid var(--borde);
+    border-radius: 14px;
+
+    transition: 0.25s;
+}
+
+.curso-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 45px rgba(18, 53, 90, 0.09);
+}
+
+
+/* IMAGEN / CABECERA DE CURSO */
+
+.curso-imagen {
+    height: 190px;
+
+    display: flex;
+    align-items: flex-end;
+
+    padding: 20px;
+
+    color: white;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+
+/* COLORES DE LAS TARJETAS */
+
+.curso-azul {
+    background: linear-gradient(135deg, #1557a6, #2f8fe6);
+}
+
+.curso-celeste {
+    background: linear-gradient(135deg, #247ba0, #56cfe1);
+}
+
+.curso-oscuro {
+    background: linear-gradient(135deg, #0b2f5b, #263b5c);
+}
+
+
+/* ============================================================
+   CURSO ELECTRICIDAD DOMICILIARIA
+   ============================================================ */
+
+.curso-electricidad {
+    height: 190px;
+
+    background: #0d1f36;
+
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    padding: 20px;
+}
+
+
+/* LOGO DEL RAYO */
+
+.curso-electricidad img {
+    width: 90px;
+    height: 90px;
+
+    object-fit: contain;
+}
+
+
+/* TEXTO "CURSO ONLINE" */
+
+.curso-electricidad span {
+    position: absolute;
+
+    left: 20px;
+    bottom: 20px;
+
+    color: #ffffff;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    letter-spacing: 1px;
+}
+
+
+/* CONTENIDO */
+
+.curso-contenido {
+    padding: 28px;
+}
+
+.curso-categoria {
+    color: var(--azul-institucional);
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.curso-contenido h3 {
+    font-size: 24px;
+    margin: 8px 0 12px;
+}
+
+.curso-contenido p {
+    color: var(--texto-secundario);
+    font-size: 14px;
+}
+
+.curso-info {
+    display: flex;
+    gap: 15px;
+    margin: 20px 0;
+
+    color: var(--texto-secundario);
+    font-size: 12px;
+}
+
+.curso-link {
+    color: var(--azul-institucional);
+    font-size: 14px;
+    font-weight: 800;
+}
+
+
+/* ============================================================
+   BENEFICIOS
+   ============================================================ */
+
+.beneficios {
+    background: var(--fondo-claro);
+}
+
+.beneficios-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 35px;
+}
+
+.beneficio-icono {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 20px;
+
+    background: var(--blanco);
+    color: var(--azul-institucional);
+
+    border: 1px solid var(--borde);
+    border-radius: 10px;
+
+    font-weight: 800;
+}
+
+.beneficio h3 {
+    margin-bottom: 10px;
+}
+
+.beneficio p {
+    color: var(--texto-secundario);
+    font-size: 14px;
+}
+
+
+/* ============================================================
+   CÓMO FUNCIONA
+   ============================================================ */
+
+.como-funciona {
+    background: var(--blanco);
+}
+
+.pasos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 50px;
+}
+
+.paso {
+    border-top: 2px solid var(--azul-institucional);
+    padding-top: 25px;
+}
+
+.numero-paso {
+    color: var(--azul-institucional);
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.paso h3 {
+    font-size: 24px;
+    margin: 12px 0;
+}
+
+.paso p {
+    color: var(--texto-secundario);
+}
+
+
+/* ============================================================
+   NOSOTROS
+   ============================================================ */
+
+.nosotros {
+    background: var(--fondo-claro);
+}
+
+.nosotros-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 90px;
+    align-items: center;
+}
+
+.nosotros-visual {
+    min-height: 450px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        linear-gradient(135deg, #e9f3ff, #f7fbff);
+
+    border-radius: 20px;
+}
+
+.cuadro-decorativo {
+    padding: 45px;
+
+    background: var(--azul-oscuro);
+    color: var(--blanco);
+
+    border-radius: 15px;
+
+    box-shadow: 25px 25px 0 var(--azul-acento);
+}
+
+.cuadro-decorativo span {
+    display: block;
+    font-size: 12px;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+}
+
+.cuadro-decorativo strong {
+    font-size: 30px;
+}
+
+.nosotros-texto h2 {
+    font-size: clamp(34px, 4vw, 48px);
+    line-height: 1.1;
+    margin-bottom: 25px;
+}
+
+.nosotros-texto p {
+    color: var(--texto-secundario);
+    margin-bottom: 18px;
+}
+
+
+/* ============================================================
+   PREGUNTAS FRECUENTES
+   ============================================================ */
+
+.faq {
+    background: var(--blanco);
+}
+
+.faq-lista {
+    max-width: 800px;
+}
+
+.faq-item {
+    border-top: 1px solid var(--borde);
+}
+
+.faq-item:last-child {
+    border-bottom: 1px solid var(--borde);
+}
+
+.faq-pregunta {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 24px 0;
+
+    background: none;
+    border: none;
+
+    color: var(--texto-principal);
+
+    text-align: left;
+    font-size: 16px;
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.faq-icono {
+    font-size: 24px;
+    color: var(--azul-institucional);
+}
+
+.faq-respuesta {
+    display: none;
+    padding: 0 0 25px;
+}
+
+.faq-respuesta p {
+    color: var(--texto-secundario);
+}
+
+
+/* ============================================================
+   INSCRIPCIÓN / CTA
+   ============================================================ */
+
+.inscripcion {
+    padding: 90px 0;
+
+    background:
+        linear-gradient(
+            120deg,
+            var(--azul-oscuro),
+            var(--azul-institucional)
+        );
+
+    color: var(--blanco);
+}
+
+.inscripcion-contenido {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+.inscripcion h2 {
+    max-width: 700px;
+    font-size: clamp(36px, 5vw, 56px);
+    line-height: 1.05;
+    margin-bottom: 15px;
+}
+
+.inscripcion p {
+    opacity: 0.85;
+}
+
+.etiqueta-clara {
+    color: #b9dcff;
+}
+
+
+/* ============================================================
+   CONTACTO
+   ============================================================ */
+
+.contacto {
+    background: var(--fondo-claro);
+}
+
+.contacto-datos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.contacto-datos div {
+    padding: 25px;
+
+    background: var(--blanco);
+    border: 1px solid var(--borde);
+    border-radius: 12px;
+}
+
+.contacto-datos span {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: var(--azul-institucional);
+
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.contacto-datos strong {
+    font-size: 14px;
+}
+
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+.footer {
+    background: #081f3d;
+    color: var(--blanco);
+    padding-top: 60px;
+}
+
+.footer-contenido {
+    display: flex;
+    justify-content: space-between;
+    gap: 50px;
+    padding-bottom: 50px;
+}
+
+.logo-footer {
+    color: var(--blanco);
+}
+
+.footer-contenido p {
+    margin-top: 12px;
+    color: #aebed0;
+}
+
+.footer-links {
+    display: flex;
+    gap: 25px;
+}
+
+.footer-links a {
+    color: #c6d2df;
+    font-size: 14px;
+}
+
+.footer-links a:hover {
+    color: var(--blanco);
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 20px 0;
+
+    text-align: center;
+
+    color: #91a3b7;
+    font-size: 12px;
+}
+
+
+/* ============================================================
+   RESPONSIVE / CELULARES
+   
+   Esta parte hace que la página se adapte a pantallas chicas.
+   ============================================================ */
+
+@media (max-width: 900px) {
+
+    .menu,
+    .boton-nav {
+        display: none;
+    }
+
+    .menu-movil {
+        display: block;
+    }
+
+    .menu.menu-abierto {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 78px;
+        left: 0;
+        width: 100%;
+        padding: 20px;
+        background: var(--blanco);
+        border-bottom: 1px solid var(--borde);
+        gap: 18px;
+    }
+
+    .hero-contenido {
+        grid-template-columns: 1fr;
+        gap: 50px;
+    }
+
+    .cursos-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .beneficios-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .nosotros-grid {
+        grid-template-columns: 1fr;
+        gap: 50px;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .seccion {
+        padding: 75px 0;
+    }
+
+    .hero {
+        min-height: auto;
+        padding: 90px 0;
+    }
+
+    .hero h1 {
+        font-size: 44px;
+    }
+
+    .tarjeta-hero {
+        padding: 30px;
+    }
+
+    .cursos-grid,
+    .beneficios-grid,
+    .pasos,
+    .contacto-datos {
+        grid-template-columns: 1fr;
+    }
+
+    .inscripcion-contenido,
+    .footer-contenido {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .footer-links {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+}
+
+/* ============================================================
+   BOTÓN FLOTANTE DE WHATSAPP
+   ============================================================ */
+
+.whatsapp-float {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+
+    width: 58px;
+    height: 58px;
+
+    background-color: #25D366;
+    color: white;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-decoration: none;
+
+    font-size: 30px;
+    font-weight: bold;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+
+    z-index: 9999;
+
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.08);
+
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+.whatsapp-float svg {
+    width: 30px;
+    height: 30px;
+    fill: white;
+}
+
+.inscripciones-abiertas {
+    display: block;
+    color: #16a34a;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}

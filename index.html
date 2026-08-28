@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <!-- =========================================================
+         CONFIGURACIÓN GENERAL
+         ========================================================= -->
+
+    <meta charset="UTF-8">
+
+    <!-- Hace que la página se adapte correctamente a celulares -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- =========================================================
+         TÍTULO DE LA PÁGINA
+         Este texto aparece en la pestaña del navegador.
+         CAMBIAR ACÁ si querés modificar el nombre.
+         ========================================================= -->
+
+    <title>Cursos Online | Formación Profesional</title>
+
+    <!-- Conectamos nuestro archivo de diseño CSS -->
+    <link rel="stylesheet" href="estilos.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================================================
+         ENCABEZADO / NAVBAR
+         
+         Acá modificamos:
+         - Logo
+         - Nombre de la academia
+         - Opciones del menú
+         ========================================================= -->
+
+    <header class="encabezado">
+
+        <div class="contenedor navbar">
+
+            <!-- LOGO / NOMBRE -->
+            <a href="#" class="marca">
+
+    <img
+        src="imagenes/logo.png"
+        alt="Nexvia Educativa"
+        class="logo-nexvia"
+    >
+
+    <div class="marca-texto">
+
+        <strong>NEXVIA</strong>
+
+        <span>EDUCATIVA</span>
+
+    </div>
+
+</a>
+
+            <!-- MENÚ PRINCIPAL -->
+            <nav class="menu">
+
+    <a href="#inicio">Inicio</a>
+    <a href="#cursos">Cursos</a>
+    <a href="#nosotros">Nosotros</a>
+    <a href="#como-funciona">Cómo funciona</a>
+    <a href="#contacto">Contacto</a>
+
+    <div class="menu-certificacion">
+
+        <a href="#" class="certificacion-titulo">
+            Certificación
+        </a>
+
+        <div class="submenu-certificacion">
+
+            <a
+                href="https://script.google.com/macros/s/AKfycbwT2jCtlmuMioBQ3OiHVwd3HkvZxQJNFb7K9RXc2VLSuW6MkSRjdivCykrFlgeeyIMMaA/exec"
+                target="_blank"
+            >
+                Verifica tu certificado
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+            <!-- BOTÓN DE INSCRIPCIÓN -->
+            <a href="#inscripcion" class="boton boton-nav">
+                Inscribirme
+            </a>
+
+            <!-- BOTÓN DEL MENÚ PARA CELULAR -->
+            <button class="menu-movil" aria-label="Abrir menú">
+                ☰
+            </button>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =========================================================
+         HERO / PORTADA PRINCIPAL
+         
+         Esta es la primera sección que verá el visitante.
+         
+         Acá podés modificar:
+         - Título principal
+         - Texto
+         - Botones
+         - Texto pequeño superior
+         ========================================================= -->
+
+    <main>
+
+        <section class="hero" id="inicio">
+
+            <div class="contenedor hero-contenido">
+
+                <div class="hero-texto">
+
+                    <!-- TEXTO PEQUEÑO SOBRE EL TÍTULO -->
+                    <span class="etiqueta">
+                        FORMACIÓN ONLINE
+                    </span>
+
+                    <!-- TÍTULO PRINCIPAL -->
+                    <h1>
+                        Aprendé hoy.
+                        <span>Construí tu futuro.</span>
+                    </h1>
+
+                    <!-- DESCRIPCIÓN -->
+                    <p>
+                        Cursos online pensados para que puedas
+                        adquirir conocimientos, desarrollar nuevas
+                        habilidades y avanzar profesionalmente.
+                    </p>
+
+                    <!-- BOTONES -->
+                    <div class="hero-botones">
+
+                        <a href="#cursos" class="boton boton-principal">
+                            Ver cursos
+                        </a>
+
+                        <a href="#como-funciona" class="boton boton-secundario">
+                            Cómo funciona
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <!-- TARJETA VISUAL DEL HERO -->
+                <div class="hero-visual">
+
+                    <div class="tarjeta-hero">
+
+                        <div class="icono-hero">
+                            <img src="imagenes/Birrete.png">
+                        </div>
+
+                        <span>FORMACIÓN PROFESIONAL</span>
+
+                        <h3>
+                            Aprendé desde cualquier lugar
+                        </h3>
+
+                        <p>
+                            Accedé a contenidos, clases y recursos
+                            desde cualquier dispositivo.
+                        </p>
+
+                        <div class="linea-hero"></div>
+
+                        <div class="datos-hero">
+
+                            <div>
+                                <strong>100%</strong>
+                                <span>Online</span>
+                            </div>
+
+                            <div>
+                                <strong>24/7</strong>
+                                <span>Acceso</span>
+                            </div>
+
+                            <div>
+                                <strong>Consultas</strong>
+                                   <span>Guiadas</span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             SECCIÓN DE CURSOS
+             
+             Acá agregamos, quitamos o modificamos cursos.
+             
+             Para agregar otro curso:
+             copiá una tarjeta .curso-card y modificá su contenido.
+             ===================================================== -->
+
+        <section class="seccion cursos" id="cursos">
+
+            <div class="contenedor">
+
+                <!-- ENCABEZADO DE SECCIÓN -->
+                <div class="encabezado-seccion">
+
+                    <span class="etiqueta">
+                        NUESTROS CURSOS
+                    </span>
+
+                    <h2>
+                        Elegí tu próxima formación
+                    </h2>
+
+                    <p>
+                        Encontrá cursos diseñados para ayudarte
+                        a desarrollar conocimientos y habilidades.
+                    </p>
+
+                </div>
+
+
+                <!-- GRILLA DE CURSOS -->
+                <div class="cursos-grid">
+
+
+                    <!-- ==============================
+                         CURSO 1
+                         ============================== -->
+
+                    <article class="curso-card">
+
+                        <div class="curso-imagen curso-electricidad">
+
+    <img
+        src="Cursos/Electricidad/imagenes/logo-rayo.png"
+        alt="Electricidad Domiciliaria"
+    >
+
+    <span>
+        CURSO ONLINE
+    </span>
+
+</div>
+
+                        <div class="curso-contenido">
+
+    <span class="inscripciones-abiertas">
+        Inscripciones Abiertas
+    </span>
+
+    <span class="curso-categoria">
+        Formación profesional
+    </span>
+
+                            <h3>
+                                Electricidad Domiciliaria
+                            </h3>
+
+                            <p>
+                                Descripción breve del curso,
+                                sus objetivos y lo que el alumno
+                                podrá aprender.
+                            </p>
+
+                            <div class="curso-info">
+
+                                <span>⏱ 7 meses</span>
+                                <span>💻 Online</span>
+
+                            </div>
+
+                            <a href="Cursos/Electricidad/curso-electricidad.html" class="curso-link">
+                                Ver curso →
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+
+                    <!-- ==============================
+                         CURSO 2
+                         ============================== -->
+
+                    <article class="curso-card">
+
+                        <div class="curso-imagen curso-celeste">
+                            <span>PRÓXIMAMENTE</span>
+                        </div>
+
+                        <div class="curso-contenido">
+
+                            <span class="curso-categoria">
+                                Formación profesional
+                            </span>
+
+                            <h3>
+                                Próximo curso
+                            </h3>
+
+                            <p>
+                                Acá podremos presentar otro curso
+                                cuando esté disponible.
+                            </p>
+
+                            <div class="curso-info">
+
+                                <span>⏱ Duración</span>
+                                <span>💻 Online</span>
+
+                            </div>
+
+                            <a href="#contacto" class="curso-link">
+                                Consultar →
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+
+                    <!-- ==============================
+                         CURSO 3
+                         ============================== -->
+
+                    <article class="curso-card">
+
+                        <div class="curso-imagen curso-oscuro">
+                            <span>PRÓXIMAMENTE</span>
+                        </div>
+
+                        <div class="curso-contenido">
+
+                            <span class="curso-categoria">
+                                Formación profesional
+                            </span>
+
+                            <h3>
+                                Próximo curso
+                            </h3>
+
+                            <p>
+                                Podremos utilizar esta tarjeta
+                                para una nueva capacitación.
+                            </p>
+
+                            <div class="curso-info">
+
+                                <span>⏱ Duración</span>
+                                <span>💻 Online</span>
+
+                            </div>
+
+                            <a href="#contacto" class="curso-link">
+                                Consultar →
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================================================
+             SECCIÓN DE BENEFICIOS
+             
+             Acá explicamos por qué elegir nuestra plataforma.
+             ========================================================= -->
+
+        <section class="seccion beneficios">
+
+            <div class="contenedor">
+
+                <div class="encabezado-seccion">
+
+                    <span class="etiqueta">
+                        ¿POR QUÉ ELEGIRNOS?
+                    </span>
+
+                    <h2>
+                        Formación pensada para vos
+                    </h2>
+
+                </div>
+
+
+                <div class="beneficios-grid">
+
+
+                    <!-- BENEFICIO 1 -->
+
+                    <div class="beneficio">
+
+                        <div class="beneficio-icono">
+                            ✓
+                        </div>
+
+                        <h3>
+                            100% Online
+                        </h3>
+
+                        <p>
+                            Estudiá desde donde y cuando
+                             quieras.
+                            La formación está pensada 
+                            para que puedas organizar tus
+                             tiempos.
+                        </p>
+
+                    </div>
+
+
+                    <!-- BENEFICIO 2 -->
+
+                    <div class="beneficio">
+
+                        <div class="beneficio-icono">
+                            ★
+                        </div>
+
+                        <h3>
+                            Profesionales capacitados
+                        </h3>
+
+                        <p>
+                            Contamos con profesionales con 
+                            experiencia y conocimientos para 
+                            brindarte una formación de calidad.
+                        </p>
+
+                    </div>
+
+
+                    <!-- BENEFICIO 3 -->
+
+                    <div class="beneficio">
+
+                        <div class="beneficio-icono">
+                            ✓
+                        </div>
+
+                        <h3>
+                            Acompañamiento
+                        </h3>
+
+                        <p>
+                            Te acompañamos durante todo el proceso
+                            de formación a través del aula virtual.
+                        </p>
+
+                    </div>
+
+
+                    <!-- BENEFICIO 4 -->
+
+                    <div class="beneficio">
+
+                        <div class="beneficio-icono">
+                            +
+                        </div>
+
+                        <h3>
+                            Crecimiento profesional
+                        </h3>
+
+                        <p>
+                            Incorporá herramientas y conocimientos
+                            que podés aplicar en tu desarrollo 
+                            personal y profesional.
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================================================
+             SECCIÓN "CÓMO FUNCIONA"
+             ========================================================= -->
+
+        <section class="seccion como-funciona" id="como-funciona">
+
+            <div class="contenedor">
+
+                <div class="encabezado-seccion">
+
+                    <span class="etiqueta">
+                        PASO A PASO
+                    </span>
+
+                    <h2>
+                        Empezar es simple
+                    </h2>
+
+                </div>
+
+
+                <div class="pasos">
+
+
+                    <!-- PASO 1 -->
+
+                    <div class="paso">
+
+                        <span class="numero-paso">
+                            01
+                        </span>
+
+                        <h3>
+                            Elegí tu curso
+                        </h3>
+
+                        <p>
+                            Conocé la propuesta y elegí la formación
+                            que mejor se adapte a tus objetivos.
+                        </p>
+
+                    </div>
+
+
+                    <!-- PASO 2 -->
+
+                    <div class="paso">
+
+                        <span class="numero-paso">
+                            02
+                        </span>
+
+                        <h3>
+                            Completá la inscripción
+                        </h3>
+
+                        <p>
+                            Completá el formulario con tus datos
+                            para comenzar el proceso.
+                        </p>
+
+                    </div>
+
+
+                    <!-- PASO 3 -->
+
+                    <div class="paso">
+
+                        <span class="numero-paso">
+                            03
+                        </span>
+
+                        <h3>
+                            Comenzá a estudiar
+                        </h3>
+
+                        <p>
+                            Una vez confirmado tu ingreso,
+                            recibirás acceso al aula virtual.
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================================================
+             SECCIÓN NOSOTROS
+             
+             Acá podemos contar quiénes somos y qué diferencia
+             nuestra propuesta.
+             ========================================================= -->
+
+        <section class="seccion nosotros" id="nosotros">
+
+            <div class="contenedor nosotros-grid">
+
+                <div class="nosotros-visual">
+
+                    <div class="cuadro-decorativo">
+
+                        <span>
+                            FORMACIÓN
+                        </span>
+
+                        <strong>
+                            PROFESIONAL
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="nosotros-texto">
+
+                    <span class="etiqueta">
+                        SOBRE NOSOTROS
+                    </span>
+
+                    <h2>
+                        Educación que abre nuevas posibilidades
+                    </h2>
+
+                    <p>Somos un grupo de profesionales con
+                        experiencia que decidió transformar sus 
+                        conocimientos en formación.
+                        </p>
+
+                       <p> Nuestra propuesta nace con el objetivo de
+                        acercar formación profesional de calidad
+                        a personas que buscan aprender nuevas
+                        habilidades o crecer laboralmente.
+                    </p>
+
+                    <p>
+                        Trabajamos para ofrecer una experiencia
+                        educativa clara, accesible y adaptada
+                        a las nuevas formas de aprendizaje.
+                    </p>
+
+                    <a href="#contacto" class="boton boton-principal">
+                        Conocenos
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================================================
+             PREGUNTAS FRECUENTES / FAQ
+             
+             Las preguntas se abren mediante JavaScript.
+             ========================================================= -->
+
+        <section class="seccion faq">
+
+            <div class="contenedor">
+
+                <div class="encabezado-seccion">
+
+                    <span class="etiqueta">
+                        PREGUNTAS FRECUENTES
+                    </span>
+
+                    <h2>
+                        ¿Tenés alguna duda?
+                    </h2>
+
+                </div>
+
+
+                <div class="faq-lista">
+
+
+                    <!-- PREGUNTA 1 -->
+
+                    <div class="faq-item">
+
+                        <button class="faq-pregunta">
+
+                            <span>
+                                ¿Los cursos son completamente online?
+                            </span>
+
+                            <span class="faq-icono">
+                                +
+                            </span>
+
+                        </button>
+
+                        <div class="faq-respuesta">
+
+                            <p>
+                                Sí. La formación se realiza mediante
+                                nuestra plataforma virtual.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PREGUNTA 2 -->
+
+                    <div class="faq-item">
+
+                        <button class="faq-pregunta">
+
+                            <span>
+                                ¿Cuánto dura cada curso?
+                            </span>
+
+                            <span class="faq-icono">
+                                +
+                            </span>
+
+                        </button>
+
+                        <div class="faq-respuesta">
+
+                            <p>
+                                La duración depende de cada propuesta.
+                                En la descripción de cada curso
+                                encontrarás toda la información.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PREGUNTA 3 -->
+
+                    <div class="faq-item">
+
+                        <button class="faq-pregunta">
+
+                            <span>
+                                ¿Cómo me inscribo?
+                            </span>
+
+                            <span class="faq-icono">
+                                +
+                            </span>
+
+                        </button>
+
+                        <div class="faq-respuesta">
+
+                            <p>
+                                Podés comenzar completando nuestro
+                                formulario de inscripción.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                                        <!-- PREGUNTA 4 -->
+
+                    <div class="faq-item">
+
+                        <button class="faq-pregunta">
+
+                            <span>
+                                ¿Qué hago si tengo algún problema con el pago o la inscripción?
+                            </span>
+
+                            <span class="faq-icono">
+                                +
+                            </span>
+
+                        </button>
+
+                        <div class="faq-respuesta">
+
+                            <p>
+                                Si tenés algún inconveniente con el proceso de inscripción o con el pago, podés comunicarte con nosotros a través de nuestros canales de atención.
+Correo: nexviaeducativa@gmail.com
+WhatsApp: +54 9 376 539-7131
+Estaremos disponibles para ayudarte y resolver tu consulta.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <!-- PREGUNTA 5 -->
+
+                    <div class="faq-item">
+
+                        <button class="faq-pregunta">
+
+                            <span>
+                                ¿Recibo un certificado al finalizar?
+                            </span>
+
+                            <span class="faq-icono">
+                                +
+                            </span>
+
+                        </button>
+
+                        <div class="faq-respuesta">
+
+                            <p>
+                                Sí. Al completar los requisitos establecidos para el curso, 
+                                recibirás un certificado de finalización emitido por Nexvia Educativa.
+Este certificado acredita la realización y finalización del curso, pero no constituye un título oficial
+ ni cuenta con validez nacional o estatal.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================================================
+             LLAMADO A LA ACCIÓN / INSCRIPCIÓN
+             
+             Esta es una de las secciones más importantes.
+             ========================================================= -->
+
+        <section class="inscripcion" id="inscripcion">
+
+            <div class="contenedor inscripcion-contenido">
+
+                <div>
+
+                    <span class="etiqueta etiqueta-clara">
+                        EMPEZÁ HOY
+                    </span>
+
+                    <h2>
+                        Tu próxima etapa comienza acá.
+                    </h2>
+
+                    <p>
+                        Elegí tu formación y empezá a construir
+                        nuevas oportunidades.
+                    </p>
+
+                </div>
+
+                <!-- ESTE BOTÓN MÁS ADELANTE LO CONECTAREMOS
+                     CON EL FORMULARIO REAL DE INSCRIPCIÓN -->
+
+                <a href="#contacto" class="boton boton-blanco">
+                    Quiero inscribirme
+                </a>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================================================
+             CONTACTO
+             ========================================================= -->
+
+        <section class="seccion contacto" id="contacto">
+
+            <div class="contenedor">
+
+                <div class="encabezado-seccion">
+
+                    <span class="etiqueta">
+                        CONTACTO
+                    </span>
+
+                    <h2>
+                        ¿Querés saber más?
+                    </h2>
+
+                    <p>
+                        Estamos para ayudarte.
+                    </p>
+
+                </div>
+
+
+                <div class="contacto-datos">
+
+                    <div>
+                        <span>EMAIL</span>
+                        <strong>
+                            nexviaeducativa@gmail.com
+                        </strong>
+                    </div>
+
+                    <div>
+                        <span>WHATSAPP</span>
+                        <strong>
+                            +54 9 376 539-7131
+                        </strong>
+                    </div>
+
+                    <div>
+                        <span>HORARIOS</span>
+                        <strong>
+                            Lunes a viernes
+                            <p>
+                        08:00am a 20:00pm
+                    </p>
+                        </strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =========================================================
+         FOOTER / PIE DE PÁGINA
+         
+         Acá modificamos:
+         - Nombre
+         - Redes sociales
+         - Información legal
+         ========================================================= -->
+
+    <footer class="footer">
+
+        <div class="contenedor footer-contenido">
+
+            <div>
+
+                <a href="#" class="logo logo-footer">
+                    Nexvia<span>Educativa</span>
+                </a>
+
+                <p>
+                    Formación online para impulsar tu crecimiento.
+                </p>
+
+            </div>
+
+
+            <div class="footer-links">
+
+                <a href="#inicio">Inicio</a>
+                <a href="#cursos">Cursos</a>
+                <a href="#nosotros">Nosotros</a>
+                <a href="#contacto">Contacto</a>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <p>
+                © 2026 Nexvia Educativa. Todos los derechos reservados.
+            </p>
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- BOTÓN FLOTANTE DE WHATSAPP -->
+<a
+  href="https://wa.me/5493765397131"
+  class="whatsapp-float"
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="Contactar por WhatsApp"
+>
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M12.04 2C6.51 2 2 6.5 2 12.03c0 1.77.46 3.5 1.34 5.02L2 22l5.1-1.33a10.02 10.02 0 0 0 4.93 1.29h.01c5.53 0 10.02-4.5 10.02-10.02C22.06 6.5 17.57 2 12.04 2Zm0 18.27h-.01a8.28 8.28 0 0 1-4.22-1.16l-.3-.18-3.03.79.81-2.95-.2-.3a8.29 8.29 0 1 1 6.95 3.8Zm4.55-6.23c-.25-.13-1.47-.73-1.7-.81-.23-.08-.39-.13-.56.13-.16.25-.64.81-.78.97-.14.17-.29.19-.54.06-.25-.13-1.05-.39-2-1.24-.74-.66-1.24-1.47-1.39-1.72-.14-.25-.02-.39.11-.52.12-.12.25-.29.37-.43.12-.15.16-.25.24-.42.08-.17.04-.31-.02-.43-.06-.13-.56-1.35-.77-1.85-.2-.49-.4-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.23.25-.87.85-.87 2.07s.89 2.4 1.02 2.57c.13.17 1.76 2.69 4.27 3.77.6.26 1.07.42 1.44.54.61.19 1.17.16 1.61.1.49-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.14-1.18-.06-.1-.23-.16-.48-.29Z"/>
+  </svg>
+</a>
+
+<script src="script.js"></script>
+
+</body>
+
+</html>

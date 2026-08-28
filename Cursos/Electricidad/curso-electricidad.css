@@ -1,0 +1,1445 @@
+/* =========================================================
+   NEXVIA EDUCATIVA
+   PÁGINA - ELECTRICIDAD DOMICILIARIA
+
+   ESTÉTICA:
+   - Minimalista
+   - Institucional
+   - Tecnológica
+   - Mucho espacio blanco
+   - Azul institucional
+========================================================= */
+
+
+/* =========================================================
+   COLORES PRINCIPALES
+========================================================= */
+
+:root {
+
+    --azul-institucional: #1769aa;
+    --azul-oscuro: #123b5d;
+    --azul-claro: #e9f3ff;
+
+    --blanco: #ffffff;
+    --fondo: #f7faff;
+
+    --texto: #183243;
+    --texto-secundario: #647785;
+
+    --borde: #e1eaf1;
+
+    --sombra: 0 20px 50px rgba(18, 59, 93, 0.08);
+
+}
+
+
+/* =========================================================
+   CONFIGURACIÓN GENERAL
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    color: var(--texto);
+
+    background: var(--blanco);
+
+    line-height: 1.6;
+
+}
+
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+
+.contenedor {
+
+    width: min(1120px, 90%);
+
+    margin: 0 auto;
+
+}
+
+
+/* =========================================================
+   NAVBAR / ENCABEZADO
+========================================================= */
+
+.navbar {
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 100;
+
+    background: rgba(255, 255, 255, 0.96);
+
+    border-bottom: 1px solid var(--borde);
+
+}
+
+
+.navbar-contenido {
+
+    min-height: 78px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 30px;
+
+}
+
+
+/* MARCA */
+
+.marca {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+}
+
+
+.logo-nexvia {
+
+    width: 42px;
+
+    height: 42px;
+
+    object-fit: contain;
+
+}
+
+
+.marca-texto {
+
+    display: flex;
+
+    flex-direction: column;
+
+    line-height: 1;
+
+}
+
+
+.marca-texto strong {
+
+    font-size: 18px;
+
+    letter-spacing: 1.5px;
+
+    color: var(--azul-oscuro);
+
+}
+
+
+.marca-texto span {
+
+    font-size: 9px;
+
+    letter-spacing: 2px;
+
+    color: var(--azul-institucional);
+
+    margin-top: 5px;
+
+}
+
+
+/* MENÚ */
+
+.menu {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 28px;
+
+}
+
+
+.menu a {
+
+    font-size: 14px;
+
+    color: var(--texto-secundario);
+
+    transition: 0.2s;
+
+}
+
+
+.menu a:hover {
+
+    color: var(--azul-institucional);
+
+}
+
+
+/* =========================================================
+   BOTONES GENERALES
+========================================================= */
+
+.boton {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-height: 46px;
+
+    padding: 0 24px;
+
+    border-radius: 10px;
+
+    font-size: 13px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.8px;
+
+    transition: 0.2s;
+
+}
+
+
+.boton:hover {
+
+    transform: translateY(-2px);
+
+}
+
+
+/* BOTÓN PRINCIPAL */
+
+.boton-principal {
+
+    color: white;
+
+    background: var(--azul-institucional);
+
+    box-shadow:
+        0 10px 25px rgba(23, 105, 170, 0.20);
+
+}
+
+
+.boton-principal:hover {
+
+    background: var(--azul-oscuro);
+
+}
+
+
+/* BOTÓN SECUNDARIO */
+
+.boton-secundario {
+
+    color: var(--azul-institucional);
+
+    border: 1px solid var(--borde);
+
+    background: white;
+
+}
+
+
+/* BOTÓN SUPERIOR */
+
+.boton-nav {
+
+    background: var(--azul-institucional);
+
+    color: white;
+
+}
+
+
+/* BOTÓN DE PAGO DEL HERO */
+
+.boton-pago-hero {
+
+    color: var(--azul-oscuro);
+
+    background: white;
+
+    border: 1px solid var(--borde);
+
+}
+
+
+/* BOTÓN GRANDE */
+
+.boton-grande {
+
+    min-height: 54px;
+
+    padding: 0 38px;
+
+}
+
+
+/* BOTÓN DE PAGO INFERIOR */
+
+.boton-pago {
+
+    background: var(--azul-oscuro);
+
+    color: white;
+
+    min-width: 160px;
+
+}
+
+
+/* BOTÓN BLANCO */
+
+.boton-blanco {
+
+    background: white;
+
+    color: var(--azul-oscuro);
+
+}
+
+
+/* =========================================================
+   HERO DEL CURSO
+========================================================= */
+
+.hero-curso {
+
+    padding: 90px 0 80px;
+
+    background:
+
+        radial-gradient(
+            circle at 80% 20%,
+            #e9f3ff 0,
+            transparent 30%
+        ),
+
+        linear-gradient(
+            180deg,
+            #ffffff 0%,
+            #f7faff 100%
+        );
+
+}
+
+
+.hero-grid {
+
+    display: grid;
+
+    grid-template-columns: 1.15fr 0.85fr;
+
+    gap: 70px;
+
+    align-items: center;
+
+}
+
+
+.etiqueta {
+
+    display: inline-block;
+
+    color: var(--azul-institucional);
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 18px;
+
+}
+
+
+.hero-informacion h1 {
+
+    max-width: 700px;
+
+    font-size: clamp(46px, 6vw, 78px);
+
+    line-height: 0.98;
+
+    letter-spacing: -3px;
+
+    color: var(--azul-oscuro);
+
+}
+
+
+.hero-informacion h1 span {
+
+    color: var(--azul-institucional);
+
+}
+
+
+.hero-descripcion {
+
+    max-width: 600px;
+
+    margin-top: 28px;
+
+    color: var(--texto-secundario);
+
+    font-size: 18px;
+
+}
+
+
+/* DATOS */
+
+.datos-curso {
+
+    display: flex;
+
+    gap: 40px;
+
+    margin-top: 35px;
+
+}
+
+
+.datos-curso div {
+
+    display: flex;
+
+    flex-direction: column;
+
+}
+
+
+.datos-curso span {
+
+    color: var(--texto-secundario);
+
+    font-size: 12px;
+
+}
+
+
+.datos-curso strong {
+
+    margin-top: 4px;
+
+    color: var(--azul-oscuro);
+
+    font-size: 16px;
+
+}
+
+
+/* =========================================================
+   BOTONES DEL HERO
+
+   AHORA HAY TRES BOTONES JUNTOS:
+
+   INSCRIBIRME
+   VER PROGRAMA
+   PAGAR
+========================================================= */
+
+.hero-botones {
+
+    display: flex;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin-top: 38px;
+
+}
+
+
+/* =========================================================
+   TARJETA VISUAL DEL CURSO
+========================================================= */
+
+.hero-visual {
+
+    display: flex;
+
+    justify-content: center;
+
+}
+
+
+.visual-card {
+
+    width: min(100%, 390px);
+
+    min-height: 420px;
+
+    padding: 45px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: flex-end;
+
+    border-radius: 26px;
+
+    background: #0d1f36;
+
+    color: white;
+
+    box-shadow: var(--sombra);
+
+    position: relative;
+
+    overflow: hidden;
+
+}
+
+
+.visual-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 240px;
+
+    height: 240px;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,0.05);
+
+    top: -100px;
+
+    right: -80px;
+
+}
+
+
+.rayo-contenedor {
+
+    position: absolute;
+
+    top: 50px;
+
+    left: 100px;
+
+    width: 200px;
+
+    height: 200px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+}
+
+
+.rayo-contenedor img {
+
+    width: 150px;
+
+    height: 150px;
+
+    object-fit: contain;
+
+}
+
+
+.visual-card > span {
+
+    position: relative;
+
+    font-size: 11px;
+
+    letter-spacing: 2px;
+
+    opacity: 0.7;
+
+}
+
+
+.visual-card h2 {
+
+    position: relative;
+
+    margin-top: 10px;
+
+    font-size: 32px;
+
+    line-height: 1.1;
+
+}
+
+
+.visual-card p {
+
+    position: relative;
+
+    margin-top: 12px;
+
+    opacity: 0.7;
+
+}
+
+
+/* =========================================================
+   SECCIONES GENERALES
+========================================================= */
+
+.seccion {
+
+    padding: 100px 0;
+
+}
+
+
+.titulo-seccion {
+
+    max-width: 700px;
+
+    margin-bottom: 55px;
+
+}
+
+
+.titulo-seccion > span {
+
+    color: var(--azul-institucional);
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+}
+
+
+.titulo-seccion h2 {
+
+    margin-top: 12px;
+
+    color: var(--azul-oscuro);
+
+    font-size: clamp(32px, 4vw, 48px);
+
+    line-height: 1.1;
+
+    letter-spacing: -1.5px;
+
+}
+
+
+.titulo-seccion p {
+
+    margin-top: 15px;
+
+    color: var(--texto-secundario);
+
+}
+
+
+.centrado {
+
+    margin-left: auto;
+
+    margin-right: auto;
+
+    text-align: center;
+
+}
+
+
+/* =========================================================
+   TARJETAS DE INFORMACIÓN
+========================================================= */
+
+.informacion {
+
+    background: white;
+
+}
+
+
+.info-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 20px;
+
+}
+
+
+.info-card {
+
+    padding: 35px;
+
+    border: 1px solid var(--borde);
+
+    border-radius: 18px;
+
+    background: white;
+
+    transition: 0.2s;
+
+}
+
+
+.info-card:hover {
+
+    transform: translateY(-4px);
+
+    box-shadow: var(--sombra);
+
+}
+
+
+.numero-card {
+
+    color: var(--azul-institucional);
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 30px;
+
+}
+
+
+.info-card h3 {
+
+    color: var(--azul-oscuro);
+
+    font-size: 21px;
+
+}
+
+
+.info-card p {
+
+    color: var(--texto-secundario);
+
+    margin-top: 10px;
+
+}
+
+
+/* =========================================================
+   PROGRAMA
+========================================================= */
+
+.programa {
+
+    background: var(--fondo);
+
+}
+
+
+.modulos {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 18px;
+
+}
+
+
+.modulo {
+
+    display: grid;
+
+    grid-template-columns: 70px 1fr;
+
+    gap: 25px;
+
+    padding: 30px;
+
+    background: white;
+
+    border: 1px solid var(--borde);
+
+    border-radius: 16px;
+
+}
+
+
+.modulo-numero {
+
+    color: var(--azul-institucional);
+
+    font-weight: 800;
+
+    font-size: 13px;
+
+}
+
+
+.modulo h3 {
+
+    color: var(--azul-oscuro);
+
+    font-size: 20px;
+
+}
+
+
+.modulo ul {
+
+    margin-top: 15px;
+
+    padding-left: 18px;
+
+    color: var(--texto-secundario);
+
+}
+
+
+.modulo li {
+
+    margin-bottom: 6px;
+
+}
+
+
+/* =========================================================
+   PROCESO DE INSCRIPCIÓN
+========================================================= */
+
+.proceso {
+
+    background: white;
+
+}
+
+
+.pasos {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 25px;
+
+}
+
+
+.paso {
+
+    display: flex;
+
+    gap: 20px;
+
+    padding: 30px;
+
+    border: 1px solid var(--borde);
+
+    border-radius: 16px;
+
+}
+
+
+.paso-numero {
+
+    flex-shrink: 0;
+
+    color: var(--azul-institucional);
+
+    font-size: 13px;
+
+    font-weight: 800;
+
+}
+
+
+.paso h3 {
+
+    color: var(--azul-oscuro);
+
+    font-size: 19px;
+
+}
+
+
+.paso p {
+
+    margin-top: 8px;
+
+    color: var(--texto-secundario);
+
+    font-size: 14px;
+
+}
+
+
+/* =========================================================
+   INSCRIPCIÓN
+========================================================= */
+
+.inscripcion {
+
+    background: var(--fondo);
+
+}
+
+
+.inscripcion-card {
+
+    max-width: 760px;
+
+    margin: 0 auto;
+
+    padding: 65px;
+
+    text-align: center;
+
+    background: white;
+
+    border: 1px solid var(--borde);
+
+    border-radius: 24px;
+
+    box-shadow: var(--sombra);
+
+}
+
+
+.inscripcion-icono {
+
+    width: 70px;
+
+    height: 70px;
+
+    margin: 0 auto 25px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+}
+
+
+.inscripcion-icono img {
+
+    width: 60px;
+
+    height: 60px;
+
+    object-fit: contain;
+
+}
+
+
+.inscripcion-card > span {
+
+    color: var(--azul-institucional);
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+}
+
+
+.inscripcion-card h2 {
+
+    margin-top: 12px;
+
+    color: var(--azul-oscuro);
+
+    font-size: 42px;
+
+    line-height: 1.1;
+
+}
+
+
+.inscripcion-card > p {
+
+    max-width: 520px;
+
+    margin: 18px auto 30px;
+
+    color: var(--texto-secundario);
+
+}
+
+
+.inscripcion-card .nota {
+
+    margin-top: 20px;
+
+    font-size: 12px;
+
+}
+
+
+/* =========================================================
+   PAGO ALTERNATIVO
+========================================================= */
+
+.ayuda-pago {
+
+    background: white;
+
+}
+
+
+.pago-card {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 40px;
+
+    padding: 50px;
+
+    border-radius: 22px;
+
+    background: var(--azul-claro);
+
+}
+
+
+.pago-texto {
+
+    max-width: 700px;
+
+}
+
+
+.pago-texto > span {
+
+    color: var(--azul-institucional);
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+}
+
+
+.pago-texto h2 {
+
+    margin-top: 8px;
+
+    color: var(--azul-oscuro);
+
+    font-size: 34px;
+
+    line-height: 1.1;
+
+}
+
+
+.pago-texto p {
+
+    margin-top: 12px;
+
+    color: var(--texto-secundario);
+
+}
+
+
+/* =========================================================
+   LLAMADO FINAL
+========================================================= */
+
+.cta-final {
+
+    padding: 100px 0;
+
+    text-align: center;
+
+    background: var(--azul-oscuro);
+
+    color: white;
+
+}
+
+
+.cta-final span {
+
+    font-size: 11px;
+
+    letter-spacing: 2px;
+
+    opacity: 0.7;
+
+}
+
+
+.cta-final h2 {
+
+    max-width: 650px;
+
+    margin: 15px auto 30px;
+
+    font-size: 46px;
+
+    line-height: 1.05;
+
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer {
+
+    padding: 35px 0;
+
+    background: #0d2d46;
+
+    color: white;
+
+}
+
+
+.footer-contenido {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 30px;
+
+}
+
+
+.footer strong {
+
+    letter-spacing: 1px;
+
+}
+
+
+.footer p {
+
+    margin-top: 5px;
+
+    font-size: 13px;
+
+    opacity: 0.6;
+
+}
+
+
+.footer span {
+
+    font-size: 12px;
+
+    opacity: 0.6;
+
+}
+
+
+/* =========================================================
+   RESPONSIVE / TABLETS
+========================================================= */
+
+@media (max-width: 850px) {
+
+
+    .menu {
+
+        display: none;
+
+    }
+
+
+    .navbar-contenido {
+
+        min-height: 70px;
+
+    }
+
+
+    .hero-grid {
+
+        grid-template-columns: 1fr;
+
+        gap: 50px;
+
+    }
+
+
+    .hero-informacion h1 {
+
+        font-size: 54px;
+
+    }
+
+
+    .hero-visual {
+
+        justify-content: flex-start;
+
+    }
+
+
+    .info-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .modulos {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .pasos {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .pago-card {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE / CELULARES
+========================================================= */
+
+@media (max-width: 550px) {
+
+
+    .boton-nav {
+
+        display: none;
+
+    }
+
+
+    .hero-curso {
+
+        padding: 60px 0;
+
+    }
+
+
+    .hero-informacion h1 {
+
+        font-size: 44px;
+
+        letter-spacing: -2px;
+
+    }
+
+
+    .hero-descripcion {
+
+        font-size: 16px;
+
+    }
+
+
+    .datos-curso {
+
+        flex-wrap: wrap;
+
+        gap: 25px;
+
+    }
+
+
+    .hero-botones {
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+    }
+
+
+    .hero-botones .boton {
+
+        width: 100%;
+
+    }
+
+
+    .visual-card {
+
+        min-height: 350px;
+
+        padding: 30px;
+
+    }
+
+
+    .seccion {
+
+        padding: 70px 0;
+
+    }
+
+
+    .inscripcion-card {
+
+        padding: 40px 25px;
+
+    }
+
+
+    .inscripcion-card h2 {
+
+        font-size: 34px;
+
+    }
+
+
+    .pago-card {
+
+        padding: 35px 25px;
+
+    }
+
+
+    .cta-final h2 {
+
+        font-size: 36px;
+
+    }
+
+
+    .footer-contenido {
+
+        flex-direction: column;
+
+    }
+
+}
+
+/* ============================================================
+   BOTÓN FLOTANTE DE WHATSAPP
+   ============================================================ */
+
+.whatsapp-float {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+
+    width: 58px;
+    height: 58px;
+
+    background-color: #25D366;
+    color: white;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-decoration: none;
+
+    font-size: 30px;
+    font-weight: bold;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+
+    z-index: 9999;
+
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.08);
+
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+.whatsapp-float svg {
+    width: 30px;
+    height: 30px;
+    fill: white;
+}
+
+.inscripciones-abiertas {
+    display: block;
+    color: #16a34a;
+    font-size: 15px;
+    font-weight: 700;
+    margin-top: 18px;
+    margin-bottom: 18px;
+}
