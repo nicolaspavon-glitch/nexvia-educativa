@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nexvia Educativa | Aula Virtual</title>
+  <style>
+    :root{--blue:#1557a6;--dark:#0b2f5b;--accent:#2f8fe6;--pale:#f5f8fc;--gray:#eef3f8;--white:#fff;--text:#172033;--muted:#667085;--border:#dfe6ef;--green:#15803d;--red:#b42318;--shadow:0 16px 45px rgba(18,53,90,.09)}
+    *{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--pale);color:var(--text);line-height:1.5}button,input,textarea,select{font:inherit}button{cursor:pointer}a{color:inherit;text-decoration:none}.hidden{display:none!important}.wrap{width:min(1180px,92%);margin:0 auto}.brand{display:flex;align-items:center;gap:11px}.brand-mark{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,var(--blue),var(--accent));display:grid;place-items:center;color:#fff;font-weight:900;font-size:18px;box-shadow:0 5px 16px #1557a633}.brand-copy{display:flex;flex-direction:column;line-height:1.05}.brand-copy strong{font-size:18px;letter-spacing:1.8px;color:var(--dark)}.brand-copy span{font-size:9px;letter-spacing:2px;color:var(--blue);margin-top:5px}.topbar{background:#ffffffed;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:10;backdrop-filter:blur(10px)}.topbar-inner{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:20px}.topbar-right{display:flex;align-items:center;gap:15px}.user-chip{color:var(--muted);font-size:13px}.btn{border:0;border-radius:9px;padding:11px 16px;font-weight:700;transition:.2s;display:inline-flex;align-items:center;justify-content:center;gap:8px}.btn-primary{background:var(--blue);color:#fff}.btn-primary:hover{background:var(--dark);transform:translateY(-1px)}.btn-secondary{background:#fff;border:1px solid var(--border);color:var(--text)}.btn-secondary:hover{border-color:var(--blue);color:var(--blue)}.btn-danger{background:#fff0ef;color:var(--red);border:1px solid #ffd4cf}.btn-small{padding:7px 10px;font-size:12px;border-radius:7px}.page{padding:34px 0 60px}.eyebrow{font-size:11px;letter-spacing:1.6px;font-weight:900;color:var(--blue);text-transform:uppercase}.page-title{font-size:clamp(28px,4vw,38px);line-height:1.15;letter-spacing:-.8px;margin:7px 0 9px;color:var(--dark)}.lead{margin:0;color:var(--muted);max-width:760px}.login-shell{min-height:100vh;display:grid;grid-template-columns:1.05fr .95fr;background:linear-gradient(130deg,#fff 0%,#f4f8ff 55%,#e9f3ff 100%)}.login-left{padding:34px max(5vw,24px);display:flex;flex-direction:column}.login-hero{margin:auto;max-width:620px;padding:50px 0}.login-hero .eyebrow{display:inline-block;margin-bottom:18px}.login-hero h1{font-size:clamp(42px,5vw,66px);line-height:1.03;letter-spacing:-2px;color:var(--text);margin:0 0 22px}.login-hero h1 span{display:block;color:var(--blue)}.login-hero p{font-size:18px;color:var(--muted);max-width:530px}.login-feature{display:flex;gap:12px;align-items:center;color:var(--muted);font-size:13px;margin-top:28px}.login-feature b{color:var(--blue)}.login-right{display:flex;align-items:center;justify-content:center;padding:30px;background:radial-gradient(circle at 90% 10%,#2f8fe622,transparent 34%),linear-gradient(160deg,#e9f3ff,#f8fbff)}.login-card{width:min(430px,100%);background:#fff;padding:36px;border-radius:22px;border:1px solid var(--border);box-shadow:var(--shadow)}.login-card h2{margin:20px 0 6px;font-size:25px;color:var(--dark)}.login-card>p{margin:0 0 24px;color:var(--muted);font-size:14px}.field{display:flex;flex-direction:column;gap:6px;margin-bottom:15px}.field label{font-size:12px;font-weight:800;color:#344054}.field input,.field select,.field textarea,.control{width:100%;border:1px solid #cfd8e3;border-radius:9px;padding:12px 13px;background:#fff;color:var(--text);outline:none}.field textarea{resize:vertical;min-height:86px}.field input:focus,.field select:focus,.field textarea:focus,.control:focus{border-color:var(--accent);box-shadow:0 0 0 3px #2f8fe61c}.full{width:100%}.small-note{font-size:12px;color:var(--muted);margin-top:15px}.portal-layout{display:grid;grid-template-columns:245px minmax(0,1fr);min-height:calc(100vh - 76px)}.sidebar{padding:24px 15px;background:#fff;border-right:1px solid var(--border)}.side-label{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:#98a2b3;font-weight:900;margin:8px 12px 12px}.side-nav{display:grid;gap:6px}.side-nav button{border:0;border-radius:9px;background:transparent;color:#667085;text-align:left;padding:12px;display:flex;gap:11px;align-items:center;font-weight:700;font-size:13px}.side-nav button:hover,.side-nav button.active{background:#edf5ff;color:var(--blue)}.nav-icon{width:23px;text-align:center;font-size:17px}.portal-main{padding:30px;min-width:0;overflow:hidden}.view{display:none}.view.active{display:block}.section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:18px;flex-wrap:wrap;margin-bottom:24px}.section-head h2{margin:0;color:var(--dark);font-size:27px}.section-head p{margin:5px 0 0;color:var(--muted);font-size:14px}.stats-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:22px 0 26px}.stat{background:#fff;border:1px solid var(--border);border-radius:14px;padding:21px;box-shadow:0 5px 16px #12355a06}.stat .stat-label{font-size:12px;color:var(--muted);font-weight:700}.stat strong{display:block;font-size:30px;color:var(--dark);margin-top:5px}.stat small{font-size:12px;color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px}.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}.card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:20px;box-shadow:0 5px 20px #12355a05;min-width:0}.card h3{margin:0 0 8px;font-size:18px;color:var(--dark)}.card p{margin:0;color:var(--muted);font-size:13px}.card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px}.tag{display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;background:#edf5ff;color:var(--blue);font-size:10px;text-transform:uppercase;font-weight:900;letter-spacing:.5px}.tag.green{background:#e9f8ee;color:var(--green)}.tag.gray{background:#f2f4f7;color:#475467}.empty{padding:32px;border:1px dashed #cfd8e3;border-radius:13px;text-align:center;color:var(--muted);background:#ffffffab}.empty strong{display:block;color:var(--dark);margin-bottom:5px}.material-list{margin-top:15px;display:grid;gap:9px}.material-item{border:1px solid var(--border);border-radius:10px;padding:12px;display:flex;justify-content:space-between;align-items:center;gap:12px}.material-item strong{display:block;font-size:13px;color:var(--text)}.material-item small{display:block;font-size:11px;color:var(--muted);margin-top:3px}.calendar-list{display:grid;gap:12px}.event-item{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px;display:grid;grid-template-columns:78px minmax(0,1fr) auto;gap:15px;align-items:center}.event-date{background:#edf5ff;color:var(--blue);border-radius:10px;text-align:center;padding:10px 4px}.event-date strong{font-size:21px;line-height:1;display:block}.event-date span{font-size:10px;font-weight:900;text-transform:uppercase}.event-item h3{margin:0 0 3px;font-size:15px;color:var(--dark)}.event-item p{margin:0;color:var(--muted);font-size:12px}.form-card{margin-bottom:20px}.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 14px}.form-grid .wide{grid-column:1/-1}.check-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:10px 0 16px}.check-option{display:flex;align-items:center;gap:8px;border:1px solid var(--border);padding:10px;border-radius:8px;font-size:12px;color:#344054}.check-option input{accent-color:var(--blue)}.table-wrap{overflow-x:auto;background:#fff;border:1px solid var(--border);border-radius:13px}.data-table{width:100%;border-collapse:collapse;min-width:650px}.data-table th{background:#f7f9fc;text-align:left;padding:13px;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:#667085;border-bottom:1px solid var(--border)}.data-table td{padding:13px;border-bottom:1px solid #edf0f5;font-size:12px;vertical-align:top}.data-table tr:last-child td{border-bottom:0}.table-actions{display:flex;gap:6px;flex-wrap:wrap}.message-layout{display:grid;grid-template-columns:minmax(250px,.75fr) minmax(0,1.25fr);gap:17px}.conversation-list{display:grid;gap:8px;max-height:570px;overflow:auto}.conversation-choice{width:100%;text-align:left;background:#fff;border:1px solid var(--border);border-radius:10px;padding:13px}.conversation-choice:hover{border-color:var(--accent);background:#f7fbff}.conversation-choice strong{display:block;color:var(--dark);font-size:13px}.conversation-choice small{color:var(--muted);display:block;margin:3px 0;font-size:11px}.conversation-choice p{margin:0;font-size:12px;color:#475467;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.chat-panel{background:#fff;border:1px solid var(--border);border-radius:13px;display:flex;flex-direction:column;min-height:430px;overflow:hidden}.chat-head{padding:14px 17px;border-bottom:1px solid var(--border);background:#f9fbfe}.chat-head strong{color:var(--dark);font-size:14px}.chat-body{padding:17px;display:flex;flex-direction:column;gap:12px;flex:1;max-height:430px;overflow:auto;background:linear-gradient(#fbfdff,#f7faff)}.bubble{max-width:86%;padding:11px 13px;border-radius:12px;background:#fff;border:1px solid var(--border);align-self:flex-start}.bubble.mine{align-self:flex-end;background:#eaf3ff;border-color:#d4e6ff}.bubble .bubble-meta{font-size:10px;font-weight:900;color:var(--blue);margin-bottom:4px}.bubble .bubble-text{font-size:13px;white-space:pre-wrap;overflow-wrap:anywhere}.bubble time{display:block;color:#8a94a6;font-size:10px;margin-top:5px;text-align:right}.chat-compose{border-top:1px solid var(--border);padding:13px;display:flex;gap:8px;align-items:flex-end}.chat-compose textarea{flex:1;min-height:44px;max-height:120px;resize:vertical;border:1px solid #cfd8e3;border-radius:9px;padding:10px}.toast-zone{position:fixed;right:18px;bottom:18px;z-index:50;display:grid;gap:8px}.toast{max-width:min(420px,90vw);padding:13px 16px;color:#fff;background:#344054;border-radius:10px;box-shadow:var(--shadow);font-size:13px}.toast.success{background:#15803d}.toast.error{background:#b42318}.loader{position:fixed;inset:0;background:#ffffffc9;z-index:60;display:grid;place-items:center}.loader-box{background:#fff;padding:23px 28px;border-radius:14px;border:1px solid var(--border);box-shadow:var(--shadow);color:var(--dark);font-weight:700}.spinner{width:25px;height:25px;border:3px solid #dbeafe;border-top-color:var(--blue);border-radius:50%;animation:spin .7s linear infinite;display:inline-block;vertical-align:middle;margin-right:10px}@keyframes spin{to{transform:rotate(360deg)}}.footer-note{font-size:11px;color:#98a2b3;margin-top:25px}.modal-backdrop{position:fixed;inset:0;background:#0b1d35a6;z-index:40;display:grid;place-items:center;padding:20px}.modal{width:min(610px,100%);max-height:90vh;overflow:auto;background:#fff;border-radius:16px;box-shadow:0 25px 80px #0003}.modal-head{display:flex;align-items:center;justify-content:space-between;padding:17px 20px;background:#f7f9fc;border-bottom:1px solid var(--border)}.modal-head h3{margin:0;color:var(--dark)}.modal-body{padding:20px}.modal-actions{display:flex;justify-content:flex-end;gap:9px;padding:15px 20px;border-top:1px solid var(--border);background:#f7f9fc}.close-x{background:none;border:0;font-size:23px;color:#667085}.course-banner{height:7px;border-radius:99px;background:linear-gradient(90deg,var(--blue),var(--accent));margin:-20px -20px 18px}.status-pill{padding:4px 8px;border-radius:999px;font-size:10px;font-weight:900;background:#e9f8ee;color:var(--green)}.status-pill.off{background:#fff0ef;color:var(--red)}
+    @media(max-width:950px){.login-shell{grid-template-columns:1fr}.login-left{padding-bottom:0}.login-hero{margin:25px auto;padding:20px 0}.login-hero h1{font-size:46px}.login-feature{margin-top:10px}.login-right{padding:10px 20px 35px}.portal-layout{grid-template-columns:1fr}.sidebar{border-right:0;border-bottom:1px solid var(--border);padding:10px 4%;overflow-x:auto}.side-label{display:none}.side-nav{display:flex;min-width:max-content}.side-nav button{white-space:nowrap}.portal-main{padding:22px 4%}.grid.three{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:620px){.topbar-inner{min-height:68px}.user-chip{display:none}.topbar-right{gap:6px}.topbar-right .btn{padding:9px 11px}.brand-mark{width:37px;height:37px}.brand-copy strong{font-size:16px}.stats-grid,.grid,.grid.three,.form-grid,.message-layout{grid-template-columns:1fr}.check-grid{grid-template-columns:1fr}.portal-main{padding-top:18px}.section-head h2{font-size:23px}.card{padding:16px}.event-item{grid-template-columns:62px minmax(0,1fr);gap:10px}.event-item .event-action{grid-column:1/-1;justify-self:start}.login-card{padding:26px}.login-hero h1{font-size:40px}.login-hero p{font-size:15px}.material-item{align-items:flex-start}.material-item .btn{padding:8px 10px}}
+  </style>
+</head>
+<body>
+  <div id="login-view" class="login-shell">
+    <div class="login-left">
+      <a class="brand" href="#" aria-label="Nexvia Educativa">
+        <span class="brand-mark">N</span><span class="brand-copy"><strong>NEXVIA</strong><span>EDUCATIVA</span></span>
+      </a>
+      <div class="login-hero">
+        <span class="eyebrow">FORMACIÓN ONLINE</span>
+        <h1>Tu aprendizaje.<span>En un solo lugar.</span></h1>
+        <p>Ingresá a tu aula virtual para acceder a tus cursos, materiales, fechas importantes y consultas con el equipo docente.</p>
+        <div class="login-feature"><b>✓</b> Contenidos organizados · Calendario · Acompañamiento</div>
+      </div>
+      <div class="footer-note">© 2026 Nexvia Educativa. Todos los derechos reservados.</div>
+    </div>
+    <div class="login-right">
+      <div class="login-card">
+        <div class="brand"><span class="brand-mark">N</span><span class="brand-copy"><strong>NEXVIA</strong><span>AULA VIRTUAL</span></span></div>
+        <h2>Bienvenido/a</h2>
+        <p>Ingresá con el usuario y la contraseña que te proporcionó Nexvia Educativa.</p>
+        <form id="login-form">
+          <div class="field"><label for="login-user">Usuario</label><input id="login-user" name="usuario" autocomplete="username" required maxlength="40" placeholder="Tu usuario"></div>
+          <div class="field"><label for="login-password">Contraseña</label><input id="login-password" name="password" type="password" autocomplete="current-password" required maxlength="150" placeholder="Tu contraseña"></div>
+          <button id="login-button" class="btn btn-primary full" type="submit">Ingresar al aula <span aria-hidden="true">→</span></button>
+        </form>
+        <p class="small-note">¿Tenés problemas para ingresar? Comunicate con Nexvia Educativa por los canales oficiales de contacto.</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="app-view" class="hidden">
+    <header class="topbar"><div class="wrap topbar-inner">
+      <a class="brand" href="#"><span class="brand-mark">N</span><span class="brand-copy"><strong>NEXVIA</strong><span>AULA VIRTUAL</span></span></a>
+      <div class="topbar-right"><span class="user-chip" id="current-user-label"></span><button class="btn btn-secondary" id="logout-button" type="button">Cerrar sesión ↗</button></div>
+    </div></header>
+
+    <div id="student-area" class="portal-layout hidden">
+      <aside class="sidebar"><div class="side-label">Mi espacio</div><nav class="side-nav">
+        <button data-stab="inicio" class="active" type="button"><span class="nav-icon">⌂</span> Inicio</button>
+        <button data-stab="cursos" type="button"><span class="nav-icon">▤</span> Mis cursos</button>
+        <button data-stab="calendario" type="button"><span class="nav-icon">▦</span> Calendario</button>
+        <button data-stab="consultas" type="button"><span class="nav-icon">✉</span> Consultas</button>
+        <button data-stab="otros" type="button"><span class="nav-icon">＋</span> Otros cursos</button>
+      </nav></aside>
+      <main class="portal-main">
+        <section id="s-inicio" class="view active"><div class="section-head"><div><div class="eyebrow">TU ESPACIO DE ESTUDIO</div><h2 id="student-welcome" class="page-title">¡Hola!</h2><p class="lead">Este es tu espacio personal de Nexvia Educativa.</p></div></div><div id="student-stats" class="stats-grid"></div><h3 style="color:var(--dark);margin:0 0 14px">Tus cursos</h3><div id="student-home-courses" class="grid"></div><div class="footer-note">Tu aula virtual es personal. No compartas tus credenciales con otras personas.</div></section>
+        <section id="s-cursos" class="view"><div class="section-head"><div><div class="eyebrow">CONTENIDO DE ESTUDIO</div><h2>Mis cursos</h2><p>Materiales y recursos disponibles para las formaciones que estás realizando.</p></div></div><div id="student-courses" class="grid"></div></section>
+        <section id="s-calendario" class="view"><div class="section-head"><div><div class="eyebrow">FECHAS IMPORTANTES</div><h2>Calendario</h2><p>Consultá las fechas de exámenes, entregas y publicaciones de contenido.</p></div></div><div id="student-events" class="calendar-list"></div></section>
+        <section id="s-consultas" class="view"><div class="section-head"><div><div class="eyebrow">ACOMPAÑAMIENTO</div><h2>Consultas con docentes</h2><p>Elegí el curso y enviá tu consulta al equipo de Nexvia Educativa.</p></div></div><div class="field" style="max-width:450px"><label for="student-chat-course">Curso de la consulta</label><select id="student-chat-course"></select></div><div class="chat-panel"><div class="chat-head"><strong id="student-chat-title">Conversación del curso</strong></div><div id="student-chat-body" class="chat-body"><div class="empty">Seleccioná un curso para ver la conversación.</div></div><div class="chat-compose"><textarea id="student-chat-message" maxlength="4000" placeholder="Escribí tu consulta..."></textarea><button id="student-send-message" class="btn btn-primary" type="button">Enviar</button></div></div></section>
+        <section id="s-otros" class="view"><div class="section-head"><div><div class="eyebrow">SEGUÍ APRENDIENDO</div><h2>Otros cursos</h2><p>Conocé otras propuestas de formación disponibles en Nexvia Educativa.</p></div></div><div id="student-ads" class="grid three"></div></section>
+      </main>
+    </div>
+
+    <div id="admin-area" class="portal-layout hidden">
+      <aside class="sidebar"><div class="side-label">Administración</div><nav class="side-nav">
+        <button data-atab="inicio" class="active" type="button"><span class="nav-icon">⌂</span> Resumen</button>
+        <button data-atab="alumnos" type="button"><span class="nav-icon">♙</span> Alumnos</button>
+        <button data-atab="cursos" type="button"><span class="nav-icon">▤</span> Cursos y material</button>
+        <button data-atab="calendario" type="button"><span class="nav-icon">▦</span> Calendario</button>
+        <button data-atab="mensajes" type="button"><span class="nav-icon">✉</span> Mensajes</button>
+      </nav></aside>
+      <main class="portal-main">
+        <section id="a-inicio" class="view active"><div class="section-head"><div><div class="eyebrow">PANEL DE CONTROL</div><h2>Administración del aula</h2><p>Gestioná alumnos, accesos, contenidos, fechas y consultas.</p></div><button class="btn btn-secondary" type="button" onclick="recargarAdmin()">↻ Actualizar datos</button></div><div id="admin-stats" class="stats-grid"></div><div class="card"><h3>Cómo se actualiza el aula</h3><p>Los cambios que guardes acá se reflejan para los alumnos en su próxima carga de datos. Los materiales se almacenan de forma privada en Cloudflare y solo se descargan tras validar la sesión y el acceso al curso.</p></div></section>
+
+        <section id="a-alumnos" class="view"><div class="section-head"><div><div class="eyebrow">ACCESOS Y MATRICULACIÓN</div><h2>Alumnos</h2><p>Creá los usuarios y asignales únicamente los cursos que abonaron.</p></div></div>
+          <div class="card form-card"><h3>Crear acceso para un alumno</h3><p style="margin-bottom:17px">El usuario y la contraseña se los entregás personalmente luego de confirmar la matrícula.</p><form id="create-user-form"><div class="form-grid"><div class="field"><label for="new-name">Nombre completo</label><input id="new-name" required maxlength="120"></div><div class="field"><label for="new-email">Correo electrónico (opcional)</label><input id="new-email" type="email" maxlength="160"></div><div class="field"><label for="new-username">Usuario (4 a 40 caracteres)</label><input id="new-username" required minlength="4" maxlength="40" pattern="[A-Za-z0-9._-]{4,40}" autocomplete="off"></div><div class="field"><label for="new-password">Contraseña inicial (mínimo 10 caracteres)</label><input id="new-password" type="password" required minlength="10" maxlength="150" autocomplete="new-password"></div><div class="field wide"><label>Cursos asignados</label><div id="new-user-course-checks" class="check-grid"></div></div></div><button class="btn btn-primary" type="submit">＋ Crear usuario</button></form></div>
+          <div class="section-head"><div><h2 style="font-size:21px">Usuarios registrados</h2><p>Desde aquí podés modificar cursos, desactivar accesos o restablecer contraseñas.</p></div><input id="admin-user-search" class="control" style="max-width:270px" placeholder="Buscar alumno o usuario"></div><div class="table-wrap"><table class="data-table"><thead><tr><th>Alumno</th><th>Usuario</th><th>Estado</th><th>Cursos asignados</th><th>Acciones</th></tr></thead><tbody id="admin-users-table"></tbody></table></div>
+        </section>
+
+        <section id="a-cursos" class="view"><div class="section-head"><div><div class="eyebrow">CONTENIDO COMPARTIDO</div><h2>Cursos y materiales</h2><p>Creá cursos, vinculalos con su página pública y publicá materiales para todos los alumnos asignados.</p></div></div>
+          <div class="card form-card"><h3 id="course-form-title">Agregar curso al catálogo</h3><form id="course-form"><input id="course-id" type="hidden"><div class="form-grid"><div class="field"><label for="course-name">Nombre del curso</label><input id="course-name" required maxlength="120"></div><div class="field"><label for="course-url">URL de la página pública</label><input id="course-url" type="url" placeholder="https://..." required></div><div class="field wide"><label for="course-description">Descripción corta</label><textarea id="course-description" maxlength="600"></textarea></div></div><div class="table-actions"><button class="btn btn-primary" type="submit">Guardar curso</button><button id="course-form-cancel" class="btn btn-secondary hidden" type="button">Cancelar edición</button></div></form></div>
+          <div id="admin-course-cards" class="grid"></div>
+        </section>
+
+        <section id="a-calendario" class="view"><div class="section-head"><div><div class="eyebrow">PLANIFICACIÓN</div><h2>Calendario de cursos</h2><p>Publicá fechas de exámenes, clases, entregas y nuevo contenido.</p></div></div>
+          <div class="card form-card"><h3>Agregar fecha importante</h3><form id="event-form"><div class="form-grid"><div class="field"><label for="event-course">Curso</label><select id="event-course" required></select></div><div class="field"><label for="event-type">Tipo de evento</label><select id="event-type"><option>Contenido</option><option>Examen</option><option>Entrega</option><option>Clase</option><option>Recordatorio</option></select></div><div class="field"><label for="event-title">Título</label><input id="event-title" required maxlength="150"></div><div class="field"><label for="event-date">Fecha y hora</label><input id="event-date" type="datetime-local" required></div><div class="field wide"><label for="event-description">Descripción / indicaciones</label><textarea id="event-description" maxlength="1000"></textarea></div></div><button class="btn btn-primary" type="submit">＋ Agregar al calendario</button></form></div><div class="table-wrap"><table class="data-table"><thead><tr><th>Fecha</th><th>Curso</th><th>Tipo</th><th>Evento</th><th>Acción</th></tr></thead><tbody id="admin-events-table"></tbody></table></div>
+        </section>
+
+        <section id="a-mensajes" class="view"><div class="section-head"><div><div class="eyebrow">ATENCIÓN AL ALUMNO</div><h2>Mensajes y consultas</h2><p>Abrí una conversación y respondé al alumno dentro del curso correspondiente.</p></div><button class="btn btn-secondary" type="button" onclick="recargarAdmin()">↻ Actualizar consultas</button></div><div class="message-layout"><div><div id="admin-conversations" class="conversation-list"></div></div><div class="chat-panel"><div class="chat-head"><strong id="admin-chat-title">Seleccioná una conversación</strong></div><div id="admin-chat-body" class="chat-body"><div class="empty">Todavía no hay una conversación seleccionada.</div></div><div class="chat-compose"><textarea id="admin-chat-message" maxlength="4000" placeholder="Escribí una respuesta..." disabled></textarea><button id="admin-send-message" class="btn btn-primary" type="button" disabled>Responder</button></div></div></div></section>
+      </main>
+    </div>
+    <div class="wrap footer-note" style="padding-bottom:22px">Nexvia Educativa · Aula Virtual</div>
+  </div>
+
+  <div id="user-modal-backdrop" class="modal-backdrop hidden"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="user-modal-title"><div class="modal-head"><h3 id="user-modal-title">Gestionar alumno</h3><button class="close-x" id="close-user-modal" type="button" aria-label="Cerrar">×</button></div><div class="modal-body"><p id="user-modal-subtitle" style="font-size:13px;color:var(--muted);margin:0 0 16px"></p><label style="font-size:12px;font-weight:800">Cursos asignados</label><div id="edit-user-course-checks" class="check-grid"></div><div class="field" style="margin-top:18px"><label for="reset-user-password">Restablecer contraseña (opcional)</label><input id="reset-user-password" type="password" minlength="10" maxlength="150" placeholder="Dejalo vacío si no querés cambiarla"><small style="font-size:11px;color:var(--muted)">Si la modificás, entregale la nueva contraseña al alumno por un canal privado.</small></div></div><div class="modal-actions"><button class="btn btn-secondary" id="cancel-user-modal" type="button">Cancelar</button><button class="btn btn-primary" id="save-user-modal" type="button">Guardar cambios</button></div></div></div>
+
+  <div id="global-loader" class="loader hidden"><div class="loader-box"><span class="spinner"></span><span id="loader-text">Procesando…</span></div></div>
+  <div id="toast-zone" class="toast-zone" aria-live="polite"></div>
+
+  <script>
+    'use strict';
+    let session = null;
+    let studentData = null;
+    let adminData = null;
+    let selectedAdminUserId = '';
+    let selectedAdminConversation = null;
+
+    const $ = id => document.getElementById(id);
+    const esc = value => String(value == null ? '' : value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+
+    function notify(message, type='info') {
+      const toast = document.createElement('div');
+      toast.className = 'toast ' + type;
+      toast.textContent = message;
+      $('toast-zone').appendChild(toast);
+      setTimeout(() => toast.remove(), 5000);
+    }
+    function busy(show, text='Procesando…') {
+      $('loader-text').textContent = text;
+      $('global-loader').classList.toggle('hidden', !show);
+    }
+    // Pegá aquí la URL base del Worker de Cloudflare, sin una barra al final.
+    // Ejemplo: https://nexvia-aula-api.TU-CUENTA.workers.dev
+    const AULA_API_URL = 'https://nexvia-aula-api.mmo-nicolaspavon.workers.dev';
+
+    function callServer(name, args, onSuccess, onFailure) {
+      if (!AULA_API_URL || AULA_API_URL.includes('PEGAR_AQUI')) {
+        const error = new Error('Falta configurar la URL de la API de Nexvia en aula.html.');
+        if (onFailure) onFailure(error); else notify(error.message, 'error');
+        return;
+      }
+      fetch(AULA_API_URL + '/api', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: name, args: args || [] })
+      }).then(async response => {
+        let result;
+        try { result = await response.json(); }
+        catch (_) { throw new Error('El servidor respondió en un formato inesperado.'); }
+        if (!response.ok || (result && result.error)) throw new Error(result.error || 'No se pudo completar la operación.');
+        return result;
+      }).then(result => { if (onSuccess) onSuccess(result); })
+        .catch(error => {
+          if (onFailure) onFailure(error);
+          else notify((error && error.message) ? error.message : 'Ocurrió un error de conexión.', 'error');
+        });
+    }
+    function serverError(error) {
+      busy(false);
+      const message = (error && error.message) ? error.message : 'No se pudo completar la operación.';
+      if (/sesión venció|desactivada|ingresá nuevamente/i.test(message)) {
+        session = null;
+        showLogin();
+      }
+      notify(message, 'error');
+    }
+    function showLogin() {
+      $('login-view').classList.remove('hidden');
+      $('app-view').classList.add('hidden');
+      $('login-password').value = '';
+      $('login-button').disabled = false;
+      $('login-button').textContent = 'Ingresar al aula →';
+    }
+    function startSession(data) {
+      session = data;
+      $('login-view').classList.add('hidden');
+      $('app-view').classList.remove('hidden');
+      $('current-user-label').textContent = data.nombre + (data.role === 'ADMIN' ? ' · Administración' : ' · Alumno');
+      if (data.role === 'ADMIN') {
+        $('admin-area').classList.remove('hidden');
+        $('student-area').classList.add('hidden');
+        recargarAdmin();
+      } else {
+        $('student-area').classList.remove('hidden');
+        $('admin-area').classList.add('hidden');
+        loadStudentDashboard();
+      }
+    }
+    $('login-form').addEventListener('submit', event => {
+      event.preventDefault();
+      const user = $('login-user').value.trim();
+      const password = $('login-password').value;
+      if (!user || !password) return notify('Ingresá usuario y contraseña.', 'error');
+      $('login-button').disabled = true;
+      $('login-button').textContent = 'Verificando…';
+      busy(true, 'Validando credenciales…');
+      callServer('iniciarSesion', [user, password], result => {
+        busy(false);
+        startSession(result);
+      }, error => {
+        busy(false);
+        $('login-button').disabled = false;
+        $('login-button').textContent = 'Ingresar al aula →';
+        notify(error && error.message ? error.message : 'No se pudo iniciar sesión.', 'error');
+      });
+    });
+    $('logout-button').addEventListener('click', () => {
+      const old = session;
+      session = null;
+      if (old) callServer('cerrarSesion', [old.token], () => {}, () => {});
+      studentData = null; adminData = null;
+      $('app-view').classList.add('hidden');
+      $('login-view').classList.remove('hidden');
+      $('login-password').value = '';
+      $('login-user').value = '';
+      showLogin();
+    });
+
+    // ----------------------------- ALUMNO -----------------------------
+    function loadStudentDashboard() {
+      if (!session) return;
+      busy(true, 'Cargando tu aula…');
+      callServer('obtenerPanelAlumno', [session.token], data => {
+        studentData = data;
+        renderStudent();
+        busy(false);
+      }, serverError);
+    }
+    function showStudentTab(tab) {
+      document.querySelectorAll('#student-area .view').forEach(el => el.classList.remove('active'));
+      $('s-' + tab).classList.add('active');
+      document.querySelectorAll('#student-area [data-stab]').forEach(btn => btn.classList.toggle('active', btn.dataset.stab === tab));
+      if (tab === 'consultas') {
+        const sel = $('student-chat-course');
+        if (sel.options.length && !sel.value) sel.value = sel.options[0].value;
+        loadStudentConversation();
+      }
+    }
+    document.querySelectorAll('#student-area [data-stab]').forEach(btn => btn.addEventListener('click', () => showStudentTab(btn.dataset.stab)));
+    function renderStudent() {
+      if (!studentData) return;
+      $('student-welcome').textContent = '¡Hola, ' + studentData.user.nombre.split(' ')[0] + '!';
+      $('student-stats').innerHTML = `
+        <div class="stat"><span class="stat-label">Mis cursos</span><strong>${studentData.courses.length}</strong><small>Formaciones asignadas</small></div>
+        <div class="stat"><span class="stat-label">Fechas publicadas</span><strong>${studentData.events.length}</strong><small>Exámenes y actividades</small></div>
+        <div class="stat"><span class="stat-label">Otros cursos</span><strong>${studentData.ads.length}</strong><small>Más propuestas para explorar</small></div>`;
+      $('student-home-courses').innerHTML = studentData.courses.length ? studentData.courses.map(c => `
+        <article class="card"><div class="course-banner"></div><div class="card-top"><h3>${esc(c.nombre)}</h3><span class="tag green">Inscripto</span></div><p>${esc(c.descripcion || 'Tu espacio de formación en Nexvia Educativa.')}</p><div style="margin-top:17px"><button class="btn btn-primary" type="button" onclick="showStudentTab('cursos')">Ver materiales →</button></div></article>`).join('') : `<div class="empty" style="grid-column:1/-1"><strong>Todavía no tenés cursos asignados</strong>Contactá a Nexvia Educativa para revisar tu acceso.</div>`;
+      $('student-courses').innerHTML = studentData.courses.length ? studentData.courses.map(c => `
+        <article class="card"><div class="course-banner"></div><div class="card-top"><h3>${esc(c.nombre)}</h3><span class="tag">Curso</span></div><p>${esc(c.descripcion || 'Materiales y novedades del curso.')}</p><div class="material-list">${c.materiales.length ? c.materiales.map(m => `<div class="material-item"><div><strong>${esc(m.titulo)}</strong><small>${esc(m.descripcion || m.nombreArchivo)} · ${esc(m.fecha)}</small></div><button class="btn btn-secondary btn-small" type="button" onclick="descargarMaterialUI('${esc(m.id)}')">↓ Descargar</button></div>`).join('') : `<div class="empty"><strong>Aún no hay materiales</strong>El contenido aparecerá aquí cuando el equipo docente lo publique.</div>`}</div></article>`).join('') : `<div class="empty" style="grid-column:1/-1"><strong>No hay cursos asignados</strong>Cuando se te asigne una formación, la vas a ver acá.</div>`;
+      const eventRows = [...studentData.events].sort((a,b) => String(a.fechaHora).localeCompare(String(b.fechaHora)));
+      $('student-events').innerHTML = eventRows.length ? eventRows.map(e => eventHtml(e, getCourseName(e.cursoId, studentData.courses))).join('') : `<div class="empty"><strong>No hay fechas publicadas</strong>Cuando se programe un examen o una actividad, aparecerá en este calendario.</div>`;
+      $('student-ads').innerHTML = studentData.ads.length ? studentData.ads.map(c => `<article class="card"><div class="course-banner"></div><span class="eyebrow">OTRA FORMACIÓN</span><h3 style="margin-top:7px">${esc(c.nombre)}</h3><p>${esc(c.descripcion || 'Conocé esta propuesta de formación online.')}</p><a class="btn btn-primary" style="margin-top:17px" href="${esc(c.url)}" target="_blank" rel="noopener noreferrer">Ver curso ↗</a></article>`).join('') : `<div class="empty" style="grid-column:1/-1"><strong>No hay otros cursos publicados</strong>Estamos preparando nuevas propuestas de formación.</div>`;
+      const chatSelect = $('student-chat-course');
+      const current = chatSelect.value;
+      chatSelect.innerHTML = studentData.courses.map(c => `<option value="${esc(c.id)}">${esc(c.nombre)}</option>`).join('');
+      if (studentData.courses.some(c => c.id === current)) chatSelect.value = current;
+      $('student-send-message').disabled = !studentData.courses.length;
+      if (!studentData.courses.length) {
+        $('student-chat-title').textContent = 'No tenés cursos asignados';
+        $('student-chat-body').innerHTML = '<div class="empty">Cuando tengas un curso asignado, vas a poder escribir al equipo docente.</div>';
+      }
+    }
+    function getCourseName(id, courses) { const c = courses.find(x => x.id === id); return c ? c.nombre : 'Curso'; }
+    function eventHtml(e, courseName) {
+      const parts = String(e.fechaHora || '').split('T');
+      const dateParts = (parts[0] || '').split('-');
+      const day = dateParts.length === 3 ? dateParts[2] : '—';
+      const monthIdx = dateParts.length === 3 ? Number(dateParts[1]) - 1 : -1;
+      const months = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+      const month = months[monthIdx] || '';
+      const time = parts[1] || '';
+      return `<article class="event-item"><div class="event-date"><strong>${esc(day)}</strong><span>${esc(month)}</span></div><div><div class="card-top" style="margin:0 0 4px;align-items:center"><h3>${esc(e.titulo)}</h3><span class="tag ${e.tipo === 'Examen' ? 'green' : ''}">${esc(e.tipo)}</span></div><p><b>${esc(courseName)}</b>${time ? ' · ' + esc(time) : ''}</p>${e.descripcion ? `<p style="margin-top:5px">${esc(e.descripcion)}</p>` : ''}</div></article>`;
+    }
+    $('student-chat-course').addEventListener('change', loadStudentConversation);
+    function loadStudentConversation() {
+      if (!session || !studentData) return;
+      const courseId = $('student-chat-course').value;
+      if (!courseId) { $('student-chat-body').innerHTML = '<div class="empty">No hay curso disponible para consultas.</div>'; return; }
+      $('student-chat-title').textContent = 'Conversación · ' + getCourseName(courseId, studentData.courses);
+      callServer('alumnoObtenerConversacion', [session.token, courseId], messages => renderChat('student-chat-body', messages, session.role), serverError);
+    }
+    $('student-send-message').addEventListener('click', () => {
+      const courseId = $('student-chat-course').value;
+      const message = $('student-chat-message').value.trim();
+      if (!courseId || !message) return notify('Elegí un curso y escribí tu consulta.', 'error');
+      $('student-send-message').disabled = true;
+      callServer('alumnoEnviarMensaje', [session.token, courseId, message], result => {
+        $('student-chat-message').value = '';
+        $('student-send-message').disabled = false;
+        notify(result.message || 'Consulta enviada.', 'success');
+        loadStudentConversation();
+      }, error => { $('student-send-message').disabled = false; serverError(error); });
+    });
+    async function descargarMaterialUI(materialId) {
+      if (!session) return showLogin();
+      busy(true, 'Preparando descarga segura…');
+      try {
+        const response = await fetch(AULA_API_URL + '/api/materials/' + encodeURIComponent(materialId) + '/download', {
+          method: 'GET', headers: { 'Authorization': 'Bearer ' + session.token }
+        });
+        if (!response.ok) {
+          let payload = {};
+          try { payload = await response.json(); } catch (_) {}
+          throw new Error(payload.error || 'No se pudo descargar el material.');
+        }
+        const blob = await response.blob();
+        const list = studentData && studentData.courses ? studentData.courses : [];
+        const material = list.flatMap(c => c.materiales || []).find(m => m.id === materialId);
+        const filename = (material && material.nombreArchivo) || 'material';
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a'); a.href = url; a.download = filename;
+        document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1500);
+        busy(false);
+      } catch (error) { busy(false); serverError(error); }
+    }
+
+    // ----------------------------- ADMIN -----------------------------
+    function recargarAdmin(afterRefresh) {
+      if (!session || session.role !== 'ADMIN') return;
+      busy(true, 'Actualizando administración…');
+      callServer('obtenerPanelAdmin', [session.token], data => {
+        adminData = data;
+        renderAdmin();
+        busy(false);
+        if (typeof afterRefresh === 'function') afterRefresh();
+      }, serverError);
+    }
+    document.querySelectorAll('#admin-area [data-atab]').forEach(btn => btn.addEventListener('click', () => showAdminTab(btn.dataset.atab)));
+    function showAdminTab(tab) {
+      document.querySelectorAll('#admin-area .view').forEach(el => el.classList.remove('active'));
+      $('a-' + tab).classList.add('active');
+      document.querySelectorAll('#admin-area [data-atab]').forEach(btn => btn.classList.toggle('active', btn.dataset.atab === tab));
+      if (tab === 'mensajes' && adminData) renderAdminConversations();
+    }
+    function renderAdmin() {
+      if (!adminData) return;
+      const students = adminData.users.filter(u => u.rol === 'ALUMNO');
+      const activeStudents = students.filter(u => u.activo).length;
+      const activeCourses = adminData.courses.filter(c => c.activo).length;
+      const unread = adminData.messages.filter(m => m.rol === 'ALUMNO').length;
+      $('admin-stats').innerHTML = `
+        <div class="stat"><span class="stat-label">Alumnos registrados</span><strong>${students.length}</strong><small>${activeStudents} con acceso activo</small></div>
+        <div class="stat"><span class="stat-label">Cursos publicados</span><strong>${activeCourses}</strong><small>Incluye catálogo y materiales</small></div>
+        <div class="stat"><span class="stat-label">Consultas recibidas</span><strong>${unread}</strong><small>Mensajes de alumnos registrados</small></div>`;
+      renderAdminUsers(); renderCourseChecks('new-user-course-checks', [], 'new-course'); renderAdminCourses(); renderAdminEvents(); renderAdminConversations(); renderCourseSelects();
+    }
+    function userCourseIds(userId) { return adminData.enrollments.filter(e => e.userId === userId).map(e => e.courseId); }
+    function renderAdminUsers() {
+      const query = $('admin-user-search').value.trim().toLowerCase();
+      const users = adminData.users.filter(u => u.rol === 'ALUMNO' && (u.nombre.toLowerCase().includes(query) || u.usuario.toLowerCase().includes(query) || u.email.toLowerCase().includes(query)));
+      $('admin-users-table').innerHTML = users.length ? users.map(u => {
+        const assigned = adminData.courses.filter(c => userCourseIds(u.id).includes(c.id)).map(c => c.nombre);
+        return `<tr><td><strong>${esc(u.nombre)}</strong><br><small style="color:var(--muted)">${esc(u.email)}</small></td><td>${esc(u.usuario)}</td><td><span class="status-pill ${u.activo ? '' : 'off'}">${u.activo ? 'ACTIVO' : 'INACTIVO'}</span></td><td>${assigned.length ? assigned.map(esc).join('<br>') : '<span style="color:#98a2b3">Sin cursos</span>'}</td><td><div class="table-actions"><button class="btn btn-secondary btn-small" type="button" onclick="gestionarAlumno('${esc(u.id)}')">Gestionar</button><button class="btn ${u.activo ? 'btn-danger' : 'btn-secondary'} btn-small" type="button" onclick="alternarAlumno('${esc(u.id)}',${!u.activo})">${u.activo ? 'Desactivar' : 'Activar'}</button></div></td></tr>`;
+      }).join('') : '<tr><td colspan="5" style="text-align:center;color:#98a2b3;padding:25px">No hay alumnos que coincidan con la búsqueda.</td></tr>';
+    }
+    $('admin-user-search').addEventListener('input', renderAdminUsers);
+    function renderCourseChecks(containerId, selectedIds, prefix) {
+      const container = $(containerId);
+      if (!container) return;
+      const courses = adminData ? adminData.courses.filter(c => c.activo) : [];
+      container.innerHTML = courses.length ? courses.map(c => `<label class="check-option"><input type="checkbox" data-course-check="${esc(prefix)}" value="${esc(c.id)}" ${selectedIds.includes(c.id) ? 'checked' : ''}> <span>${esc(c.nombre)}</span></label>`).join('') : '<p style="font-size:12px;color:var(--muted)">Primero creá y activá un curso.</p>';
+    }
+    function checkedCourseIds(prefix) { return [...document.querySelectorAll(`[data-course-check="${prefix}"]:checked`)].map(el => el.value); }
+    $('create-user-form').addEventListener('submit', event => {
+      event.preventDefault();
+      const data = { nombre:$('new-name').value.trim(), email:$('new-email').value.trim(), usuario:$('new-username').value.trim(), password:$('new-password').value, cursos:checkedCourseIds('new-course') };
+      busy(true, 'Creando acceso…');
+      callServer('adminCrearAlumno', [session.token, data], result => {
+        notify(result.message, 'success'); $('create-user-form').reset(); recargarAdmin();
+      }, serverError);
+    });
+    function gestionarAlumno(userId) {
+      const user = adminData.users.find(u => u.id === userId && u.rol === 'ALUMNO');
+      if (!user) return notify('No se encontró al alumno.', 'error');
+      selectedAdminUserId = userId;
+      $('user-modal-title').textContent = 'Gestionar alumno';
+      $('user-modal-subtitle').textContent = user.nombre + ' · usuario: ' + user.usuario;
+      renderCourseChecks('edit-user-course-checks', userCourseIds(userId), 'edit-course');
+      $('reset-user-password').value = '';
+      $('user-modal-backdrop').classList.remove('hidden');
+    }
+    function closeUserModal() { $('user-modal-backdrop').classList.add('hidden'); selectedAdminUserId = ''; }
+    $('close-user-modal').addEventListener('click', closeUserModal);
+    $('cancel-user-modal').addEventListener('click', closeUserModal);
+    $('save-user-modal').addEventListener('click', () => {
+      if (!selectedAdminUserId) return;
+      const userId = selectedAdminUserId;
+      const courseIds = checkedCourseIds('edit-course');
+      const newPass = $('reset-user-password').value;
+      busy(true, 'Guardando cambios…');
+      callServer('adminGuardarCursosAlumno', [session.token, userId, courseIds], result => {
+        if (newPass) {
+          callServer('adminRestablecerClave', [session.token, userId, newPass], result2 => {
+            busy(false); notify(result.message + ' ' + result2.message, 'success'); closeUserModal(); recargarAdmin();
+          }, error => { busy(false); serverError(error); });
+        } else {
+          busy(false); notify(result.message, 'success'); closeUserModal(); recargarAdmin();
+        }
+      }, serverError);
+    });
+    function alternarAlumno(userId, active) {
+      const user = adminData.users.find(u => u.id === userId);
+      if (!user || !confirm((active ? '¿Activar' : '¿Desactivar') + ' el acceso de ' + user.nombre + '?')) return;
+      busy(true, 'Actualizando acceso…');
+      callServer('adminCambiarEstadoAlumno', [session.token, userId, active], result => { notify(result.message, 'success'); recargarAdmin(); }, serverError);
+    }
+    function renderCourseSelects() {
+      const current = $('event-course').value;
+      const activeCourses = adminData.courses.filter(c => c.activo);
+      $('event-course').innerHTML = activeCourses.map(c => `<option value="${esc(c.id)}">${esc(c.nombre)}</option>`).join('');
+      if (activeCourses.some(c => c.id === current)) $('event-course').value = current;
+    }
+    function renderAdminCourses() {
+      const box = $('admin-course-cards');
+      if (!adminData.courses.length) { box.innerHTML = '<div class="empty" style="grid-column:1/-1"><strong>No hay cursos en el catálogo</strong>Agregá uno arriba. La URL es la página pública del curso en Nexvia.</div>'; return; }
+      box.innerHTML = adminData.courses.map(c => {
+        const materials = adminData.materials.filter(m => m.cursoId === c.id);
+        return `<article class="card"><div class="course-banner"></div><div class="card-top"><div><h3>${esc(c.nombre)}</h3><p>${esc(c.descripcion || '')}</p></div><span class="status-pill ${c.activo ? '' : 'off'}">${c.activo ? 'ACTIVO' : 'INACTIVO'}</span></div><p style="margin-bottom:13px;overflow-wrap:anywhere"><a href="${esc(c.url)}" target="_blank" rel="noopener noreferrer" style="color:var(--blue);font-weight:700">Abrir página pública ↗</a></p><div class="table-actions" style="margin-bottom:17px"><button class="btn btn-secondary btn-small" type="button" onclick="editarCurso('${esc(c.id)}')">Editar</button><button class="btn ${c.activo ? 'btn-danger' : 'btn-secondary'} btn-small" type="button" onclick="alternarCurso('${esc(c.id)}',${!c.activo})">${c.activo ? 'Desactivar' : 'Activar'}</button></div><div style="border-top:1px solid var(--border);padding-top:15px"><h3 style="font-size:15px">Publicar material</h3><div class="field"><label for="mat-title-${esc(c.id)}">Título</label><input id="mat-title-${esc(c.id)}" maxlength="150" placeholder="Ej. Unidad 1 - Apunte"></div><div class="field"><label for="mat-desc-${esc(c.id)}">Descripción (opcional)</label><input id="mat-desc-${esc(c.id)}" maxlength="500" placeholder="Qué contiene el archivo"></div><div class="field"><label for="mat-file-${esc(c.id)}">Archivo (máximo 8 MB)</label><input id="mat-file-${esc(c.id)}" type="file" accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.png,.jpg,.jpeg,.txt,.zip"></div><button class="btn btn-primary btn-small" type="button" onclick="subirMaterial('${esc(c.id)}')">↑ Publicar material</button><div class="material-list"><strong style="font-size:12px;color:var(--dark)">Materiales publicados (${materials.length})</strong>${materials.length ? materials.map(m => `<div class="material-item"><div><strong>${esc(m.titulo)}</strong><small>${esc(m.nombreArchivo)} · ${esc(m.fecha)}</small></div><button class="btn btn-danger btn-small" type="button" onclick="eliminarMaterial('${esc(m.id)}')">Eliminar</button></div>`).join('') : '<p style="font-size:12px;color:var(--muted)">Todavía no se publicó material para este curso.</p>'}</div></div></article>`;
+      }).join('');
+    }
+    $('course-form').addEventListener('submit', event => {
+      event.preventDefault();
+      const data = { id:$('course-id').value, nombre:$('course-name').value.trim(), url:$('course-url').value.trim(), descripcion:$('course-description').value.trim() };
+      busy(true, 'Guardando curso…');
+      callServer('adminGuardarCurso', [session.token, data], result => { notify(result.message, 'success'); resetCourseForm(); recargarAdmin(); }, serverError);
+    });
+    function resetCourseForm() { $('course-id').value=''; $('course-name').value=''; $('course-url').value=''; $('course-description').value=''; $('course-form-title').textContent='Agregar curso al catálogo'; $('course-form-cancel').classList.add('hidden'); }
+    $('course-form-cancel').addEventListener('click', resetCourseForm);
+    function editarCurso(id) {
+      const c = adminData.courses.find(x => x.id === id); if (!c) return;
+      $('course-id').value = c.id; $('course-name').value = c.nombre; $('course-url').value = c.url; $('course-description').value = c.descripcion;
+      $('course-form-title').textContent = 'Editar curso'; $('course-form-cancel').classList.remove('hidden'); window.scrollTo({top:0,behavior:'smooth'});
+    }
+    function alternarCurso(id, active) {
+      const c = adminData.courses.find(x => x.id === id); if (!c) return;
+      if (!confirm((active ? '¿Activar' : '¿Desactivar') + ' el curso "' + c.nombre + '"?')) return;
+      busy(true, 'Actualizando curso…'); callServer('adminCambiarEstadoCurso', [session.token,id,active], result => { notify(result.message,'success'); recargarAdmin(); },serverError);
+    }
+    async function subirMaterial(courseId) {
+      const title = $('mat-title-' + courseId).value.trim();
+      const desc = $('mat-desc-' + courseId).value.trim();
+      const fileInput = $('mat-file-' + courseId);
+      if (!title) return notify('Ingresá el título del material.', 'error');
+      if (!fileInput.files.length) return notify('Seleccioná el archivo que querés subir.', 'error');
+      if (!session || session.role !== 'ADMIN') return showLogin();
+      const file = fileInput.files[0];
+      if (file.size > 8 * 1024 * 1024) return notify('El archivo supera los 8 MB. Comprimilo o dividilo antes de subirlo.', 'error');
+      const form = new FormData();
+      form.append('cursoId', courseId);
+      form.append('titulo', title);
+      form.append('descripcion', desc);
+      form.append('archivo', file, file.name);
+      busy(true, 'Subiendo material privado…');
+      try {
+        const response = await fetch(AULA_API_URL + '/api/materials/upload', {
+          method: 'POST', headers: { 'Authorization': 'Bearer ' + session.token }, body: form
+        });
+        let result = {};
+        try { result = await response.json(); } catch (_) {}
+        if (!response.ok) throw new Error(result.error || 'No se pudo subir el material.');
+        busy(false); notify(result.message || 'Material subido al curso.', 'success'); recargarAdmin();
+      } catch (error) { busy(false); serverError(error); }
+    }
+    function eliminarMaterial(id) {
+      const material = adminData.materials.find(m => m.id === id); if (!material || !confirm('¿Eliminar "' + material.titulo + '" del aula? Se eliminará del almacenamiento privado del aula.')) return;
+      busy(true,'Eliminando material…'); callServer('adminEliminarMaterial',[session.token,id],result=>{notify(result.message,'success');recargarAdmin();},serverError);
+    }
+    $('event-form').addEventListener('submit', event => {
+      event.preventDefault();
+      const data = { cursoId:$('event-course').value, tipo:$('event-type').value, titulo:$('event-title').value.trim(), fechaHora:$('event-date').value, descripcion:$('event-description').value.trim() };
+      if (!data.cursoId) return notify('Creá o activá un curso antes de agregar una fecha.','error');
+      busy(true,'Publicando fecha…');
+      callServer('adminCrearEvento',[session.token,data],result=>{notify(result.message,'success');$('event-form').reset();recargarAdmin();},serverError);
+    });
+    function renderAdminEvents() {
+      const rows = [...adminData.events].sort((a,b)=>String(a.fechaHora).localeCompare(String(b.fechaHora)));
+      $('admin-events-table').innerHTML = rows.length ? rows.map(e=>`<tr><td>${esc(formatDateTime(e.fechaHora))}</td><td>${esc(getCourseName(e.cursoId,adminData.courses))}</td><td><span class="tag ${e.tipo==='Examen'?'green':''}">${esc(e.tipo)}</span></td><td><strong>${esc(e.titulo)}</strong><br><small style="color:var(--muted)">${esc(e.descripcion)}</small></td><td><button class="btn btn-danger btn-small" type="button" onclick="eliminarEvento('${esc(e.id)}')">Eliminar</button></td></tr>`).join('') : '<tr><td colspan="5" style="text-align:center;color:#98a2b3;padding:25px">No hay eventos cargados.</td></tr>';
+    }
+    function formatDateTime(value) { const parts=String(value||'').split('T'); if (!parts[0]) return ''; const d=parts[0].split('-'); return (d.length===3 ? `${d[2]}/${d[1]}/${d[0]}` : parts[0]) + (parts[1] ? ' '+parts[1] : ''); }
+    function eliminarEvento(id) { const e=adminData.events.find(x=>x.id===id); if(!e||!confirm('¿Eliminar la fecha "'+e.titulo+'"?')) return; busy(true,'Eliminando evento…'); callServer('adminEliminarEvento',[session.token,id],res=>{notify(res.message,'success');recargarAdmin();},serverError); }
+    function renderAdminConversations() {
+      if (!adminData) return;
+      const byKey = new Map();
+      adminData.messages.forEach((m, index) => { const key=m.usuarioId+'|'+m.cursoId; byKey.set(key,{...m,key,_order:index}); });
+      const conversations = [...byKey.values()].sort((a,b)=>b._order-a._order);
+      $('admin-conversations').innerHTML = conversations.length ? conversations.map(c=>{
+        const u=adminData.users.find(x=>x.id===c.usuarioId); const course=getCourseName(c.cursoId,adminData.courses);
+        if(!u) return '';
+        return `<button class="conversation-choice" type="button" onclick="abrirConversacionAdmin('${esc(c.usuarioId)}','${esc(c.cursoId)}')"><strong>${esc(u.nombre)}</strong><small>${esc(course)} · ${esc(c.fecha)}</small><p>${c.rol==='ADMIN'?'Tu respuesta: ':'Alumno: '}${esc(c.mensaje)}</p></button>`;
+      }).join('') : '<div class="empty"><strong>No hay consultas</strong>Las nuevas consultas de alumnos aparecerán acá.</div>';
+    }
+    function abrirConversacionAdmin(userId, courseId) {
+      selectedAdminConversation = {userId,courseId};
+      const u=adminData.users.find(x=>x.id===userId); const c=adminData.courses.find(x=>x.id===courseId);
+      $('admin-chat-title').textContent = (u?u.nombre:'Alumno') + ' · ' + (c?c.nombre:'Curso');
+      $('admin-chat-message').disabled=false; $('admin-send-message').disabled=false;
+      $('admin-chat-body').innerHTML='<div class="empty">Cargando conversación…</div>';
+      callServer('adminObtenerConversacion',[session.token,userId,courseId],messages=>renderChat('admin-chat-body',messages,'ADMIN'),serverError);
+    }
+    $('admin-send-message').addEventListener('click',()=>{
+      if(!selectedAdminConversation) return notify('Seleccioná una conversación.','error');
+      const message=$('admin-chat-message').value.trim(); if(!message) return notify('Escribí una respuesta.','error');
+      $('admin-send-message').disabled=true;
+      callServer('adminEnviarRespuesta',[session.token,selectedAdminConversation.userId,selectedAdminConversation.courseId,message],result=>{
+        $('admin-chat-message').value=''; $('admin-send-message').disabled=false; notify(result.message,'success');
+        const conversation = selectedAdminConversation ? {...selectedAdminConversation} : null;
+        recargarAdmin(() => { if (conversation) abrirConversacionAdmin(conversation.userId, conversation.courseId); });
+      },error=>{$('admin-send-message').disabled=false;serverError(error);});
+    });
+    function renderChat(containerId, messages, viewerRole) {
+      const el=$(containerId);
+      if(!messages || !messages.length) { el.innerHTML='<div class="empty"><strong>Conversación nueva</strong>Escribí tu mensaje para iniciar la consulta.</div>'; return; }
+      el.innerHTML=messages.map(m=>{
+        const mine=viewerRole==='ALUMNO' ? m.rol==='ALUMNO' : m.rol==='ADMIN';
+        return `<div class="bubble ${mine?'mine':''}"><div class="bubble-meta">${m.rol==='ADMIN'?'Nexvia Educativa':'Alumno'}</div><div class="bubble-text">${esc(m.mensaje)}</div><time>${esc(m.fecha)}</time></div>`;
+      }).join('');
+      el.scrollTop=el.scrollHeight;
+    }
+    // Botones de modal expuestos al HTML generado de manera segura: IDs internos generados por el servidor.
+    window.gestionarAlumno=gestionarAlumno; window.alternarAlumno=alternarAlumno; window.editarCurso=editarCurso; window.alternarCurso=alternarCurso;
+    window.subirMaterial=subirMaterial; window.eliminarMaterial=eliminarMaterial; window.eliminarEvento=eliminarEvento; window.abrirConversacionAdmin=abrirConversacionAdmin; window.descargarMaterialUI=descargarMaterialUI;
+    window.showStudentTab=showStudentTab;
+  </script>
+</body>
+</html>
