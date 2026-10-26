@@ -12,6 +12,39 @@
 
     .course-assignment{border:1px solid var(--border);border-radius:10px;padding:12px;background:#fbfdff;display:grid;gap:9px}.course-assignment-title{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:800;color:var(--dark)}.course-assignment-title input{accent-color:var(--blue)}.course-assignment .field{margin:0}.course-assignment .field label{font-size:11px}.group-row,.release-row{border:1px solid var(--border);border-radius:9px;padding:10px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}.group-row small,.release-row small{display:block;color:var(--muted);font-size:11px}.subsection{border-top:1px solid var(--border);padding-top:15px;margin-top:15px}.subsection h4{margin:0 0 10px;color:var(--dark);font-size:15px}.release-form{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:end;margin-top:10px}.release-form .field{margin:0}.release-form .full-row{grid-column:1/-1}.material-card{border:1px solid var(--border);border-radius:10px;padding:12px;margin-top:10px}.material-card-title{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}.student-material-section{margin-top:15px}.student-material-section h4{margin:0 0 8px;color:var(--dark);font-size:13px}
 
+  
+
+    /* Navegación móvil desplazable con flechas visibles */
+    .nav-scroll-wrap { width:100%; min-width:0; }
+    .nav-scroll-viewport { width:100%; min-width:0; }
+    .nav-scroll-arrow, .nav-scroll-hint { display:none; }
+    .nav-scroll-arrow {
+      align-items:center; justify-content:center; flex:0 0 34px;
+      width:34px; height:40px; padding:0; border:1px solid var(--border);
+      border-radius:9px; background:#fff; color:var(--blue); font-size:25px;
+      line-height:1; font-weight:800; box-shadow:0 2px 7px rgba(18,53,90,.09);
+      touch-action:manipulation;
+    }
+    .nav-scroll-arrow:disabled { opacity:.32; cursor:default; box-shadow:none; }
+    .nav-scroll-arrow:focus-visible { outline:3px solid #2f8fe666; outline-offset:2px; }
+    .nav-scroll-hint { margin:5px 0 0; text-align:center; color:var(--muted); font-size:10px; }
+    .nav-scroll-hint[hidden] { display:none !important; }
+    @media(max-width:950px) {
+      #student-area .sidebar, #admin-area .sidebar { overflow-x:hidden; }
+      .nav-scroll-wrap { display:flex; align-items:center; gap:6px; }
+      .nav-scroll-viewport {
+        flex:1 1 auto; overflow-x:auto; overflow-y:hidden; width:100%;
+        scrollbar-width:none; -ms-overflow-style:none;
+        -webkit-overflow-scrolling:touch; scroll-behavior:smooth;
+      }
+      .nav-scroll-viewport::-webkit-scrollbar { display:none; }
+      .nav-scroll-viewport .side-nav { display:flex; width:max-content; min-width:max-content; gap:6px; }
+      .nav-scroll-viewport .side-nav button { flex:0 0 auto; white-space:nowrap; }
+      .nav-scroll-wrap.has-overflow .nav-scroll-arrow { display:inline-flex; }
+      .nav-scroll-hint:not([hidden]) { display:block; }
+      .nav-scroll-wrap.no-overflow .nav-scroll-arrow { display:none; }
+    }
+
   </style>
 </head>
 <body>
@@ -623,6 +656,84 @@
     window.crearGrupo=crearGrupo; window.alternarGrupo=alternarGrupo; window.programarMaterial=programarMaterial; window.habilitarMaterialAhora=habilitarMaterialAhora; window.quitarProgramacionMaterial=quitarProgramacionMaterial;
     window.subirMaterial=subirMaterial; window.eliminarMaterial=eliminarMaterial; window.eliminarEvento=eliminarEvento; window.abrirConversacionAdmin=abrirConversacionAdmin; window.descargarMaterialUI=descargarMaterialUI;
     window.showStudentTab=showStudentTab;
+
+
+    // Agrega controles de desplazamiento a los menús horizontales en pantallas pequeñas.
+    function setupMobileNavArrows() {
+      const navs = document.querySelectorAll(
+        '#student-area .sidebar .side-nav, #admin-area .sidebar .side-nav'
+      );
+
+      navs.forEach((nav, index) => {
+        if (nav.dataset.arrowScrollReady === 'true') return;
+        nav.dataset.arrowScrollReady = 'true';
+
+        const wrap = document.createElement('div');
+        wrap.className = 'nav-scroll-wrap no-overflow';
+
+        const viewport = document.createElement('div');
+        viewport.className = 'nav-scroll-viewport';
+        viewport.setAttribute('tabindex', '0');
+        viewport.setAttribute('aria-label', index === 0 ? 'Menú del alumno' : 'Menú de administración');
+
+        function makeArrow(direction, label, symbol) {
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'nav-scroll-arrow';
+          button.setAttribute('aria-label', label);
+          button.title = label;
+          button.textContent = symbol;
+          button.addEventListener('click', () => {
+            const distance = Math.max(150, Math.round(viewport.clientWidth * 0.68));
+            viewport.scrollBy({ left: direction * distance, behavior: 'smooth' });
+          });
+          return button;
+        }
+
+        const prev = makeArrow(-1, 'Ver opciones anteriores', '‹');
+        const next = makeArrow(1, 'Ver más opciones', '›');
+        const hint = document.createElement('div');
+        hint.className = 'nav-scroll-hint';
+        hint.textContent = 'Usá las flechas para ver todas las opciones';
+        hint.hidden = true;
+
+        nav.parentNode.insertBefore(wrap, nav);
+        wrap.appendChild(prev);
+        wrap.appendChild(viewport);
+        viewport.appendChild(nav);
+        wrap.appendChild(next);
+        wrap.insertAdjacentElement('afterend', hint);
+
+        function updateArrowState() {
+          const maxScroll = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
+          const isSmall = window.matchMedia('(max-width: 950px)').matches;
+          const hasOverflow = isSmall && maxScroll > 4;
+          wrap.classList.toggle('has-overflow', hasOverflow);
+          wrap.classList.toggle('no-overflow', !hasOverflow);
+          hint.hidden = !hasOverflow;
+          prev.disabled = viewport.scrollLeft <= 3;
+          next.disabled = viewport.scrollLeft >= maxScroll - 3;
+        }
+
+        viewport.addEventListener('scroll', updateArrowState, { passive: true });
+        window.addEventListener('resize', updateArrowState, { passive: true });
+        if ('ResizeObserver' in window) {
+          new ResizeObserver(updateArrowState).observe(viewport);
+        }
+        // Recalcula al abrir el panel, que al principio está oculto tras el login.
+        const parentArea = nav.closest('#student-area, #admin-area');
+        if (parentArea && 'MutationObserver' in window) {
+          new MutationObserver(updateArrowState).observe(parentArea, {
+            attributes: true,
+            attributeFilter: ['class']
+          });
+        }
+        updateArrowState();
+      });
+    }
+    setupMobileNavArrows();
+
+
     // El alumno verá los materiales nuevos cuando llegue la fecha programada, sin tener que volver a iniciar sesión.
     setInterval(() => { if (session && session.role === 'ALUMNO' && !document.hidden) loadStudentDashboard(true); }, 60000);
   </script>
