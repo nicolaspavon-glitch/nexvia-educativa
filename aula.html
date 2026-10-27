@@ -54,6 +54,10 @@
       .nav-scroll-wrap.no-overflow .nav-scroll-arrow { display:none; }
     }
 
+    .conversation-entry{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px;align-items:stretch}
+    .conversation-entry .conversation-choice{min-width:0}
+    .conversation-entry>.btn{align-self:center;white-space:nowrap}
+    @media(max-width:620px){.conversation-entry{grid-template-columns:1fr}.conversation-entry>.btn{justify-self:start}}
   </style>
 </head>
 <body>
@@ -168,7 +172,7 @@
     <div class="wrap footer-note" style="padding-bottom:22px">Nexvia Educativa · Aula Virtual</div>
   </div>
 
-  <div id="user-modal-backdrop" class="modal-backdrop hidden"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="user-modal-title"><div class="modal-head"><h3 id="user-modal-title">Gestionar alumno</h3><button class="close-x" id="close-user-modal" type="button" aria-label="Cerrar">×</button></div><div class="modal-body"><p id="user-modal-subtitle" style="font-size:13px;color:var(--muted);margin:0 0 16px"></p><label style="font-size:12px;font-weight:800">Cursos asignados</label><div id="edit-user-course-checks" class="check-grid"></div><div class="field" style="margin-top:18px"><label for="reset-user-password">Restablecer contraseña (opcional)</label><input id="reset-user-password" type="password" minlength="10" maxlength="150" placeholder="Dejalo vacío si no querés cambiarla"><small style="font-size:11px;color:var(--muted)">Si la modificás, entregale la nueva contraseña al alumno por un canal privado.</small></div></div><div class="modal-actions"><button class="btn btn-secondary" id="cancel-user-modal" type="button">Cancelar</button><button class="btn btn-primary" id="save-user-modal" type="button">Guardar cambios</button></div></div></div>
+  <div id="user-modal-backdrop" class="modal-backdrop hidden"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="user-modal-title"><div class="modal-head"><h3 id="user-modal-title">Gestionar alumno</h3><button class="close-x" id="close-user-modal" type="button" aria-label="Cerrar">×</button></div><div class="modal-body"><p id="user-modal-subtitle" style="font-size:13px;color:var(--muted);margin:0 0 16px"></p><h4 style="margin:0 0 10px;color:var(--dark)">Datos del alumno</h4><div class="form-grid"><div class="field"><label for="edit-user-name">Nombre completo</label><input id="edit-user-name" required maxlength="120"></div><div class="field"><label for="edit-user-email">Correo electrónico</label><input id="edit-user-email" type="email" maxlength="160"></div><div class="field wide"><label for="edit-user-username">Nombre de usuario</label><input id="edit-user-username" required minlength="4" maxlength="40" pattern="[A-Za-z0-9._-]{4,40}" autocomplete="off"></div></div><h4 style="margin:16px 0 10px;color:var(--dark)">Cursos asignados</h4><div id="edit-user-course-checks" class="check-grid"></div><div class="field" style="margin-top:18px"><label for="reset-user-password">Restablecer contraseña (opcional)</label><input id="reset-user-password" type="password" minlength="10" maxlength="150" placeholder="Dejalo vacío si no querés cambiarla"><small style="font-size:11px;color:var(--muted)">Si la modificás, entregale la nueva contraseña al alumno por un canal privado.</small></div></div><div class="modal-actions"><button class="btn btn-secondary" id="cancel-user-modal" type="button">Cancelar</button><button class="btn btn-primary" id="save-user-modal" type="button">Guardar cambios</button></div></div></div>
 
   <div id="global-loader" class="loader hidden"><div class="loader-box"><span class="spinner"></span><span id="loader-text">Procesando…</span></div></div>
   <div id="toast-zone" class="toast-zone" aria-live="polite"></div>
@@ -538,7 +542,7 @@
           const course = adminData.courses.find(c => c.id === e.courseId);
           return `${course ? course.nombre : 'Curso'} · ${e.groupName || 'Sin grupo'}`;
         });
-        return `<tr><td><strong>${esc(u.nombre)}</strong><br><small style="color:var(--muted)">${esc(u.email)}</small></td><td>${esc(u.usuario)}</td><td><span class="status-pill ${u.activo ? '' : 'off'}">${u.activo ? 'ACTIVO' : 'INACTIVO'}</span></td><td>${assigned.length ? assigned.map(esc).join('<br>') : '<span style="color:#98a2b3">Sin cursos</span>'}</td><td><div class="table-actions"><button class="btn btn-secondary btn-small" type="button" onclick="gestionarAlumno('${esc(u.id)}')">Gestionar</button><button class="btn ${u.activo ? 'btn-danger' : 'btn-secondary'} btn-small" type="button" onclick="alternarAlumno('${esc(u.id)}',${!u.activo})">${u.activo ? 'Desactivar' : 'Activar'}</button></div></td></tr>`;
+        return `<tr><td><strong>${esc(u.nombre)}</strong><br><small style="color:var(--muted)">${esc(u.email)}</small></td><td>${esc(u.usuario)}</td><td><span class="status-pill ${u.activo ? '' : 'off'}">${u.activo ? 'ACTIVO' : 'INACTIVO'}</span></td><td>${assigned.length ? assigned.map(esc).join('<br>') : '<span style="color:#98a2b3">Sin cursos</span>'}</td><td><div class="table-actions"><button class="btn btn-secondary btn-small" type="button" onclick="gestionarAlumno('${esc(u.id)}')">Gestionar</button><button class="btn ${u.activo ? 'btn-danger' : 'btn-secondary'} btn-small" type="button" onclick="alternarAlumno('${esc(u.id)}',${!u.activo})">${u.activo ? 'Desactivar' : 'Activar'}</button><button class="btn btn-danger btn-small" type="button" onclick="eliminarAlumno('${esc(u.id)}')">Eliminar</button></div></td></tr>`;
       }).join('') : '<tr><td colspan="5" style="text-align:center;color:#98a2b3;padding:25px">No hay alumnos que coincidan con la búsqueda.</td></tr>';
     }
     $('admin-user-search').addEventListener('input', renderAdminUsers);
@@ -551,8 +555,8 @@
         const selected = selections.find(item => item.cursoId === c.id) || selections.find(item => item.courseId === c.id);
         const checked = Boolean(selected);
         const selectedGroupId = selected ? (selected.grupoId || selected.groupId || '') : '';
-        const groups = adminData.groups.filter(g => g.cursoId === c.id && g.activo);
-        const options = groups.map(g => `<option value="${esc(g.id)}" ${selectedGroupId === g.id ? 'selected' : ''}>${esc(g.nombre)}</option>`).join('');
+        const groups = adminData.groups.filter(g => g.cursoId === c.id && (g.activo || g.id === selectedGroupId));
+        const options = groups.map(g => `<option value="${esc(g.id)}" ${selectedGroupId === g.id ? 'selected' : ''}>${esc(g.nombre)}${g.activo ? '' : ' (inactivo)'}</option>`).join('');
         return `<div class="course-assignment"><label class="course-assignment-title"><input type="checkbox" data-course-check="${esc(prefix)}" data-course-id="${esc(c.id)}" ${checked ? 'checked' : ''}> <span>${esc(c.nombre)}</span></label><div class="field"><label>Grupo de cursada</label><select data-course-group="${esc(prefix)}" data-course-id="${esc(c.id)}" ${checked ? '' : 'disabled'}><option value="">${groups.length ? 'Seleccioná un grupo' : 'Primero creá un grupo'}</option>${options}</select></div></div>`;
       }).join('') : '<p style="font-size:12px;color:var(--muted)">Primero creá y activá un curso.</p>';
       container.querySelectorAll('[data-course-check]').forEach(check => check.addEventListener('change', () => {
@@ -589,6 +593,9 @@
       selectedAdminUserId = userId;
       $('user-modal-title').textContent = 'Gestionar alumno';
       $('user-modal-subtitle').textContent = user.nombre + ' · usuario: ' + user.usuario;
+      $('edit-user-name').value = user.nombre || '';
+      $('edit-user-email').value = user.email || '';
+      $('edit-user-username').value = user.usuario || '';
       renderCourseChecks('edit-user-course-checks', userCourseAssignments(userId), 'edit-course');
       $('reset-user-password').value = '';
       $('user-modal-backdrop').classList.remove('hidden');
@@ -601,18 +608,49 @@
       const userId = selectedAdminUserId;
       const selections = checkedCourseAssignments('edit-course');
       if (selections === null) return;
+      const profile = {
+        nombre: $('edit-user-name').value.trim(),
+        email: $('edit-user-email').value.trim(),
+        usuario: $('edit-user-username').value.trim()
+      };
+      if (!profile.nombre || !profile.usuario) return notify('Completá el nombre y el nombre de usuario.', 'error');
+      if (!$('edit-user-username').checkValidity() || !$('edit-user-email').checkValidity()) return notify('Revisá el usuario y el correo electrónico.', 'error');
       const newPass = $('reset-user-password').value;
-      busy(true, 'Guardando cambios…');
-      callServer('adminGuardarCursosAlumno', [session.token, userId, selections], result => {
-        if (newPass) {
-          callServer('adminRestablecerClave', [session.token, userId, newPass], result2 => {
-            busy(false); notify(result.message + ' ' + result2.message, 'success'); closeUserModal(); recargarAdmin();
-          }, error => { busy(false); serverError(error); });
-        } else {
-          busy(false); notify(result.message, 'success'); closeUserModal(); recargarAdmin();
-        }
-      }, serverError);
+      if (newPass && newPass.length < 10) return notify('La contraseña nueva debe tener al menos 10 caracteres.', 'error');
+      busy(true, 'Guardando datos del alumno…');
+      callServer('adminEditarAlumno', [session.token, userId, profile], profileResult => {
+        callServer('adminGuardarCursosAlumno', [session.token, userId, selections], coursesResult => {
+          const finish = (extraMessage = '') => {
+            busy(false); notify([profileResult.message, coursesResult.message, extraMessage].filter(Boolean).join(' '), 'success');
+            closeUserModal(); recargarAdmin();
+          };
+          if (newPass) {
+            callServer('adminRestablecerClave', [session.token, userId, newPass], result2 => finish(result2.message), error => { busy(false); serverError(error); });
+          } else finish();
+        }, error => { busy(false); serverError(error); });
+      }, error => { busy(false); serverError(error); });
     });
+    function eliminarAlumno(userId) {
+      const user = adminData.users.find(u => u.id === userId && u.rol === 'ALUMNO');
+      if (!user) return notify('No se encontró al alumno.', 'error');
+      if (!confirm('¿Eliminar definitivamente a ' + user.nombre + '? Se borrarán su cuenta, inscripciones e historial de conversaciones. Esta acción no se puede deshacer.')) return;
+      busy(true, 'Eliminando alumno…');
+      callServer('adminEliminarAlumno', [session.token, userId], result => {
+        if (selectedAdminConversation && selectedAdminConversation.userId === userId) resetAdminConversationPanel();
+        notify(result.message, 'success'); recargarAdmin();
+      }, error => { busy(false); serverError(error); });
+    }
+    function resetAdminConversationPanel() {
+      selectedAdminConversation = null;
+      const title = $('admin-chat-title');
+      const body = $('admin-chat-body');
+      const message = $('admin-chat-message');
+      const send = $('admin-send-message');
+      if (title) title.textContent = 'Seleccioná una conversación';
+      if (body) body.innerHTML = '<div class="empty">Todavía no hay una conversación seleccionada.</div>';
+      if (message) { message.value = ''; message.disabled = true; }
+      if (send) send.disabled = true;
+    }
     function alternarAlumno(userId, active) {
       const user = adminData.users.find(u => u.id === userId);
       if (!user || !confirm((active ? '¿Activar' : '¿Desactivar') + ' el acceso de ' + user.nombre + '?')) return;
@@ -639,14 +677,14 @@
         const materials = adminData.materials.filter(m => m.cursoId === c.id);
         const groups = adminData.groups.filter(g => g.cursoId === c.id);
         const activeGroups = groups.filter(g => g.activo);
-        const groupRows = groups.length ? groups.map(g => `<div class="group-row"><div><strong>${esc(g.nombre)}</strong><small>${esc(g.descripcion || 'Grupo del curso')} · ${g.activo ? 'Activo' : 'Inactivo'}</small></div><button class="btn ${g.activo ? 'btn-secondary' : 'btn-primary'} btn-small" type="button" onclick="alternarGrupo('${esc(g.id)}',${!g.activo})">${g.activo ? 'Desactivar' : 'Activar'}</button></div>`).join('') : '<p style="font-size:12px;color:var(--muted)">Todavía no hay grupos. Creá el primero para poder asignar alumnos y materiales.</p>';
+        const groupRows = groups.length ? groups.map(g => `<div class="group-row"><div><strong>${esc(g.nombre)}</strong><small>${esc(g.descripcion || 'Grupo del curso')} · ${g.activo ? 'Activo' : 'Inactivo'}</small></div><div class="table-actions"><button class="btn btn-secondary btn-small" type="button" onclick="editarGrupo('${esc(g.id)}')">Editar</button><button class="btn ${g.activo ? 'btn-secondary' : 'btn-primary'} btn-small" type="button" onclick="alternarGrupo('${esc(g.id)}',${!g.activo})">${g.activo ? 'Desactivar' : 'Activar'}</button><button class="btn btn-danger btn-small" type="button" onclick="eliminarGrupo('${esc(g.id)}')">Eliminar</button></div></div>`).join('') : '<p style="font-size:12px;color:var(--muted)">Todavía no hay grupos. Creá el primero para poder asignar alumnos y materiales.</p>';
         const materialRows = materials.length ? materials.map(m => {
           const releases = adminData.releases.filter(r => r.materialId === m.id);
           const releaseRows = releases.length ? releases.map(r => `<div class="release-row"><div><strong>${esc(r.grupoNombre)}</strong><small>Disponible desde: ${esc(r.fechaProgramada)}</small></div><button class="btn btn-danger btn-small" type="button" onclick="quitarProgramacionMaterial('${esc(r.id)}')">Quitar habilitación</button></div>`).join('') : '<p style="font-size:12px;color:var(--muted)">Aún no está habilitado para ningún grupo.</p>';
           const groupOptions = activeGroups.map(g => `<option value="${esc(g.id)}">${esc(g.nombre)}</option>`).join('');
           return `<div class="material-card"><div class="material-card-title"><div><strong>${esc(m.titulo)}</strong><small>${esc(m.coleccion || 'Sin unidad/clase')} · ${esc(m.nombreArchivo)} · ${esc(m.fecha)}</small><p style="margin-top:5px">${esc(m.descripcion || '')}</p></div><button class="btn btn-danger btn-small" type="button" onclick="eliminarMaterial('${esc(m.id)}')">Eliminar</button></div><div class="subsection"><h4>Habilitar para un grupo</h4><div class="release-form"><div class="field"><label for="release-group-${esc(m.id)}">Grupo</label><select id="release-group-${esc(m.id)}" ${activeGroups.length ? '' : 'disabled'}><option value="">Elegí el grupo</option>${groupOptions}</select></div><div class="field"><label for="release-date-${esc(m.id)}">Fecha y hora (Argentina)</label><input id="release-date-${esc(m.id)}" type="datetime-local" ${activeGroups.length ? '' : 'disabled'}></div><div class="table-actions full-row"><button class="btn btn-primary btn-small" type="button" onclick="programarMaterial('${esc(m.id)}')" ${activeGroups.length ? '' : 'disabled'}>Programar fecha</button><button class="btn btn-secondary btn-small" type="button" onclick="habilitarMaterialAhora('${esc(m.id)}')" ${activeGroups.length ? '' : 'disabled'}>Habilitar ahora</button></div></div><div class="material-list">${releaseRows}</div></div></div>`;
         }).join('') : '<p style="font-size:12px;color:var(--muted)">La biblioteca está vacía. Los archivos que cargues quedarán guardados aquí hasta que programes su habilitación para uno o más grupos.</p>';
-        return `<article class="card"><div class="course-banner"></div><div class="card-top"><div><h3>${esc(c.nombre)}</h3><p>${esc(c.descripcion || '')}</p></div><span class="status-pill ${c.activo ? '' : 'off'}">${c.activo ? 'ACTIVO' : 'INACTIVO'}</span></div><p style="margin-bottom:13px;overflow-wrap:anywhere"><a href="${esc(c.url)}" target="_blank" rel="noopener noreferrer" style="color:var(--blue);font-weight:700">Abrir página pública ↗</a></p><div class="table-actions" style="margin-bottom:17px"><button class="btn btn-secondary btn-small" type="button" onclick="editarCurso('${esc(c.id)}')">Editar</button><button class="btn ${c.activo ? 'btn-danger' : 'btn-secondary'} btn-small" type="button" onclick="alternarCurso('${esc(c.id)}',${!c.activo})">${c.activo ? 'Desactivar' : 'Activar'}</button></div><div class="subsection"><h4>Grupos del curso (${groups.length})</h4><div class="field"><label for="group-name-${esc(c.id)}">Nombre del nuevo grupo</label><input id="group-name-${esc(c.id)}" maxlength="120" placeholder="Ej. Grupo noviembre"></div><button class="btn btn-secondary btn-small" type="button" onclick="crearGrupo('${esc(c.id)}')">＋ Crear grupo</button><div class="material-list">${groupRows}</div></div><div class="subsection"><h4>Biblioteca de materiales</h4><p style="margin-bottom:13px">Subí cada archivo una sola vez. Después elegí para qué grupo y desde cuándo estará disponible. El nombre de unidad o clase es libre.</p><div class="field"><label for="mat-title-${esc(c.id)}">Título del material</label><input id="mat-title-${esc(c.id)}" maxlength="150" placeholder="Ej. Circuitos de iluminación"></div><div class="field"><label for="mat-collection-${esc(c.id)}">Unidad, clase o categoría (opcional)</label><input id="mat-collection-${esc(c.id)}" maxlength="120" placeholder="Ej. Clase 1, Unidad 2, Práctica"></div><div class="field"><label for="mat-desc-${esc(c.id)}">Descripción (opcional)</label><input id="mat-desc-${esc(c.id)}" maxlength="500" placeholder="Qué contiene el archivo"></div><div class="field"><label for="mat-file-${esc(c.id)}">Archivo (máximo 8 MB)</label><input id="mat-file-${esc(c.id)}" type="file" accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.png,.jpg,.jpeg,.txt,.zip"></div><button class="btn btn-primary btn-small" type="button" onclick="subirMaterial('${esc(c.id)}')">↑ Guardar en biblioteca</button><div class="material-list"><strong style="font-size:12px;color:var(--dark)">Materiales en biblioteca (${materials.length})</strong>${materialRows}</div></div></article>`;
+        return `<article class="card"><div class="course-banner"></div><div class="card-top"><div><h3>${esc(c.nombre)}</h3><p>${esc(c.descripcion || '')}</p></div><span class="status-pill ${c.activo ? '' : 'off'}">${c.activo ? 'ACTIVO' : 'INACTIVO'}</span></div><p style="margin-bottom:13px;overflow-wrap:anywhere"><a href="${esc(c.url)}" target="_blank" rel="noopener noreferrer" style="color:var(--blue);font-weight:700">Abrir página pública ↗</a></p><div class="table-actions" style="margin-bottom:17px"><button class="btn btn-secondary btn-small" type="button" onclick="editarCurso('${esc(c.id)}')">Editar</button><button class="btn ${c.activo ? 'btn-danger' : 'btn-secondary'} btn-small" type="button" onclick="alternarCurso('${esc(c.id)}',${!c.activo})">${c.activo ? 'Desactivar' : 'Activar'}</button><button class="btn btn-danger btn-small" type="button" onclick="eliminarCurso('${esc(c.id)}')">Eliminar curso</button></div><div class="subsection"><h4>Grupos del curso (${groups.length})</h4><div class="field"><label for="group-name-${esc(c.id)}">Nombre del nuevo grupo</label><input id="group-name-${esc(c.id)}" maxlength="120" placeholder="Ej. Grupo noviembre"></div><button class="btn btn-secondary btn-small" type="button" onclick="crearGrupo('${esc(c.id)}')">＋ Crear grupo</button><div class="material-list">${groupRows}</div></div><div class="subsection"><h4>Biblioteca de materiales</h4><p style="margin-bottom:13px">Subí cada archivo una sola vez. Después elegí para qué grupo y desde cuándo estará disponible. El nombre de unidad o clase es libre.</p><div class="field"><label for="mat-title-${esc(c.id)}">Título del material</label><input id="mat-title-${esc(c.id)}" maxlength="150" placeholder="Ej. Circuitos de iluminación"></div><div class="field"><label for="mat-collection-${esc(c.id)}">Unidad, clase o categoría (opcional)</label><input id="mat-collection-${esc(c.id)}" maxlength="120" placeholder="Ej. Clase 1, Unidad 2, Práctica"></div><div class="field"><label for="mat-desc-${esc(c.id)}">Descripción (opcional)</label><input id="mat-desc-${esc(c.id)}" maxlength="500" placeholder="Qué contiene el archivo"></div><div class="field"><label for="mat-file-${esc(c.id)}">Archivo (máximo 8 MB)</label><input id="mat-file-${esc(c.id)}" type="file" accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.png,.jpg,.jpeg,.txt,.zip"></div><button class="btn btn-primary btn-small" type="button" onclick="subirMaterial('${esc(c.id)}')">↑ Guardar en biblioteca</button><div class="material-list"><strong style="font-size:12px;color:var(--dark)">Materiales en biblioteca (${materials.length})</strong>${materialRows}</div></div></article>`;
       }).join('');
     }
     $('course-form').addEventListener('submit', event => {
@@ -667,6 +705,40 @@
       const c = adminData.courses.find(x => x.id === id); if (!c) return;
       if (!confirm((active ? '¿Activar' : '¿Desactivar') + ' el curso "' + c.nombre + '"?')) return;
       busy(true, 'Actualizando curso…'); callServer('adminCambiarEstadoCurso', [session.token,id,active], result => { notify(result.message,'success'); recargarAdmin(); },serverError);
+    }
+    function eliminarCurso(id) {
+      const course = adminData.courses.find(c => c.id === id);
+      if (!course) return notify('No se encontró el curso.', 'error');
+      const confirmation = '¿Eliminar DEFINITIVAMENTE el curso "' + course.nombre + '"? Se borrarán todos sus grupos, inscripciones a ese curso, materiales y archivos privados, fechas y conversaciones. Los alumnos conservarán sus cuentas y los demás cursos que tengan. Esta acción no se puede deshacer.';
+      if (!confirm(confirmation)) return;
+      busy(true, 'Eliminando curso y toda su información…');
+      callServer('adminEliminarCurso', [session.token, id], result => {
+        if (selectedAdminConversation && selectedAdminConversation.courseId === id) resetAdminConversationPanel();
+        resetCourseForm(); notify(result.message, 'success'); recargarAdmin();
+      }, error => { busy(false); serverError(error); });
+    }
+    function editarGrupo(groupId) {
+      const group = adminData.groups.find(g => g.id === groupId);
+      if (!group) return notify('No se encontró el grupo.', 'error');
+      const nombre = prompt('Nombre del grupo:', group.nombre || '');
+      if (nombre === null) return;
+      const cleanName = nombre.trim();
+      if (!cleanName) return notify('El nombre del grupo no puede quedar vacío.', 'error');
+      const descripcion = prompt('Descripción del grupo (opcional):', group.descripcion || '');
+      if (descripcion === null) return;
+      busy(true, 'Guardando grupo…');
+      callServer('adminEditarGrupo', [session.token, groupId, { nombre: cleanName, descripcion: descripcion.trim() }], result => {
+        busy(false); notify(result.message, 'success'); recargarAdmin();
+      }, error => { busy(false); serverError(error); });
+    }
+    function eliminarGrupo(groupId) {
+      const group = adminData.groups.find(g => g.id === groupId);
+      if (!group) return notify('No se encontró el grupo.', 'error');
+      if (!confirm('¿Eliminar el grupo "' + group.nombre + '"? También se eliminarán las habilitaciones de materiales y las fechas específicas de ese grupo. No se puede eliminar si todavía tiene alumnos asignados.')) return;
+      busy(true, 'Eliminando grupo…');
+      callServer('adminEliminarGrupo', [session.token, groupId], result => {
+        busy(false); notify(result.message, 'success'); recargarAdmin();
+      }, error => { busy(false); serverError(error); });
     }
     function crearGrupo(courseId) {
       const input = $('group-name-' + courseId);
@@ -767,7 +839,7 @@
       $('admin-conversations').innerHTML = conversations.length ? conversations.map(c=>{
         const u=adminData.users.find(x=>x.id===c.usuarioId); const course=getCourseName(c.cursoId,adminData.courses);
         if(!u) return '';
-        return `<button class="conversation-choice" type="button" onclick="abrirConversacionAdmin('${esc(c.usuarioId)}','${esc(c.cursoId)}')"><strong>${esc(u.nombre)}</strong><small>${esc(course)} · ${esc(c.fecha)}</small><p>${c.rol==='ADMIN'?'Tu respuesta: ':'Alumno: '}${esc(c.mensaje)}</p></button>`;
+        return `<div class="conversation-entry"><button class="conversation-choice" type="button" onclick="abrirConversacionAdmin('${esc(c.usuarioId)}','${esc(c.cursoId)}')"><strong>${esc(u.nombre)}</strong><small>${esc(course)} · ${esc(c.fecha)}</small><p>${c.rol==='ADMIN'?'Tu respuesta: ':'Alumno: '}${esc(c.mensaje)}</p></button><button class="btn btn-danger btn-small" type="button" onclick="eliminarConversacionAdmin('${esc(c.usuarioId)}','${esc(c.cursoId)}')">Eliminar chat</button></div>`;
       }).join('') : '<div class="empty"><strong>No hay consultas</strong>Las nuevas consultas de alumnos aparecerán acá.</div>';
     }
     function abrirConversacionAdmin(userId, courseId) {
@@ -777,6 +849,17 @@
       $('admin-chat-message').disabled=false; $('admin-send-message').disabled=false;
       $('admin-chat-body').innerHTML='<div class="empty">Cargando conversación…</div>';
       callServer('adminObtenerConversacion',[session.token,userId,courseId],messages=>renderChat('admin-chat-body',messages,'ADMIN'),serverError);
+    }
+    function eliminarConversacionAdmin(userId, courseId) {
+      const user = adminData.users.find(x => x.id === userId);
+      const course = adminData.courses.find(x => x.id === courseId);
+      if (!user || !course) return notify('No se encontró la conversación.', 'error');
+      if (!confirm('¿Eliminar todo el historial de consultas entre ' + user.nombre + ' y el curso "' + course.nombre + '"? La cuenta y la inscripción del alumno no se eliminarán. El alumno podrá volver a escribir.')) return;
+      busy(true, 'Eliminando conversación…');
+      callServer('adminEliminarConversacion', [session.token, userId, courseId], result => {
+        if (selectedAdminConversation && selectedAdminConversation.userId === userId && selectedAdminConversation.courseId === courseId) resetAdminConversationPanel();
+        notify(result.message, 'success'); recargarAdmin();
+      }, error => { busy(false); serverError(error); });
     }
     $('admin-send-message').addEventListener('click',()=>{
       if(!selectedAdminConversation) return notify('Seleccioná una conversación.','error');
@@ -798,9 +881,9 @@
       el.scrollTop=el.scrollHeight;
     }
     // Botones de modal expuestos al HTML generado de manera segura: IDs internos generados por el servidor.
-    window.gestionarAlumno=gestionarAlumno; window.alternarAlumno=alternarAlumno; window.editarCurso=editarCurso; window.alternarCurso=alternarCurso;
-    window.crearGrupo=crearGrupo; window.alternarGrupo=alternarGrupo; window.programarMaterial=programarMaterial; window.habilitarMaterialAhora=habilitarMaterialAhora; window.quitarProgramacionMaterial=quitarProgramacionMaterial;
-    window.subirMaterial=subirMaterial; window.eliminarMaterial=eliminarMaterial; window.eliminarEvento=eliminarEvento; window.abrirConversacionAdmin=abrirConversacionAdmin; window.descargarMaterialUI=descargarMaterialUI;
+    window.gestionarAlumno=gestionarAlumno; window.alternarAlumno=alternarAlumno; window.eliminarAlumno=eliminarAlumno; window.editarCurso=editarCurso; window.alternarCurso=alternarCurso; window.eliminarCurso=eliminarCurso;
+    window.crearGrupo=crearGrupo; window.editarGrupo=editarGrupo; window.alternarGrupo=alternarGrupo; window.eliminarGrupo=eliminarGrupo; window.programarMaterial=programarMaterial; window.habilitarMaterialAhora=habilitarMaterialAhora; window.quitarProgramacionMaterial=quitarProgramacionMaterial;
+    window.subirMaterial=subirMaterial; window.eliminarMaterial=eliminarMaterial; window.eliminarEvento=eliminarEvento; window.abrirConversacionAdmin=abrirConversacionAdmin; window.eliminarConversacionAdmin=eliminarConversacionAdmin; window.descargarMaterialUI=descargarMaterialUI;
     window.showStudentTab=showStudentTab;
 
 
