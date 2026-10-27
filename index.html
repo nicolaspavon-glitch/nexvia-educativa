@@ -24,6 +24,131 @@
     <link rel="stylesheet" href="estilos.css">
     <link rel="stylesheet" href="novedades.css">
 
+    <!-- Ajuste visual de portada para escritorio; no modifica la presentación móvil. -->
+    <style id="nexvia-hero-desktop-refinement">
+      @media (min-width: 951px) {
+        .hero {
+          min-height: 0;
+          padding: 0;
+        }
+        .hero .hero-contenido {
+          width: min(1180px, 92%);
+          max-width: 1180px;
+          min-height: 0;
+          height: auto;
+          margin: 0 auto;
+          padding: clamp(50px, 5.2vw, 72px) 0;
+          display: grid;
+          grid-template-columns: minmax(0, 1.2fr) minmax(350px, .8fr);
+          align-items: center;
+          gap: clamp(38px, 5vw, 72px);
+        }
+        .hero .hero-texto {
+          width: 100%;
+          max-width: 660px;
+          min-width: 0;
+          position: relative;
+          z-index: 1;
+        }
+        .hero .hero-texto h1 {
+          max-width: 660px;
+          margin: 16px 0 23px;
+          font-size: clamp(52px, 4.2vw, 64px);
+          line-height: 1.03;
+          letter-spacing: -2.1px;
+          text-wrap: balance;
+        }
+        .hero .hero-texto h1 span { display: block; }
+        .hero .hero-texto > p {
+          max-width: 580px;
+          margin: 0;
+          font-size: 17px;
+          line-height: 1.7;
+        }
+        .hero .hero-botones {
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          gap: 12px;
+          margin-top: 26px;
+        }
+        .hero .hero-visual {
+          width: 100%;
+          min-width: 0;
+          margin: 0;
+          padding: 0;
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+          position: relative;
+          transform: none;
+        }
+        .hero .tarjeta-hero {
+          width: 100%;
+          max-width: 430px;
+          min-width: 0;
+          min-height: 0;
+          height: auto;
+          margin: 0;
+          padding: 27px clamp(23px, 2.3vw, 31px) 24px;
+          border-radius: 24px;
+          box-sizing: border-box;
+        }
+        .hero .icono-hero {
+          width: 100%;
+          height: 205px;
+          min-height: 0;
+          margin: 0 auto 17px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          overflow: hidden;
+        }
+        .hero .icono-hero img {
+          display: block;
+          width: auto;
+          height: auto;
+          max-width: 100%;
+          max-height: 205px;
+          object-fit: contain;
+        }
+        .hero .tarjeta-hero > span { display: block; margin-top: 0; }
+        .hero .tarjeta-hero h3 {
+          margin: 13px 0 10px;
+          font-size: clamp(23px, 2vw, 27px);
+          line-height: 1.17;
+          text-wrap: balance;
+        }
+        .hero .tarjeta-hero p { margin: 0; font-size: 14px; line-height: 1.65; }
+        .hero .linea-hero { margin: 19px 0; }
+        .hero .datos-hero {
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 12px;
+        }
+        .hero .datos-hero > div { min-width: 0; }
+        .hero .datos-hero strong { font-size: clamp(15px, 1.5vw, 20px); }
+        .hero .datos-hero span { font-size: 12px; }
+
+        /* Separa la portada de Novedades sin alterar su carrusel. */
+        .nx-news-section--featured {
+          padding-top: clamp(62px, 6vw, 80px);
+          padding-bottom: clamp(62px, 6vw, 80px);
+          border-top: 1px solid rgba(21, 87, 166, .08);
+        }
+      }
+      @media (min-width: 951px) and (max-width: 1200px) {
+        .hero .hero-contenido {
+          grid-template-columns: minmax(0, 1.1fr) minmax(320px, .9fr);
+          gap: 34px;
+        }
+        .hero .hero-texto h1 { font-size: clamp(48px, 4.5vw, 56px); }
+        .hero .tarjeta-hero { padding: 23px 23px 21px; }
+        .hero .icono-hero { height: 185px; }
+        .hero .icono-hero img { max-height: 185px; }
+      }
+    </style>
+
 </head>
 
 
