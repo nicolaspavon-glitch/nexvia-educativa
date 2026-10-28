@@ -89,6 +89,24 @@
       .material-preview-panel iframe { height:65vh; min-height:260px; }
     }
   </style>
+  <style id="exam-module-styles">
+    .exam-question-editor{border:1px solid var(--border);border-radius:12px;padding:14px;margin:12px 0;background:#fbfdff}
+    .exam-question-editor-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}
+    .exam-question-editor-head strong{color:var(--dark);font-size:13px}
+    .exam-question-editor .field{margin-bottom:10px}
+    .exam-course-block{margin:18px 0;padding:16px;border:1px solid var(--border);border-radius:14px;background:#fff}
+    .exam-admin-card{margin-top:12px;padding:14px;border:1px solid var(--border);border-radius:12px;background:#fbfdff;min-width:0}
+    .exam-submission{margin-top:12px;padding:14px;border:1px solid var(--border);border-radius:12px;background:#fff}
+    .exam-answer{padding:10px 12px;border-radius:9px;background:#f5f8fc;margin-top:7px;white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px}
+    .exam-student-item{border:1px solid var(--border);border-radius:10px;padding:13px;margin:9px 0;background:#fff}
+    .exam-student-item p{margin-top:5px;white-space:pre-wrap;overflow-wrap:anywhere}
+    .exam-question-live{border:1px solid var(--border);border-radius:12px;padding:15px;margin:13px 0;background:#fff}
+    .exam-option{display:flex;gap:9px;align-items:flex-start;padding:9px 10px;border:1px solid var(--border);border-radius:9px;margin-top:7px;font-size:14px}
+    .exam-option input{margin-top:4px;accent-color:var(--blue)}
+    .exam-grade-grid{display:grid;grid-template-columns:150px minmax(0,1fr);gap:10px;align-items:start;margin-top:12px}
+    .exam-grade-grid .field{margin:0}
+    @media(max-width:620px){.exam-course-block,.exam-admin-card,.exam-submission{padding:11px}.exam-grade-grid{grid-template-columns:1fr}}
+  </style>
 
 </head>
 <body>
@@ -186,6 +204,7 @@
         <button data-atab="inicio" class="active" type="button"><span class="nav-icon">⌂</span> Resumen</button>
         <button data-atab="alumnos" type="button"><span class="nav-icon">♙</span> Alumnos</button>
         <button data-atab="cursos" type="button"><span class="nav-icon">▤</span> Cursos y material</button>
+        <button data-atab="examenes" type="button"><span class="nav-icon">✓</span> Exámenes</button>
         <button data-atab="calendario" type="button"><span class="nav-icon">▦</span> Calendario</button>
         <button data-atab="mensajes" type="button"><span class="nav-icon">✉</span> Mensajes</button>
         <button data-atab="novedades" type="button"><span class="nav-icon">✦</span> Novedades</button>
@@ -201,6 +220,28 @@
         <section id="a-cursos" class="view"><div class="section-head"><div><div class="eyebrow">CONTENIDO COMPARTIDO</div><h2>Cursos y materiales</h2><p>Cada curso tiene sus grupos, una biblioteca flexible de contenidos y fechas de habilitación independientes.</p></div></div>
           <div class="card form-card"><h3 id="course-form-title">Agregar curso al catálogo</h3><form id="course-form"><input id="course-id" type="hidden"><div class="form-grid"><div class="field"><label for="course-name">Nombre del curso</label><input id="course-name" required maxlength="120"></div><div class="field"><label for="course-url">URL de la página pública</label><input id="course-url" type="url" placeholder="https://..." required></div><div class="field wide"><label for="course-description">Descripción corta</label><textarea id="course-description" maxlength="600"></textarea></div><div class="field wide"><label for="course-image">Imagen promocional (opcional)</label><input id="course-image" type="file" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp"><small style="font-size:11px;color:var(--muted)">Se mostrará únicamente en “Otros cursos” a alumnos que no estén inscriptos en esta formación. Usá una imagen horizontal; idealmente, proporción 16:7.</small><div id="course-image-preview-wrap" class="promo-image-preview-wrap hidden"><img id="course-image-preview" class="promo-image-preview" alt="Vista previa de la imagen promocional"><div class="promo-image-preview-actions"><small id="course-image-status">Imagen lista para guardar.</small><button id="course-image-remove" class="btn btn-secondary btn-small" type="button">Quitar imagen</button></div></div></div></div><div class="table-actions"><button class="btn btn-primary" type="submit">Guardar curso</button><button id="course-form-cancel" class="btn btn-secondary hidden" type="button">Cancelar edición</button></div></form></div>
           <div id="admin-course-cards" class="grid"></div>
+        </section>
+
+        <section id="a-examenes" class="view">
+          <div class="section-head"><div><div class="eyebrow">EVALUACIÓN Y SEGUIMIENTO</div><h2>Exámenes</h2><p>Creá evaluaciones por curso o grupo, revisá las entregas y devolvé una nota de 0 a 10 con comentarios.</p></div><button class="btn btn-secondary" type="button" onclick="recargarAdmin()">↻ Actualizar</button></div>
+          <div class="card form-card">
+            <h3 id="exam-form-title">Agregar examen</h3>
+            <p style="margin-bottom:16px">Las preguntas de opción múltiple tienen una sola respuesta elegible. Las preguntas de párrafo las corregís manualmente. Cada alumno puede entregar una vez.</p>
+            <form id="exam-form">
+              <input id="exam-id" type="hidden">
+              <div class="form-grid">
+                <div class="field"><label for="exam-course">Curso</label><select id="exam-course" required></select></div>
+                <div class="field"><label for="exam-group">Destinatarios</label><select id="exam-group"><option value="">Todos los grupos del curso</option></select></div>
+                <div class="field wide"><label for="exam-title">Título del examen</label><input id="exam-title" maxlength="150" required placeholder="Ej. Evaluación de circuitos monofásicos"></div>
+                <div class="field wide"><label for="exam-description">Indicaciones para el alumno</label><textarea id="exam-description" maxlength="1200" rows="3" placeholder="Leé cada consigna y respondé todas las preguntas antes de entregar."></textarea></div>
+                <div class="field wide"><label class="check-option"><input id="exam-published" type="checkbox" checked> Publicar en la biblioteca de los alumnos al guardar</label></div>
+              </div>
+              <div class="subsection"><h4>Preguntas</h4><div id="exam-question-editors"></div><button id="exam-add-question" class="btn btn-secondary btn-small" type="button">＋ Agregar pregunta</button></div>
+              <div class="table-actions" style="margin-top:16px"><button class="btn btn-primary" type="submit">Guardar examen</button><button id="exam-cancel-edit" class="btn btn-secondary hidden" type="button">Cancelar edición</button></div>
+            </form>
+          </div>
+          <div class="section-head" style="margin-top:28px"><div><h2 style="font-size:21px">Exámenes por curso</h2><p>Las entregas se muestran dentro de cada curso y se pueden corregir desde acá.</p></div><div class="field" style="min-width:min(280px,100%);margin:0"><label for="exam-admin-course-filter">Filtrar por curso</label><select id="exam-admin-course-filter"><option value="">Todos los cursos</option></select></div></div>
+          <div id="admin-exams-list"></div>
         </section>
 
         <section id="a-calendario" class="view"><div class="section-head"><div><div class="eyebrow">PLANIFICACIÓN</div><h2>Calendario de cursos</h2><p>Publicá fechas de exámenes, clases, entregas y nuevo contenido.</p></div></div>
@@ -237,6 +278,8 @@
     <div class="wrap footer-note" style="padding-bottom:22px">Nexvia Educativa · Aula Virtual</div>
   </div>
 
+  <div id="student-exam-backdrop" class="modal-backdrop hidden"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="student-exam-title"><div class="modal-head"><div><h3 id="student-exam-title">Examen</h3><small id="student-exam-course-label" style="color:var(--muted)"></small></div><button class="close-x" id="close-student-exam" type="button" aria-label="Cerrar examen">×</button></div><form id="student-exam-form"><div class="modal-body"><p id="student-exam-description" style="font-size:13px;color:var(--muted);white-space:pre-wrap"></p><div id="student-exam-questions"></div><p style="font-size:12px;color:var(--muted);margin-top:14px">Al entregar, no vas a poder cambiar las respuestas. La nota y la devolución aparecerán en Mis cursos cuando la administración corrija la evaluación.</p></div><div class="modal-actions"><button class="btn btn-secondary" id="cancel-student-exam" type="button">Cancelar</button><button class="btn btn-primary" id="submit-student-exam" type="submit">Entregar examen</button></div></form></div></div>
+
   <div id="user-modal-backdrop" class="modal-backdrop hidden"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="user-modal-title"><div class="modal-head"><h3 id="user-modal-title">Gestionar alumno</h3><button class="close-x" id="close-user-modal" type="button" aria-label="Cerrar">×</button></div><div class="modal-body"><p id="user-modal-subtitle" style="font-size:13px;color:var(--muted);margin:0 0 16px"></p><h4 style="margin:0 0 10px;color:var(--dark)">Datos del alumno</h4><div class="form-grid"><div class="field"><label for="edit-user-name">Nombre completo</label><input id="edit-user-name" required maxlength="120"></div><div class="field"><label for="edit-user-email">Correo electrónico</label><input id="edit-user-email" type="email" maxlength="160"></div><div class="field wide"><label for="edit-user-username">Nombre de usuario</label><input id="edit-user-username" required minlength="4" maxlength="40" pattern="[A-Za-z0-9._-]{4,40}" autocomplete="off"></div></div><h4 style="margin:16px 0 10px;color:var(--dark)">Cursos asignados</h4><div id="edit-user-course-checks" class="check-grid"></div><div class="field" style="margin-top:18px"><label for="reset-user-password">Restablecer contraseña (opcional)</label><input id="reset-user-password" type="password" minlength="10" maxlength="150" placeholder="Dejalo vacío si no querés cambiarla"><small style="font-size:11px;color:var(--muted)">Si la modificás, entregale la nueva contraseña al alumno por un canal privado.</small></div></div><div class="modal-actions"><button class="btn btn-secondary" id="cancel-user-modal" type="button">Cancelar</button><button class="btn btn-primary" id="save-user-modal" type="button">Guardar cambios</button></div></div></div>
 
   <div id="global-loader" class="loader hidden"><div class="loader-box"><span class="spinner"></span><span id="loader-text">Procesando…</span></div></div>
@@ -250,6 +293,8 @@
     let selectedAdminUserId = '';
     let selectedAdminConversation = null;
     const materialPreviewUrls = new Map();
+    let studentExamCurrent = null;
+    let examQuestionCounter = 0;
 
     const $ = id => document.getElementById(id);
     const esc = value => String(value == null ? '' : value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
@@ -492,7 +537,7 @@
       $('student-home-courses').innerHTML = studentData.courses.length ? studentData.courses.map(c => `
         <article class="card"><div class="course-banner"></div><div class="card-top"><h3>${esc(c.nombre)}</h3><span class="tag green">Inscripto</span></div><p>${esc(c.descripcion || 'Tu espacio de formación en Nexvia Educativa.')}</p><div style="margin-top:17px"><button class="btn btn-primary" type="button" onclick="showStudentTab('cursos')">Ver materiales →</button></div></article>`).join('') : `<div class="empty" style="grid-column:1/-1"><strong>Todavía no tenés cursos asignados</strong>Contactá a Nexvia Educativa para revisar tu acceso.</div>`;
       $('student-courses').innerHTML = studentData.courses.length ? studentData.courses.map(c => `
-        <article class="card"><div class="course-banner"></div><div class="card-top"><h3>${esc(c.nombre)}</h3><span class="tag">Curso</span></div><p>${esc(c.descripcion || 'Materiales y novedades del curso.')}</p>${c.grupoNombre ? `<p style="margin-top:6px"><b>Tu grupo:</b> ${esc(c.grupoNombre)}</p>` : ''}<div class="material-list">${c.materiales.length ? renderStudentMaterialCollections(c.materiales) : `<div class="empty"><strong>Aún no hay materiales habilitados</strong>El contenido aparecerá aquí cuando llegue la fecha de habilitación para tu grupo.</div>`}</div></article>`).join('') : `<div class="empty" style="grid-column:1/-1"><strong>No hay cursos asignados</strong>Cuando se te asigne una formación, la vas a ver acá.</div>`;
+        <article class="card"><div class="course-banner"></div><div class="card-top"><h3>${esc(c.nombre)}</h3><span class="tag">Curso</span></div><p>${esc(c.descripcion || 'Materiales y novedades del curso.')}</p>${c.grupoNombre ? `<p style="margin-top:6px"><b>Tu grupo:</b> ${esc(c.grupoNombre)}</p>` : ''}<div class="material-list">${(c.materiales.length || (c.examenes || []).length) ? (c.materiales.length ? renderStudentMaterialCollections(c.materiales) : '') + renderStudentExams(c.examenes || []) : `<div class="empty"><strong>Aún no hay materiales ni exámenes habilitados</strong>El contenido aparecerá aquí cuando se habilite para tu grupo.</div>`}</div></article>`).join('') : `<div class="empty" style="grid-column:1/-1"><strong>No hay cursos asignados</strong>Cuando se te asigne una formación, la vas a ver acá.</div>`;
       const eventRows = [...studentData.events].sort((a,b) => String(a.fechaHora).localeCompare(String(b.fechaHora)));
       $('student-events').innerHTML = eventRows.length ? eventRows.map(e => eventHtml(e, getCourseName(e.cursoId, studentData.courses))).join('') : `<div class="empty"><strong>No hay fechas publicadas</strong>Cuando se programe un examen o una actividad, aparecerá en este calendario.</div>`;
       $('student-ads').innerHTML = studentData.ads.length ? studentData.ads.map(c => `<article class="card promo-course-card">${c.imagenPromocional ? `<img class="promo-course-image" src="${esc(c.imagenPromocional)}" alt="Imagen promocional de ${esc(c.nombre)}" loading="lazy">` : `<div class="course-banner"></div>`}<span class="eyebrow">OTRA FORMACIÓN</span><h3 style="margin-top:7px">${esc(c.nombre)}</h3><p>${esc(c.descripcion || 'Conocé esta propuesta de formación online.')}</p><a class="btn btn-primary" style="margin-top:17px" href="${esc(c.url)}" target="_blank" rel="noopener noreferrer">Ver curso ↗</a></article>`).join('') : `<div class="empty" style="grid-column:1/-1"><strong>No hay otros cursos publicados</strong>Estamos preparando nuevas propuestas de formación.</div>`;
@@ -526,6 +571,78 @@
         return `<div class="material-resource"><div class="material-item"><div><strong>${esc(m.titulo)}</strong><small>${esc(m.descripcion || m.nombreArchivo)} · ${esc(m.fecha)}</small></div><div class="material-item-actions">${previewButton}<button class="btn btn-secondary btn-small" type="button" onclick="descargarMaterialUI('${esc(m.id)}')">↓ Descargar</button></div></div><div class="material-preview-panel" id="material-preview-${esc(m.id)}" hidden></div></div>`;
       }).join('')}</div>`).join('');
     }
+    function renderStudentExams(exams) {
+      if (!exams || !exams.length) return '';
+      return `<div class="student-material-section"><h4>Exámenes y evaluaciones</h4>${exams.map(exam => {
+        let status = '<span class="tag">Pendiente</span>';
+        let action = `<button class="btn btn-primary btn-small" type="button" onclick="abrirExamenAlumno('${esc(exam.id)}')">Comenzar examen →</button>`;
+        let result = '';
+        if (exam.entregado && !exam.corregido) {
+          status = '<span class="tag gray">Entregado</span>';
+          action = '<span class="status-pill off">Pendiente de corrección</span>';
+        } else if (exam.corregido) {
+          status = '<span class="tag green">Corregido</span>';
+          action = '';
+          result = `<p style="margin-top:8px"><strong>Nota: ${esc(exam.nota)}/10</strong></p>${exam.devolucion ? `<p class="exam-answer" style="margin-top:6px"><strong>Devolución docente</strong><br>${esc(exam.devolucion)}</p>` : ''}`;
+        }
+        return `<div class="exam-student-item"><div class="card-top" style="margin:0;align-items:center"><strong>${esc(exam.titulo)}</strong>${status}</div>${exam.descripcion ? `<p>${esc(exam.descripcion)}</p>` : ''}<small style="display:block;color:var(--muted);margin-top:4px">${Number(exam.cantidadPreguntas)} pregunta(s)${exam.grupoNombre ? ' · Grupo: ' + esc(exam.grupoNombre) : ''}</small>${result}<div style="margin-top:10px">${action}</div></div>`;
+      }).join('')}</div>`;
+    }
+    
+    async function abrirExamenAlumno(examId) {
+      if (!session || !studentData) return showLogin();
+      const exam = studentData.courses.flatMap(course => course.examenes || []).find(item => item.id === examId);
+      if (!exam || exam.entregado) return notify('Este examen ya fue entregado o no está disponible.', 'error');
+      busy(true, 'Abriendo examen…');
+      callServer('alumnoObtenerExamen', [session.token, examId], data => {
+        busy(false);
+        if (data.yaEntregado) { notify('Ya entregaste este examen.', 'error'); loadStudentDashboard(true); return; }
+        studentExamCurrent = data;
+        $('student-exam-title').textContent = data.titulo || 'Examen';
+        $('student-exam-course-label').textContent = data.cursoNombre || '';
+        $('student-exam-description').textContent = data.descripcion || 'Respondé todas las preguntas y revisá tus respuestas antes de entregar.';
+        $('student-exam-questions').innerHTML = (data.preguntas || []).map((question, index) => {
+          const prompt = `<div style="font-weight:800;color:var(--dark);margin-bottom:8px">${index + 1}. ${esc(question.enunciado)}</div>`;
+          if (question.tipo === 'multiple') {
+            return `<fieldset class="exam-question-live" data-exam-qid="${esc(question.id)}" data-exam-type="multiple" style="border:1px solid var(--border);min-width:0"><legend style="font-size:13px;color:var(--dark)">Pregunta ${index + 1}</legend>${prompt}${(question.opciones || []).map((option, optionIndex) => `<label class="exam-option"><input type="radio" name="exam-answer-${esc(question.id)}" value="${optionIndex}"><span>${esc(option)}</span></label>`).join('')}</fieldset>`;
+          }
+          return `<div class="exam-question-live" data-exam-qid="${esc(question.id)}" data-exam-type="paragraph">${prompt}<textarea class="control" data-exam-paragraph rows="5" maxlength="8000" placeholder="Escribí tu respuesta…"></textarea></div>`;
+        }).join('');
+        $('student-exam-backdrop').classList.remove('hidden');
+      }, error => { busy(false); serverError(error); });
+    }
+    function closeStudentExam() {
+      $('student-exam-backdrop').classList.add('hidden');
+      $('student-exam-questions').innerHTML = '';
+      studentExamCurrent = null;
+    }
+    $('close-student-exam').addEventListener('click', closeStudentExam);
+    $('cancel-student-exam').addEventListener('click', closeStudentExam);
+    $('student-exam-backdrop').addEventListener('click', event => { if (event.target === $('student-exam-backdrop')) closeStudentExam(); });
+    $('student-exam-form').addEventListener('submit', event => {
+      event.preventDefault();
+      if (!studentExamCurrent) return;
+      const answers = {};
+      for (const question of $('student-exam-questions').querySelectorAll('[data-exam-qid]')) {
+        const questionId = question.dataset.examQid;
+        if (question.dataset.examType === 'multiple') {
+          const chosen = question.querySelector('input[type="radio"]:checked');
+          if (!chosen) return notify('Respondé todas las preguntas antes de entregar.', 'error');
+          answers[questionId] = chosen.value;
+        } else {
+          const response = question.querySelector('[data-exam-paragraph]').value.trim();
+          if (!response) return notify('Respondé todas las preguntas antes de entregar.', 'error');
+          answers[questionId] = response;
+        }
+      }
+      if (!confirm('¿Querés entregar el examen? Después no vas a poder modificar tus respuestas.')) return;
+      $('submit-student-exam').disabled = true;
+      busy(true, 'Entregando examen…');
+      callServer('alumnoEntregarExamen', [session.token, studentExamCurrent.id, answers], result => {
+        busy(false); $('submit-student-exam').disabled = false; closeStudentExam(); notify(result.message || 'Examen entregado.', 'success'); loadStudentDashboard(true);
+      }, error => { busy(false); $('submit-student-exam').disabled = false; serverError(error); });
+    });
+
     function getCourseName(id, courses) { const c = courses.find(x => x.id === id); return c ? c.nombre : 'Curso'; }
     function eventHtml(e, courseName) {
       const parts = String(e.fechaHora || '').split('T');
@@ -682,6 +799,7 @@
       document.querySelectorAll('#admin-area [data-atab]').forEach(btn => btn.classList.toggle('active', btn.dataset.atab === tab));
       if (tab === 'mensajes' && adminData) renderAdminConversations();
       if (tab === 'novedades' && adminData) renderAdminAnnouncements();
+      if (tab === 'examenes' && adminData) renderAdminExams();
     }
     function renderAdmin() {
       if (!adminData) return;
@@ -693,7 +811,7 @@
         <div class="stat"><span class="stat-label">Alumnos registrados</span><strong>${students.length}</strong><small>${activeStudents} con acceso activo</small></div>
         <div class="stat"><span class="stat-label">Cursos publicados</span><strong>${activeCourses}</strong><small>Incluye catálogo y materiales</small></div>
         <div class="stat"><span class="stat-label">Consultas recibidas</span><strong>${unread}</strong><small>Mensajes de alumnos registrados</small></div>`;
-      renderAdminUsers(); renderCourseChecks('new-user-course-checks', [], 'new-course'); renderAdminCourses(); renderAdminEvents(); renderAdminConversations(); renderCourseSelects(); renderAdminAnnouncements();
+      renderAdminUsers(); renderCourseChecks('new-user-course-checks', [], 'new-course'); renderAdminCourses(); renderAdminEvents(); renderAdminConversations(); renderCourseSelects(); renderAdminAnnouncements(); renderAdminExams();
     }
     function userCourseAssignments(userId) {
       return adminData.enrollments.filter(e => e.userId === userId).map(e => ({ cursoId: e.courseId, grupoId: e.groupId }));
@@ -848,9 +966,159 @@
           const groupOptions = activeGroups.map(g => `<option value="${esc(g.id)}">${esc(g.nombre)}</option>`).join('');
           return `<div class="material-card"><div class="material-card-title"><div><strong>${esc(m.titulo)}</strong><small>${esc(m.coleccion || 'Sin unidad/clase')} · ${esc(m.nombreArchivo)} · ${esc(m.fecha)}</small><p style="margin-top:5px">${esc(m.descripcion || '')}</p></div><button class="btn btn-danger btn-small" type="button" onclick="eliminarMaterial('${esc(m.id)}')">Eliminar</button></div><div class="subsection"><h4>Habilitar para un grupo</h4><div class="release-form"><div class="field"><label for="release-group-${esc(m.id)}">Grupo</label><select id="release-group-${esc(m.id)}" ${activeGroups.length ? '' : 'disabled'}><option value="">Elegí el grupo</option>${groupOptions}</select></div><div class="field"><label for="release-date-${esc(m.id)}">Fecha y hora (Argentina)</label><input id="release-date-${esc(m.id)}" type="datetime-local" ${activeGroups.length ? '' : 'disabled'}></div><div class="table-actions full-row"><button class="btn btn-primary btn-small" type="button" onclick="programarMaterial('${esc(m.id)}')" ${activeGroups.length ? '' : 'disabled'}>Programar fecha</button><button class="btn btn-secondary btn-small" type="button" onclick="habilitarMaterialAhora('${esc(m.id)}')" ${activeGroups.length ? '' : 'disabled'}>Habilitar ahora</button></div></div><div class="material-list">${releaseRows}</div></div></div>`;
         }).join('') : '<p style="font-size:12px;color:var(--muted)">La biblioteca está vacía. Los archivos que cargues quedarán guardados aquí hasta que programes su habilitación para uno o más grupos.</p>';
-        return `<article class="card"><div class="course-banner"></div><div class="card-top"><div><h3>${esc(c.nombre)}</h3><p>${esc(c.descripcion || '')}</p></div><span class="status-pill ${c.activo ? '' : 'off'}">${c.activo ? 'ACTIVO' : 'INACTIVO'}</span></div><p style="margin-bottom:13px;overflow-wrap:anywhere"><a href="${esc(c.url)}" target="_blank" rel="noopener noreferrer" style="color:var(--blue);font-weight:700">Abrir página pública ↗</a></p><div class="table-actions" style="margin-bottom:17px"><button class="btn btn-secondary btn-small" type="button" onclick="editarCurso('${esc(c.id)}')">Editar</button><button class="btn ${c.activo ? 'btn-danger' : 'btn-secondary'} btn-small" type="button" onclick="alternarCurso('${esc(c.id)}',${!c.activo})">${c.activo ? 'Desactivar' : 'Activar'}</button><button class="btn btn-danger btn-small" type="button" onclick="eliminarCurso('${esc(c.id)}')">Eliminar curso</button></div><div class="subsection"><h4>Grupos del curso (${groups.length})</h4><div class="field"><label for="group-name-${esc(c.id)}">Nombre del nuevo grupo</label><input id="group-name-${esc(c.id)}" maxlength="120" placeholder="Ej. Grupo noviembre"></div><button class="btn btn-secondary btn-small" type="button" onclick="crearGrupo('${esc(c.id)}')">＋ Crear grupo</button><div class="material-list">${groupRows}</div></div><div class="subsection"><h4>Biblioteca de materiales</h4><p style="margin-bottom:13px">Subí cada archivo una sola vez. Después elegí para qué grupo y desde cuándo estará disponible. El nombre de unidad o clase es libre.</p><div class="field"><label for="mat-title-${esc(c.id)}">Título del material</label><input id="mat-title-${esc(c.id)}" maxlength="150" placeholder="Ej. Circuitos de iluminación"></div><div class="field"><label for="mat-collection-${esc(c.id)}">Unidad, clase o categoría (opcional)</label><input id="mat-collection-${esc(c.id)}" maxlength="120" placeholder="Ej. Clase 1, Unidad 2, Práctica"></div><div class="field"><label for="mat-desc-${esc(c.id)}">Descripción (opcional)</label><input id="mat-desc-${esc(c.id)}" maxlength="500" placeholder="Qué contiene el archivo"></div><div class="field"><label for="mat-file-${esc(c.id)}">Archivo (máximo 50 MB)</label><input id="mat-file-${esc(c.id)}" type="file" accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.png,.jpg,.jpeg,.txt,.zip,.mp4,.webm,application/pdf,video/mp4,video/webm"><small style="font-size:11px;color:var(--muted)">Vista previa para PDF, MP4 y WebM. Los videos se guardan sin comprimir; máximo 50 MB.</small></div><button class="btn btn-primary btn-small" type="button" onclick="subirMaterial('${esc(c.id)}')">↑ Guardar en biblioteca</button><div class="material-list"><strong style="font-size:12px;color:var(--dark)">Materiales en biblioteca (${materials.length})</strong>${materialRows}</div></div></article>`;
+        return `<article class="card"><div class="course-banner"></div><div class="card-top"><div><h3>${esc(c.nombre)}</h3><p>${esc(c.descripcion || '')}</p></div><span class="status-pill ${c.activo ? '' : 'off'}">${c.activo ? 'ACTIVO' : 'INACTIVO'}</span></div><p style="margin-bottom:13px;overflow-wrap:anywhere"><a href="${esc(c.url)}" target="_blank" rel="noopener noreferrer" style="color:var(--blue);font-weight:700">Abrir página pública ↗</a></p><div class="table-actions" style="margin-bottom:17px"><button class="btn btn-secondary btn-small" type="button" onclick="editarCurso('${esc(c.id)}')">Editar</button><button class="btn ${c.activo ? 'btn-danger' : 'btn-secondary'} btn-small" type="button" onclick="alternarCurso('${esc(c.id)}',${!c.activo})">${c.activo ? 'Desactivar' : 'Activar'}</button><button class="btn btn-danger btn-small" type="button" onclick="eliminarCurso('${esc(c.id)}')">Eliminar curso</button></div><div class="subsection"><h4>Grupos del curso (${groups.length})</h4><div class="field"><label for="group-name-${esc(c.id)}">Nombre del nuevo grupo</label><input id="group-name-${esc(c.id)}" maxlength="120" placeholder="Ej. Grupo noviembre"></div><button class="btn btn-secondary btn-small" type="button" onclick="crearGrupo('${esc(c.id)}')">＋ Crear grupo</button><div class="material-list">${groupRows}</div></div><div class="subsection"><div class="exam-question-editor-head"><h4 style="margin:0">Biblioteca de materiales</h4><button class="btn btn-secondary btn-small" type="button" onclick="nuevoExamenDesdeCurso('${esc(c.id)}')">＋ Agregar examen</button></div><p style="margin-bottom:13px">Subí cada archivo una sola vez. Después elegí para qué grupo y desde cuándo estará disponible. El nombre de unidad o clase es libre.</p><div class="field"><label for="mat-title-${esc(c.id)}">Título del material</label><input id="mat-title-${esc(c.id)}" maxlength="150" placeholder="Ej. Circuitos de iluminación"></div><div class="field"><label for="mat-collection-${esc(c.id)}">Unidad, clase o categoría (opcional)</label><input id="mat-collection-${esc(c.id)}" maxlength="120" placeholder="Ej. Clase 1, Unidad 2, Práctica"></div><div class="field"><label for="mat-desc-${esc(c.id)}">Descripción (opcional)</label><input id="mat-desc-${esc(c.id)}" maxlength="500" placeholder="Qué contiene el archivo"></div><div class="field"><label for="mat-file-${esc(c.id)}">Archivo (máximo 50 MB)</label><input id="mat-file-${esc(c.id)}" type="file" accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.png,.jpg,.jpeg,.txt,.zip,.mp4,.webm,application/pdf,video/mp4,video/webm"><small style="font-size:11px;color:var(--muted)">Vista previa para PDF, MP4 y WebM. Los videos se guardan sin comprimir; máximo 50 MB.</small></div><button class="btn btn-primary btn-small" type="button" onclick="subirMaterial('${esc(c.id)}')">↑ Guardar en biblioteca</button><div class="material-list"><strong style="font-size:12px;color:var(--dark)">Materiales en biblioteca (${materials.length})</strong>${materialRows}</div></div></article>`;
       }).join('');
     }
+    function fillExamCourseSelects(preserveCourse = '') {
+      const activeCourses = (adminData && adminData.courses || []).filter(course => course.activo);
+      const current = preserveCourse || $('exam-course').value;
+      const currentFilter = $('exam-admin-course-filter').value || '';
+      $('exam-course').innerHTML = activeCourses.map(course => `<option value="${esc(course.id)}">${esc(course.nombre)}</option>`).join('');
+      $('exam-admin-course-filter').innerHTML = '<option value="">Todos los cursos</option>' + (adminData.courses || []).map(course => `<option value="${esc(course.id)}">${esc(course.nombre)}</option>`).join('');
+      if (activeCourses.some(course => course.id === current)) $('exam-course').value = current;
+      if ((adminData.courses || []).some(course => course.id === currentFilter)) $('exam-admin-course-filter').value = currentFilter;
+      updateExamGroupSelect();
+    }
+    function updateExamGroupSelect(selectedGroup = '') {
+      const courseId = $('exam-course').value;
+      const groups = (adminData && adminData.groups || []).filter(group => group.cursoId === courseId && group.activo);
+      $('exam-group').innerHTML = '<option value="">Todos los grupos del curso</option>' + groups.map(group => `<option value="${esc(group.id)}">${esc(group.nombre)}</option>`).join('');
+      if (groups.some(group => group.id === selectedGroup)) $('exam-group').value = selectedGroup;
+    }
+    $('exam-course').addEventListener('change', () => updateExamGroupSelect());
+    $('exam-admin-course-filter').addEventListener('change', renderAdminExams);
+    function appendExamQuestion(question = {}) {
+      const container = $('exam-question-editors');
+      const index = container.querySelectorAll('.exam-question-editor').length + 1;
+      const type = question.tipo === 'paragraph' ? 'paragraph' : 'multiple';
+      const options = Array.isArray(question.opciones) ? question.opciones.join('\n') : '';
+      const box = document.createElement('div');
+      box.className = 'exam-question-editor';
+      box.innerHTML = `<div class="exam-question-editor-head"><strong data-exam-question-number>Pregunta ${index}</strong><button class="btn btn-danger btn-small" type="button" data-remove-exam-question>Eliminar pregunta</button></div><div class="field"><label>Enunciado</label><textarea class="control" data-exam-question-prompt rows="2" maxlength="1200" required placeholder="Escribí la consigna">${esc(question.enunciado || '')}</textarea></div><div class="field"><label>Tipo de respuesta</label><select class="control" data-exam-question-type><option value="multiple" ${type === 'multiple' ? 'selected' : ''}>Opción múltiple (una respuesta)</option><option value="paragraph" ${type === 'paragraph' ? 'selected' : ''}>Párrafo de texto</option></select></div><div class="field" data-exam-options-wrap><label>Opciones (una por línea; entre 2 y 8)</label><textarea class="control" data-exam-question-options rows="3" maxlength="2200" placeholder="Opción A\nOpción B\nOpción C">${esc(options)}</textarea></div>`;
+      container.appendChild(box);
+      const typeSelect = box.querySelector('[data-exam-question-type]');
+      const optionsWrap = box.querySelector('[data-exam-options-wrap]');
+      const toggleOptions = () => { optionsWrap.classList.toggle('hidden', typeSelect.value !== 'multiple'); };
+      typeSelect.addEventListener('change', toggleOptions);
+      box.querySelector('[data-remove-exam-question]').addEventListener('click', () => { box.remove(); renumberExamQuestions(); });
+      toggleOptions();
+      renumberExamQuestions();
+    }
+    function renumberExamQuestions() {
+      $('exam-question-editors').querySelectorAll('.exam-question-editor').forEach((box, index) => {
+        box.querySelector('[data-exam-question-number]').textContent = 'Pregunta ' + (index + 1);
+      });
+    }
+    $('exam-add-question').addEventListener('click', () => appendExamQuestion({tipo:'multiple', opciones:['','']}));
+    function resetExamForm(preserveCourse = '') {
+      $('exam-form').reset(); $('exam-id').value = ''; $('exam-published').checked = true;
+      $('exam-form-title').textContent = 'Agregar examen';
+      $('exam-cancel-edit').classList.add('hidden');
+      $('exam-question-editors').innerHTML = '';
+      fillExamCourseSelects(preserveCourse);
+      appendExamQuestion({tipo:'multiple', opciones:['','']});
+    }
+    $('exam-cancel-edit').addEventListener('click', () => resetExamForm());
+    function nuevoExamenDesdeCurso(courseId) {
+      resetExamForm(courseId);
+      showAdminTab('examenes');
+      window.scrollTo({top:0,behavior:'smooth'});
+      $('exam-title').focus();
+    }
+    function editarExamen(examId) {
+      const exam = (adminData.examenes || []).find(item => item.id === examId);
+      if (!exam) return notify('No se encontró el examen.', 'error');
+      const deliveries = (adminData.entregasExamen || []).filter(item => item.examenId === examId).length;
+      if (deliveries) return notify('Este examen ya tiene entregas. Para no alterar las respuestas, creá una nueva versión.', 'error');
+      resetExamForm(exam.cursoId);
+      $('exam-id').value = exam.id;
+      $('exam-course').value = exam.cursoId;
+      updateExamGroupSelect(exam.grupoId);
+      $('exam-title').value = exam.titulo;
+      $('exam-description').value = exam.descripcion || '';
+      $('exam-published').checked = Boolean(exam.publicado);
+      $('exam-question-editors').innerHTML = '';
+      (exam.preguntas || []).forEach(question => appendExamQuestion(question));
+      $('exam-form-title').textContent = 'Editar examen';
+      $('exam-cancel-edit').classList.remove('hidden');
+      showAdminTab('examenes');
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+    $('exam-form').addEventListener('submit', event => {
+      event.preventDefault();
+      const preguntas = [...$('exam-question-editors').querySelectorAll('.exam-question-editor')].map(box => {
+        const tipo = box.querySelector('[data-exam-question-type]').value;
+        const enunciado = box.querySelector('[data-exam-question-prompt]').value.trim();
+        const opciones = tipo === 'multiple' ? box.querySelector('[data-exam-question-options]').value.split('\n').map(value => value.trim()).filter(Boolean) : [];
+        return {tipo, enunciado, opciones};
+      });
+      if (!preguntas.length) return notify('Agregá al menos una pregunta.', 'error');
+      for (let i = 0; i < preguntas.length; i++) {
+        if (!preguntas[i].enunciado) return notify('Completá el enunciado de la pregunta ' + (i + 1) + '.', 'error');
+        if (preguntas[i].tipo === 'multiple' && (preguntas[i].opciones.length < 2 || preguntas[i].opciones.length > 8)) return notify('La pregunta ' + (i + 1) + ' debe tener entre 2 y 8 opciones, una por línea.', 'error');
+      }
+      const data = { id:$('exam-id').value, cursoId:$('exam-course').value, grupoId:$('exam-group').value, titulo:$('exam-title').value.trim(), descripcion:$('exam-description').value.trim(), publicado:$('exam-published').checked, preguntas };
+      if (!data.cursoId) return notify('Elegí el curso del examen.', 'error');
+      busy(true, 'Guardando examen…');
+      callServer('adminGuardarExamen', [session.token, data], result => {
+        busy(false); notify(result.message || 'Examen guardado.', 'success'); resetExamForm(data.cursoId); recargarAdmin();
+      }, error => { busy(false); serverError(error); });
+    });
+    function alternarPublicacionExamen(examId, published) {
+      const exam = (adminData.examenes || []).find(item => item.id === examId);
+      if (!exam) return notify('No se encontró el examen.', 'error');
+      const prompt = published ? '¿Publicar el examen "' + exam.titulo + '" para los alumnos asignados?' : '¿Retirar "' + exam.titulo + '" de la biblioteca? Las entregas existentes se conservarán.';
+      if (!confirm(prompt)) return;
+      busy(true, published ? 'Publicando examen…' : 'Retirando examen…');
+      callServer('adminCambiarEstadoExamen', [session.token, examId, published], result => { busy(false); notify(result.message, 'success'); recargarAdmin(); }, error => { busy(false); serverError(error); });
+    }
+    function eliminarExamen(examId) {
+      const exam = (adminData.examenes || []).find(item => item.id === examId);
+      if (!exam) return notify('No se encontró el examen.', 'error');
+      if (!confirm('¿Eliminar definitivamente el examen "' + exam.titulo + '"? Se borrarán sus preguntas y todas las entregas de los alumnos.')) return;
+      busy(true, 'Eliminando examen…');
+      callServer('adminEliminarExamen', [session.token, examId], result => { busy(false); notify(result.message, 'success'); if ($('exam-id').value === examId) resetExamForm(); recargarAdmin(); }, error => { busy(false); serverError(error); });
+    }
+    function renderAdminExams() {
+      if (!adminData || !$('admin-exams-list')) return;
+      fillExamCourseSelects();
+      const allCourses = adminData.courses || [];
+      const selectedCourse = $('exam-admin-course-filter').value || '';
+      const exams = adminData.examenes || [];
+      const deliveries = adminData.entregasExamen || [];
+      const courseList = allCourses.filter(course => !selectedCourse || course.id === selectedCourse);
+      $('admin-exams-list').innerHTML = courseList.map(course => {
+        const courseExams = exams.filter(exam => exam.cursoId === course.id);
+        return `<section class="exam-course-block"><div class="section-head" style="margin-bottom:10px"><div><h3 style="margin:0;color:var(--dark)">${esc(course.nombre)}</h3><p>${courseExams.length} examen(es)</p></div></div>${courseExams.length ? courseExams.map(exam => {
+          const examDeliveries = deliveries.filter(delivery => delivery.examenId === exam.id);
+          const groupLabel = exam.grupoNombre ? 'Grupo: ' + esc(exam.grupoNombre) : 'Todos los grupos';
+          const questionSummary = (exam.preguntas || []).map((question,index) => `<li>${index + 1}. ${esc(question.enunciado)} <small>(${question.tipo === 'multiple' ? 'Opción múltiple' : 'Párrafo'})</small></li>`).join('');
+          const submissionsMarkup = examDeliveries.length ? examDeliveries.map(delivery => {
+            const answers = delivery.respuestas || {};
+            const answerMarkup = (exam.preguntas || []).map((question,index) => {
+              const answer = answers[question.id];
+              let displayAnswer = 'Sin respuesta registrada';
+              if (answer != null) {
+                if (question.tipo === 'multiple') displayAnswer = question.opciones[Number(answer)] != null ? question.opciones[Number(answer)] : 'Opción no disponible';
+                else displayAnswer = String(answer);
+              }
+              return `<div style="margin-top:10px"><strong>${index + 1}. ${esc(question.enunciado)}</strong><div class="exam-answer">${esc(displayAnswer)}</div></div>`;
+            }).join('');
+            const gradeValue = delivery.nota == null ? '' : String(delivery.nota);
+            return `<div class="exam-submission"><div class="card-top" style="margin-bottom:8px"><div><strong>${esc(delivery.alumnoNombre)}</strong><small style="display:block;color:var(--muted)">@${esc(delivery.usuario)} · Entregado: ${esc(delivery.fechaEntrega)}</small></div><span class="status-pill ${delivery.estado === 'graded' ? '' : 'off'}">${delivery.estado === 'graded' ? 'CORREGIDO' : 'PENDIENTE'}</span></div><details><summary style="cursor:pointer;color:var(--blue);font-size:13px;font-weight:800">Ver respuestas (${(exam.preguntas || []).length})</summary>${answerMarkup}</details><div class="exam-grade-grid"><div class="field"><label for="exam-grade-${esc(delivery.id)}">Nota (0 a 10)</label><input class="control" type="number" id="exam-grade-${esc(delivery.id)}" min="0" max="10" step="0.1" value="${esc(gradeValue)}" required></div><div class="field"><label for="exam-feedback-${esc(delivery.id)}">Devolución para el alumno (opcional)</label><textarea class="control" id="exam-feedback-${esc(delivery.id)}" rows="3" maxlength="5000" placeholder="Qué resolvió bien y qué debe corregir">${esc(delivery.devolucion || '')}</textarea></div></div><div style="margin-top:10px"><button class="btn btn-primary btn-small" type="button" onclick="guardarCorreccionExamen('${esc(delivery.id)}')">Guardar corrección</button></div></div>`;
+          }).join('') : '<div class="empty" style="margin-top:10px">Todavía no hay entregas para este examen.</div>';
+          return `<article class="exam-admin-card"><div class="card-top"><div><h3 style="margin:0">${esc(exam.titulo)}</h3><p style="margin-top:5px">${esc(exam.descripcion || '')}</p><small style="display:block;color:var(--muted);margin-top:6px">${groupLabel} · ${(exam.preguntas || []).length} pregunta(s) · ${examDeliveries.length} entrega(s)</small></div><span class="status-pill ${exam.publicado ? '' : 'off'}">${exam.publicado ? 'PUBLICADO' : 'BORRADOR'}</span></div><details><summary style="cursor:pointer;color:var(--blue);font-size:13px;font-weight:800">Ver preguntas</summary><ol style="padding-left:22px;margin-top:8px">${questionSummary}</ol></details><div class="table-actions" style="margin-top:12px"><button class="btn btn-secondary btn-small" type="button" onclick="editarExamen('${esc(exam.id)}')" ${examDeliveries.length ? 'disabled title="No se puede editar después de recibir entregas"' : ''}>Editar</button><button class="btn btn-secondary btn-small" type="button" onclick="alternarPublicacionExamen('${esc(exam.id)}',${!exam.publicado})">${exam.publicado ? 'Retirar publicación' : 'Publicar'}</button><button class="btn btn-danger btn-small" type="button" onclick="eliminarExamen('${esc(exam.id)}')">Eliminar</button></div>${submissionsMarkup}</article>`;
+        }).join('') : '<div class="empty">Todavía no hay exámenes en este curso. Podés crearlo arriba o desde el botón “Agregar examen” de la biblioteca.</div>'}</section>`;
+      }).join('') || '<div class="empty"><strong>No hay cursos</strong>Creá un curso antes de preparar exámenes.</div>';
+    }
+    function guardarCorreccionExamen(submissionId) {
+      const grade = $('exam-grade-' + submissionId).value;
+      const feedback = $('exam-feedback-' + submissionId).value.trim();
+      if (grade === '' || !Number.isFinite(Number(grade)) || Number(grade) < 0 || Number(grade) > 10) return notify('Ingresá una nota válida entre 0 y 10.', 'error');
+      busy(true, 'Guardando corrección…');
+      callServer('adminCalificarEntregaExamen', [session.token, submissionId, Number(grade), feedback], result => { busy(false); notify(result.message, 'success'); recargarAdmin(); }, error => { busy(false); serverError(error); });
+    }
+
     $('course-form').addEventListener('submit', event => {
       event.preventDefault();
       const data = { id:$('course-id').value, nombre:$('course-name').value.trim(), url:$('course-url').value.trim(), descripcion:packCourseDescription($('course-description').value, coursePromoImageData) };
@@ -873,7 +1141,7 @@
     function eliminarCurso(id) {
       const course = adminData.courses.find(c => c.id === id);
       if (!course) return notify('No se encontró el curso.', 'error');
-      const confirmation = '¿Eliminar DEFINITIVAMENTE el curso "' + course.nombre + '"? Se borrarán todos sus grupos, inscripciones a ese curso, materiales y archivos privados, fechas y conversaciones. Los alumnos conservarán sus cuentas y los demás cursos que tengan. Esta acción no se puede deshacer.';
+      const confirmation = '¿Eliminar DEFINITIVAMENTE el curso "' + course.nombre + '"? Se borrarán los grupos, exámenes y sus entregas, inscripciones a ese curso, materiales y archivos privados, fechas y conversaciones. Los alumnos conservarán sus cuentas y los demás cursos que tengan. Esta acción no se puede deshacer.';
       if (!confirm(confirmation)) return;
       busy(true, 'Eliminando curso y toda su información…');
       callServer('adminEliminarCurso', [session.token, id], result => {
@@ -898,7 +1166,7 @@
     function eliminarGrupo(groupId) {
       const group = adminData.groups.find(g => g.id === groupId);
       if (!group) return notify('No se encontró el grupo.', 'error');
-      if (!confirm('¿Eliminar el grupo "' + group.nombre + '"? También se eliminarán las habilitaciones de materiales y las fechas específicas de ese grupo. No se puede eliminar si todavía tiene alumnos asignados.')) return;
+      if (!confirm('¿Eliminar el grupo "' + group.nombre + '"? También se eliminarán las habilitaciones, fechas y exámenes específicos del grupo junto con sus entregas. No se puede eliminar si todavía tiene alumnos asignados.')) return;
       busy(true, 'Eliminando grupo…');
       callServer('adminEliminarGrupo', [session.token, groupId], result => {
         busy(false); notify(result.message, 'success'); recargarAdmin();
@@ -1157,7 +1425,7 @@
     window.gestionarAlumno=gestionarAlumno; window.alternarAlumno=alternarAlumno; window.eliminarAlumno=eliminarAlumno; window.editarCurso=editarCurso; window.alternarCurso=alternarCurso; window.eliminarCurso=eliminarCurso;
     window.crearGrupo=crearGrupo; window.editarGrupo=editarGrupo; window.alternarGrupo=alternarGrupo; window.eliminarGrupo=eliminarGrupo; window.programarMaterial=programarMaterial; window.habilitarMaterialAhora=habilitarMaterialAhora; window.quitarProgramacionMaterial=quitarProgramacionMaterial;
     window.subirMaterial=subirMaterial; window.eliminarMaterial=eliminarMaterial; window.eliminarEvento=eliminarEvento; window.abrirConversacionAdmin=abrirConversacionAdmin; window.eliminarConversacionAdmin=eliminarConversacionAdmin; window.descargarMaterialUI=descargarMaterialUI; window.vistaPreviaMaterialUI=vistaPreviaMaterialUI;
-    window.showStudentTab=showStudentTab;
+    window.showStudentTab=showStudentTab; window.abrirExamenAlumno=abrirExamenAlumno; window.nuevoExamenDesdeCurso=nuevoExamenDesdeCurso; window.editarExamen=editarExamen; window.alternarPublicacionExamen=alternarPublicacionExamen; window.eliminarExamen=eliminarExamen; window.guardarCorreccionExamen=guardarCorreccionExamen;
 
 
     // Agrega controles de desplazamiento a los menús horizontales en pantallas pequeñas.
@@ -1232,6 +1500,9 @@
         updateArrowState();
       });
     }
+    // Inicializa el creador de exámenes con una pregunta vacía y los cursos disponibles.
+    resetExamForm();
+
     setupMobileNavArrows();
 
 
