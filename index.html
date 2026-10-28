@@ -24,130 +24,228 @@
     <link rel="stylesheet" href="estilos.css">
     <link rel="stylesheet" href="novedades.css">
 
-    <!-- Ajuste visual de portada para escritorio; no modifica la presentación móvil. -->
-    <style id="nexvia-hero-desktop-refinement">
+    <!-- Rediseño de portada Nexvia: composición editorial para escritorio. -->
+    <style id="nexvia-hero-editorial">
+      .hero-visual-modern,
+      .hero-highlights { display: none; }
+
       @media (min-width: 951px) {
         .hero {
-          min-height: 0;
-          padding: 0;
+          position: relative;
+          overflow: hidden;
+          min-height: 0 !important;
+          padding: 0 !important;
+          background:
+            radial-gradient(ellipse at 86% 28%, rgba(47,143,230,.12) 0%, rgba(47,143,230,0) 36%),
+            linear-gradient(115deg, #ffffff 0%, #f9fbff 57%, #edf5ff 100%);
         }
-        .hero .hero-contenido {
-          width: min(1180px, 92%);
-          max-width: 1180px;
+        .hero .hero-contenido--redisenado {
+          width: min(1200px, 92%);
+          max-width: 1200px;
           min-height: 0;
           height: auto;
           margin: 0 auto;
-          padding: clamp(50px, 5.2vw, 72px) 0;
+          padding: clamp(38px, 4.2vw, 58px) 0 26px;
           display: grid;
-          grid-template-columns: minmax(0, 1.2fr) minmax(350px, .8fr);
+          grid-template-columns: minmax(0, 1.03fr) minmax(390px, .97fr);
+          grid-template-areas: "copy visual" "stats stats";
           align-items: center;
-          gap: clamp(38px, 5vw, 72px);
+          column-gap: clamp(36px, 4.5vw, 70px);
+          row-gap: clamp(18px, 2vw, 28px);
         }
         .hero .hero-texto {
+          grid-area: copy;
+          position: relative;
+          z-index: 2;
           width: 100%;
           max-width: 660px;
           min-width: 0;
-          position: relative;
-          z-index: 1;
+          margin: 0;
+          transform: none;
         }
+        .hero .hero-texto > .etiqueta { margin-bottom: 14px; }
         .hero .hero-texto h1 {
           max-width: 660px;
-          margin: 16px 0 23px;
-          font-size: clamp(52px, 4.2vw, 64px);
-          line-height: 1.03;
-          letter-spacing: -2.1px;
+          margin: 10px 0 20px;
+          font-size: clamp(49px, 4.25vw, 65px);
+          line-height: 1.035;
+          letter-spacing: -2.15px;
           text-wrap: balance;
         }
         .hero .hero-texto h1 span { display: block; }
         .hero .hero-texto > p {
-          max-width: 580px;
+          max-width: 560px;
           margin: 0;
-          font-size: 17px;
-          line-height: 1.7;
+          color: #536780;
+          font-size: clamp(16px, 1.25vw, 18px);
+          line-height: 1.72;
         }
         .hero .hero-botones {
           display: flex;
           flex-wrap: wrap;
           align-items: center;
           gap: 12px;
-          margin-top: 26px;
+          margin-top: 27px;
         }
-        .hero .hero-visual {
+        .hero .hero-visual--mobile { display: none !important; }
+        .hero .hero-visual-modern {
+          grid-area: visual;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+          justify-content: center;
+          position: relative;
           width: 100%;
           min-width: 0;
           margin: 0;
           padding: 0;
-          display: flex;
-          justify-content: flex-end;
-          align-items: center;
-          position: relative;
           transform: none;
         }
-        .hero .tarjeta-hero {
+        .hero .hero-visual-modern__stage {
+          position: relative;
           width: 100%;
-          max-width: 430px;
-          min-width: 0;
-          min-height: 0;
-          height: auto;
-          margin: 0;
-          padding: 27px clamp(23px, 2.3vw, 31px) 24px;
-          border-radius: 24px;
-          box-sizing: border-box;
-        }
-        .hero .icono-hero {
-          width: 100%;
-          height: 205px;
-          min-height: 0;
-          margin: 0 auto 17px;
+          max-width: 570px;
+          height: clamp(330px, 32vw, 440px);
           display: flex;
           align-items: center;
           justify-content: center;
-          overflow: hidden;
+          isolation: isolate;
         }
-        .hero .icono-hero img {
+        .hero .hero-visual-modern__shape {
+          position: absolute;
+          z-index: -1;
+          inset: 4% 1% 5% 5%;
+          border-radius: 39% 22% 38% 23% / 28% 25% 35% 39%;
+          background: linear-gradient(145deg, #d9eaff 0%, #eef5ff 55%, #c8e1ff 100%);
+          transform: rotate(2.5deg);
+        }
+        .hero .hero-visual-modern__stage::before {
+          content: "";
+          position: absolute;
+          width: 76%;
+          height: 76%;
+          right: 5%;
+          top: 9%;
+          border-radius: 50%;
+          background: rgba(255,255,255,.64);
+          filter: blur(1px);
+          z-index: -1;
+        }
+        .hero .hero-visual-modern__stage > img {
           display: block;
-          width: auto;
-          height: auto;
-          max-width: 100%;
-          max-height: 205px;
+          position: relative;
+          z-index: 1;
+          width: 100%;
+          height: 100%;
+          max-width: 570px;
+          max-height: 440px;
           object-fit: contain;
+          object-position: center bottom;
+          filter: drop-shadow(0 20px 24px rgba(11,47,91,.12));
         }
-        .hero .tarjeta-hero > span { display: block; margin-top: 0; }
-        .hero .tarjeta-hero h3 {
-          margin: 13px 0 10px;
-          font-size: clamp(23px, 2vw, 27px);
-          line-height: 1.17;
-          text-wrap: balance;
+        .hero .hero-visual-modern__spark {
+          position: absolute;
+          z-index: 2;
+          width: 12px;
+          height: 12px;
+          border-radius: 4px;
+          background: #2f8fe6;
+          transform: rotate(45deg);
+          opacity: .8;
         }
-        .hero .tarjeta-hero p { margin: 0; font-size: 14px; line-height: 1.65; }
-        .hero .linea-hero { margin: 19px 0; }
-        .hero .datos-hero {
+        .hero .hero-visual-modern__spark--one { top: 12%; left: 11%; }
+        .hero .hero-visual-modern__spark--two { right: 7%; top: 27%; width: 8px; height: 8px; background: #1557a6; }
+        .hero .hero-visual-modern__badge {
+          position: absolute;
+          z-index: 3;
+          left: 1%;
+          bottom: 12%;
+          display: flex;
+          align-items: center;
+          gap: 9px;
+          padding: 11px 15px;
+          border: 1px solid rgba(255,255,255,.9);
+          border-radius: 14px;
+          background: rgba(255,255,255,.92);
+          box-shadow: 0 12px 28px rgba(11,47,91,.10);
+          backdrop-filter: blur(10px);
+        }
+        .hero .hero-visual-modern__badge span { color: #1557a6; font-size: 21px; line-height: 1; font-weight: 900; }
+        .hero .hero-visual-modern__badge small { color: #536780; font-size: 9px; line-height: 1.1; font-weight: 900; letter-spacing: 1.2px; }
+        .hero .hero-visual-modern__caption {
+          width: min(84%, 450px);
+          align-self: flex-end;
+          margin: -1px 1% 0 0;
+          padding: 1px 0 1px 18px;
+          border-left: 3px solid #2f8fe6;
+        }
+        .hero .hero-visual-modern__caption > span {
+          display: block;
+          margin-bottom: 7px;
+          color: #1557a6;
+          font-size: 10px;
+          font-weight: 900;
+          letter-spacing: 1.5px;
+        }
+        .hero .hero-visual-modern__caption h3 {
+          margin: 0 0 6px;
+          color: #0b2f5b;
+          font-size: clamp(19px, 1.65vw, 24px);
+          line-height: 1.2;
+          letter-spacing: -.35px;
+        }
+        .hero .hero-visual-modern__caption p {
+          margin: 0;
+          max-width: 420px;
+          color: #536780;
+          font-size: 13px;
+          line-height: 1.55;
+        }
+        .hero .hero-highlights {
+          grid-area: stats;
           display: grid;
           grid-template-columns: repeat(3, minmax(0, 1fr));
-          gap: 12px;
+          width: 100%;
+          padding: 20px 0 2px;
+          border-top: 1px solid rgba(21,87,166,.15);
         }
-        .hero .datos-hero > div { min-width: 0; }
-        .hero .datos-hero strong { font-size: clamp(15px, 1.5vw, 20px); }
-        .hero .datos-hero span { font-size: 12px; }
-
-        /* Separa la portada de Novedades sin alterar su carrusel. */
+        .hero .hero-highlight {
+          display: flex;
+          flex-direction: row;
+          align-items: baseline;
+          justify-content: center;
+          gap: 9px;
+          padding: 4px 16px;
+          min-width: 0;
+        }
+        .hero .hero-highlight + .hero-highlight { border-left: 1px solid rgba(21,87,166,.13); }
+        .hero .hero-highlight strong { color: #0b2f5b; font-size: clamp(17px, 1.55vw, 21px); font-weight: 800; }
+        .hero .hero-highlight span { color: #667995; font-size: 13px; }
         .nx-news-section--featured {
-          padding-top: clamp(62px, 6vw, 80px);
-          padding-bottom: clamp(62px, 6vw, 80px);
-          border-top: 1px solid rgba(21, 87, 166, .08);
+          margin-top: 0 !important;
+          padding-top: clamp(58px, 6vw, 82px) !important;
+          padding-bottom: clamp(58px, 6vw, 82px) !important;
+          border-top: 1px solid rgba(21,87,166,.08);
         }
       }
-      @media (min-width: 951px) and (max-width: 1200px) {
-        .hero .hero-contenido {
-          grid-template-columns: minmax(0, 1.1fr) minmax(320px, .9fr);
-          gap: 34px;
+
+      @media (min-width: 951px) and (max-width: 1150px) {
+        .hero .hero-contenido--redisenado {
+          grid-template-columns: minmax(0, 1fr) minmax(340px, .9fr);
+          column-gap: 30px;
         }
-        .hero .hero-texto h1 { font-size: clamp(48px, 4.5vw, 56px); }
-        .hero .tarjeta-hero { padding: 23px 23px 21px; }
-        .hero .icono-hero { height: 185px; }
-        .hero .icono-hero img { max-height: 185px; }
+        .hero .hero-texto h1 { font-size: clamp(46px, 4.35vw, 54px); letter-spacing: -1.7px; }
+        .hero .hero-visual-modern__stage { height: 350px; }
+        .hero .hero-visual-modern__caption { width: 90%; }
+      }
+
+      @media (max-width: 950px) {
+        .hero .hero-visual-modern,
+        .hero .hero-highlights { display: none !important; }
+        .hero .hero-visual--mobile { display: block; }
       }
     </style>
+
 
 </head>
 
@@ -249,94 +347,62 @@
     <main>
 
         <section class="hero" id="inicio">
-
-            <div class="contenedor hero-contenido">
-
+            <div class="contenedor hero-contenido hero-contenido--redisenado">
                 <div class="hero-texto">
-
-                    <!-- TEXTO PEQUEÑO SOBRE EL TÍTULO -->
-                    <span class="etiqueta">
-                        FORMACIÓN ONLINE
-                    </span>
-
-                    <!-- TÍTULO PRINCIPAL -->
-                    <h1>
-                        Aprendé hoy.
-                        <span>Construí tu futuro.</span>
-                    </h1>
-
-                    <!-- DESCRIPCIÓN -->
+                    <span class="etiqueta">FORMACIÓN ONLINE</span>
+                    <h1>Aprendé hoy.<span>Construí tu futuro.</span></h1>
                     <p>
-                        Cursos online pensados para que puedas
-                        adquirir conocimientos, desarrollar nuevas
-                        habilidades y avanzar profesionalmente.
+                        Cursos online pensados para que puedas adquirir conocimientos,
+                        desarrollar nuevas habilidades y avanzar profesionalmente.
                     </p>
-
-                    <!-- BOTONES -->
                     <div class="hero-botones">
-
-                        <a href="#cursos" class="boton boton-principal">
-                            Ver cursos
-                        </a>
-
-                        <a href="#como-funciona" class="boton boton-secundario">
-                            Cómo funciona
-                        </a>
-
+                        <a href="#cursos" class="boton boton-principal">Ver cursos</a>
+                        <a href="#como-funciona" class="boton boton-secundario">Cómo funciona</a>
                     </div>
-
                 </div>
 
-
-                <!-- TARJETA VISUAL DEL HERO -->
-                <div class="hero-visual">
-
+                <!-- Portada para celular: conserva la presentación actual. -->
+                <div class="hero-visual hero-visual--mobile">
                     <div class="tarjeta-hero">
-
                         <div class="icono-hero">
-                            <img src="imagenes/Birrete.png">
+                            <img src="imagenes/Birrete.png" alt="Dos estudiantes celebrando su formación" loading="eager">
                         </div>
-
                         <span>FORMACIÓN PROFESIONAL</span>
-
-                        <h3>
-                            Aprendé desde cualquier lugar
-                        </h3>
-
-                        <p>
-                            Accedé a contenidos, clases y recursos
-                            desde cualquier dispositivo.
-                        </p>
-
+                        <h3>Aprendé desde cualquier lugar</h3>
+                        <p>Accedé a contenidos, clases y recursos desde cualquier dispositivo.</p>
                         <div class="linea-hero"></div>
-
                         <div class="datos-hero">
-
-                            <div>
-                                <strong>100%</strong>
-                                <span>Online</span>
-                            </div>
-
-                            <div>
-                                <strong>24/7</strong>
-                                <span>Acceso</span>
-                            </div>
-
-                            <div>
-                                <strong>Consultas</strong>
-                                   <span>Guiadas</span>
-                            </div>
-
+                            <div><strong>100%</strong><span>Online</span></div>
+                            <div><strong>24/7</strong><span>Acceso</span></div>
+                            <div><strong>Consultas</strong><span>Guiadas</span></div>
                         </div>
-
                     </div>
-
                 </div>
 
+                <!-- Portada de escritorio: imagen protagonista, sin tarjeta grande. -->
+                <div class="hero-visual-modern" aria-label="Formación online de Nexvia Educativa">
+                    <div class="hero-visual-modern__stage">
+                        <div class="hero-visual-modern__shape" aria-hidden="true"></div>
+                        <div class="hero-visual-modern__spark hero-visual-modern__spark--one" aria-hidden="true"></div>
+                        <div class="hero-visual-modern__spark hero-visual-modern__spark--two" aria-hidden="true"></div>
+                        <img src="imagenes/Birrete.png" alt="Dos estudiantes con birretes y materiales de estudio" loading="eager">
+                        <div class="hero-visual-modern__badge"><span>100%</span><small>ONLINE</small></div>
+                    </div>
+                    <div class="hero-visual-modern__caption">
+                        <span>FORMACIÓN PROFESIONAL</span>
+                        <h3>Aprendé desde cualquier lugar</h3>
+                        <p>Accedé a contenidos, clases y recursos desde cualquier dispositivo.</p>
+                    </div>
+                </div>
+
+                <!-- Beneficios en una franja independiente, fuera de la tarjeta. -->
+                <div class="hero-highlights" aria-label="Ventajas de estudiar en Nexvia">
+                    <div class="hero-highlight"><strong>100%</strong><span>Online</span></div>
+                    <div class="hero-highlight"><strong>24/7</strong><span>Acceso</span></div>
+                    <div class="hero-highlight"><strong>Consultas</strong><span>Guiadas</span></div>
+                </div>
             </div>
-
         </section>
-
 
 
         <!-- =====================================================
