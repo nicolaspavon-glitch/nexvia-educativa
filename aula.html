@@ -69,6 +69,27 @@
     .announcement-state { display:inline-flex; align-items:center; border-radius:99px; padding:4px 8px; font-size:10px; font-weight:900; background:#e9f8ee; color:var(--green); }
     .announcement-state.off { background:#f2f4f7; color:#667085; }
   </style>
+
+  <style id="material-preview-styles">
+    .material-resource { display:grid; gap:8px; min-width:0; }
+    .material-resource .material-item { align-items:center; }
+    .material-resource .material-item > div:first-child { flex:1 1 180px; min-width:0; }
+    .material-item-actions { display:flex; align-items:center; justify-content:flex-end; gap:7px; flex-wrap:wrap; flex:0 0 auto; }
+    .material-preview-panel { padding:10px; border:1px solid var(--border); border-radius:11px; background:#f8fbff; overflow:hidden; }
+    .material-preview-panel[hidden] { display:none !important; }
+    .material-preview-panel iframe { display:block; width:100%; height:min(68vh,700px); min-height:320px; border:1px solid var(--border); border-radius:8px; background:#fff; }
+    .material-preview-panel video { display:block; width:100%; max-height:68vh; border-radius:8px; background:#0b1d35; }
+    .material-preview-note { margin:8px 2px 0 !important; color:var(--muted); font-size:11px !important; }
+    .material-preview-loading { padding:22px 12px; text-align:center; color:var(--muted); font-size:13px; }
+    @media(max-width:620px) {
+      .material-resource .material-item { align-items:stretch; flex-direction:column; }
+      .material-item-actions { width:100%; justify-content:stretch; }
+      .material-item-actions .btn { flex:1 1 auto; }
+      .material-preview-panel { padding:7px; }
+      .material-preview-panel iframe { height:65vh; min-height:260px; }
+    }
+  </style>
+
 </head>
 <body>
   <div id="login-view" class="login-shell">
@@ -228,6 +249,7 @@
     let adminData = null;
     let selectedAdminUserId = '';
     let selectedAdminConversation = null;
+    const materialPreviewUrls = new Map();
 
     const $ = id => document.getElementById(id);
     const esc = value => String(value == null ? '' : value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
@@ -386,6 +408,7 @@
       notify(message, 'error');
     }
     function showLogin() {
+      liberarVistasPreviasMateriales();
       $('login-view').classList.remove('hidden');
       $('app-view').classList.add('hidden');
       $('login-password').value = '';
@@ -460,6 +483,7 @@
     document.querySelectorAll('#student-area [data-stab]').forEach(btn => btn.addEventListener('click', () => showStudentTab(btn.dataset.stab)));
     function renderStudent() {
       if (!studentData) return;
+      liberarVistasPreviasMateriales();
       $('student-welcome').textContent = '¡Hola, ' + studentData.user.nombre.split(' ')[0] + '!';
       $('student-stats').innerHTML = `
         <div class="stat"><span class="stat-label">Mis cursos</span><strong>${studentData.courses.length}</strong><small>Formaciones asignadas</small></div>
@@ -482,6 +506,13 @@
         $('student-chat-body').innerHTML = '<div class="empty">Cuando tengas un curso asignado, vas a poder escribir al equipo docente.</div>';
       }
     }
+    function tipoVistaPreviaMaterial(material) {
+      const mime = String(material && material.mimeType || '').toLowerCase();
+      const nombre = String(material && material.nombreArchivo || '').toLowerCase();
+      if (mime === 'application/pdf' || nombre.endsWith('.pdf')) return 'pdf';
+      if (mime === 'video/mp4' || mime === 'video/webm' || /\.(mp4|webm)$/i.test(nombre)) return 'video';
+      return '';
+    }
     function renderStudentMaterialCollections(materials) {
       const sections = new Map();
       materials.forEach(material => {
@@ -489,7 +520,11 @@
         if (!sections.has(name)) sections.set(name, []);
         sections.get(name).push(material);
       });
-      return [...sections.entries()].map(([name, items]) => `<div class="student-material-section"><h4>${esc(name)}</h4>${items.map(m => `<div class="material-item"><div><strong>${esc(m.titulo)}</strong><small>${esc(m.descripcion || m.nombreArchivo)} · ${esc(m.fecha)}</small></div><button class="btn btn-secondary btn-small" type="button" onclick="descargarMaterialUI('${esc(m.id)}')">↓ Descargar</button></div>`).join('')}</div>`).join('');
+      return [...sections.entries()].map(([name, items]) => `<div class="student-material-section"><h4>${esc(name)}</h4>${items.map(m => {
+        const previewType = tipoVistaPreviaMaterial(m);
+        const previewButton = previewType ? `<button class="btn btn-secondary btn-small" id="material-preview-button-${esc(m.id)}" type="button" aria-expanded="false" onclick="vistaPreviaMaterialUI('${esc(m.id)}')">Vista previa</button>` : '';
+        return `<div class="material-resource"><div class="material-item"><div><strong>${esc(m.titulo)}</strong><small>${esc(m.descripcion || m.nombreArchivo)} · ${esc(m.fecha)}</small></div><div class="material-item-actions">${previewButton}<button class="btn btn-secondary btn-small" type="button" onclick="descargarMaterialUI('${esc(m.id)}')">↓ Descargar</button></div></div><div class="material-preview-panel" id="material-preview-${esc(m.id)}" hidden></div></div>`;
+      }).join('')}</div>`).join('');
     }
     function getCourseName(id, courses) { const c = courses.find(x => x.id === id); return c ? c.nombre : 'Curso'; }
     function eventHtml(e, courseName) {
@@ -522,6 +557,90 @@
         loadStudentConversation();
       }, error => { $('student-send-message').disabled = false; serverError(error); });
     });
+    function liberarVistasPreviasMateriales() {
+      for (const objectUrl of materialPreviewUrls.values()) {
+        try { URL.revokeObjectURL(objectUrl); } catch (_) {}
+      }
+      materialPreviewUrls.clear();
+    }
+    async function vistaPreviaMaterialUI(materialId) {
+      if (!session) return showLogin();
+      const panel = $('material-preview-' + materialId);
+      const button = $('material-preview-button-' + materialId);
+      if (!panel || !button) return;
+      const existingUrl = materialPreviewUrls.get(materialId);
+      if (!panel.hidden && existingUrl) {
+        panel.hidden = true;
+        panel.replaceChildren();
+        URL.revokeObjectURL(existingUrl);
+        materialPreviewUrls.delete(materialId);
+        button.textContent = 'Vista previa';
+        button.setAttribute('aria-expanded', 'false');
+        return;
+      }
+      const list = studentData && studentData.courses ? studentData.courses : [];
+      const material = list.flatMap(c => c.materiales || []).find(m => m.id === materialId);
+      const previewType = tipoVistaPreviaMaterial(material);
+      if (!material || !previewType) return notify('Este tipo de archivo no admite vista previa. Podés descargarlo.', 'error');
+      panel.hidden = false;
+      panel.replaceChildren();
+      const loading = document.createElement('div');
+      loading.className = 'material-preview-loading';
+      loading.textContent = previewType === 'pdf' ? 'Preparando vista previa del PDF…' : 'Cargando video para vista previa…';
+      panel.appendChild(loading);
+      button.disabled = true;
+      button.textContent = 'Cargando…';
+      try {
+        const response = await fetch(AULA_API_URL + '/api/materials/' + encodeURIComponent(materialId) + '/download', {
+          method: 'GET', headers: { 'Authorization': 'Bearer ' + session.token }
+        });
+        if (!response.ok) {
+          let payload = {};
+          try { payload = await response.json(); } catch (_) {}
+          throw new Error(payload.error || 'No se pudo cargar la vista previa.');
+        }
+        const blob = await response.blob();
+        const objectUrl = URL.createObjectURL(blob);
+        if (!panel.isConnected) {
+          URL.revokeObjectURL(objectUrl);
+          return;
+        }
+        materialPreviewUrls.set(materialId, objectUrl);
+        panel.replaceChildren();
+        if (previewType === 'pdf') {
+          const frame = document.createElement('iframe');
+          frame.src = objectUrl + '#view=FitH';
+          frame.title = 'Vista previa de ' + (material.titulo || 'documento PDF');
+          frame.loading = 'lazy';
+          panel.appendChild(frame);
+        } else {
+          const video = document.createElement('video');
+          video.controls = true;
+          video.playsInline = true;
+          video.preload = 'metadata';
+          video.src = objectUrl;
+          video.setAttribute('aria-label', 'Vista previa de ' + (material.titulo || 'video'));
+          panel.appendChild(video);
+        }
+        const note = document.createElement('p');
+        note.className = 'material-preview-note';
+        note.textContent = 'Vista previa temporal. Para guardar el archivo en tu dispositivo, usá Descargar.';
+        panel.appendChild(note);
+        button.textContent = 'Ocultar vista previa';
+        button.setAttribute('aria-expanded', 'true');
+      } catch (error) {
+        panel.replaceChildren();
+        const message = document.createElement('p');
+        message.className = 'material-preview-loading';
+        message.textContent = error && error.message ? error.message : 'No se pudo cargar la vista previa.';
+        panel.appendChild(message);
+        button.textContent = 'Reintentar vista previa';
+        button.setAttribute('aria-expanded', 'true');
+      } finally {
+        button.disabled = false;
+      }
+    }
+
     async function descargarMaterialUI(materialId) {
       if (!session) return showLogin();
       busy(true, 'Preparando descarga segura…');
@@ -729,7 +848,7 @@
           const groupOptions = activeGroups.map(g => `<option value="${esc(g.id)}">${esc(g.nombre)}</option>`).join('');
           return `<div class="material-card"><div class="material-card-title"><div><strong>${esc(m.titulo)}</strong><small>${esc(m.coleccion || 'Sin unidad/clase')} · ${esc(m.nombreArchivo)} · ${esc(m.fecha)}</small><p style="margin-top:5px">${esc(m.descripcion || '')}</p></div><button class="btn btn-danger btn-small" type="button" onclick="eliminarMaterial('${esc(m.id)}')">Eliminar</button></div><div class="subsection"><h4>Habilitar para un grupo</h4><div class="release-form"><div class="field"><label for="release-group-${esc(m.id)}">Grupo</label><select id="release-group-${esc(m.id)}" ${activeGroups.length ? '' : 'disabled'}><option value="">Elegí el grupo</option>${groupOptions}</select></div><div class="field"><label for="release-date-${esc(m.id)}">Fecha y hora (Argentina)</label><input id="release-date-${esc(m.id)}" type="datetime-local" ${activeGroups.length ? '' : 'disabled'}></div><div class="table-actions full-row"><button class="btn btn-primary btn-small" type="button" onclick="programarMaterial('${esc(m.id)}')" ${activeGroups.length ? '' : 'disabled'}>Programar fecha</button><button class="btn btn-secondary btn-small" type="button" onclick="habilitarMaterialAhora('${esc(m.id)}')" ${activeGroups.length ? '' : 'disabled'}>Habilitar ahora</button></div></div><div class="material-list">${releaseRows}</div></div></div>`;
         }).join('') : '<p style="font-size:12px;color:var(--muted)">La biblioteca está vacía. Los archivos que cargues quedarán guardados aquí hasta que programes su habilitación para uno o más grupos.</p>';
-        return `<article class="card"><div class="course-banner"></div><div class="card-top"><div><h3>${esc(c.nombre)}</h3><p>${esc(c.descripcion || '')}</p></div><span class="status-pill ${c.activo ? '' : 'off'}">${c.activo ? 'ACTIVO' : 'INACTIVO'}</span></div><p style="margin-bottom:13px;overflow-wrap:anywhere"><a href="${esc(c.url)}" target="_blank" rel="noopener noreferrer" style="color:var(--blue);font-weight:700">Abrir página pública ↗</a></p><div class="table-actions" style="margin-bottom:17px"><button class="btn btn-secondary btn-small" type="button" onclick="editarCurso('${esc(c.id)}')">Editar</button><button class="btn ${c.activo ? 'btn-danger' : 'btn-secondary'} btn-small" type="button" onclick="alternarCurso('${esc(c.id)}',${!c.activo})">${c.activo ? 'Desactivar' : 'Activar'}</button><button class="btn btn-danger btn-small" type="button" onclick="eliminarCurso('${esc(c.id)}')">Eliminar curso</button></div><div class="subsection"><h4>Grupos del curso (${groups.length})</h4><div class="field"><label for="group-name-${esc(c.id)}">Nombre del nuevo grupo</label><input id="group-name-${esc(c.id)}" maxlength="120" placeholder="Ej. Grupo noviembre"></div><button class="btn btn-secondary btn-small" type="button" onclick="crearGrupo('${esc(c.id)}')">＋ Crear grupo</button><div class="material-list">${groupRows}</div></div><div class="subsection"><h4>Biblioteca de materiales</h4><p style="margin-bottom:13px">Subí cada archivo una sola vez. Después elegí para qué grupo y desde cuándo estará disponible. El nombre de unidad o clase es libre.</p><div class="field"><label for="mat-title-${esc(c.id)}">Título del material</label><input id="mat-title-${esc(c.id)}" maxlength="150" placeholder="Ej. Circuitos de iluminación"></div><div class="field"><label for="mat-collection-${esc(c.id)}">Unidad, clase o categoría (opcional)</label><input id="mat-collection-${esc(c.id)}" maxlength="120" placeholder="Ej. Clase 1, Unidad 2, Práctica"></div><div class="field"><label for="mat-desc-${esc(c.id)}">Descripción (opcional)</label><input id="mat-desc-${esc(c.id)}" maxlength="500" placeholder="Qué contiene el archivo"></div><div class="field"><label for="mat-file-${esc(c.id)}">Archivo (máximo 8 MB)</label><input id="mat-file-${esc(c.id)}" type="file" accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.png,.jpg,.jpeg,.txt,.zip"></div><button class="btn btn-primary btn-small" type="button" onclick="subirMaterial('${esc(c.id)}')">↑ Guardar en biblioteca</button><div class="material-list"><strong style="font-size:12px;color:var(--dark)">Materiales en biblioteca (${materials.length})</strong>${materialRows}</div></div></article>`;
+        return `<article class="card"><div class="course-banner"></div><div class="card-top"><div><h3>${esc(c.nombre)}</h3><p>${esc(c.descripcion || '')}</p></div><span class="status-pill ${c.activo ? '' : 'off'}">${c.activo ? 'ACTIVO' : 'INACTIVO'}</span></div><p style="margin-bottom:13px;overflow-wrap:anywhere"><a href="${esc(c.url)}" target="_blank" rel="noopener noreferrer" style="color:var(--blue);font-weight:700">Abrir página pública ↗</a></p><div class="table-actions" style="margin-bottom:17px"><button class="btn btn-secondary btn-small" type="button" onclick="editarCurso('${esc(c.id)}')">Editar</button><button class="btn ${c.activo ? 'btn-danger' : 'btn-secondary'} btn-small" type="button" onclick="alternarCurso('${esc(c.id)}',${!c.activo})">${c.activo ? 'Desactivar' : 'Activar'}</button><button class="btn btn-danger btn-small" type="button" onclick="eliminarCurso('${esc(c.id)}')">Eliminar curso</button></div><div class="subsection"><h4>Grupos del curso (${groups.length})</h4><div class="field"><label for="group-name-${esc(c.id)}">Nombre del nuevo grupo</label><input id="group-name-${esc(c.id)}" maxlength="120" placeholder="Ej. Grupo noviembre"></div><button class="btn btn-secondary btn-small" type="button" onclick="crearGrupo('${esc(c.id)}')">＋ Crear grupo</button><div class="material-list">${groupRows}</div></div><div class="subsection"><h4>Biblioteca de materiales</h4><p style="margin-bottom:13px">Subí cada archivo una sola vez. Después elegí para qué grupo y desde cuándo estará disponible. El nombre de unidad o clase es libre.</p><div class="field"><label for="mat-title-${esc(c.id)}">Título del material</label><input id="mat-title-${esc(c.id)}" maxlength="150" placeholder="Ej. Circuitos de iluminación"></div><div class="field"><label for="mat-collection-${esc(c.id)}">Unidad, clase o categoría (opcional)</label><input id="mat-collection-${esc(c.id)}" maxlength="120" placeholder="Ej. Clase 1, Unidad 2, Práctica"></div><div class="field"><label for="mat-desc-${esc(c.id)}">Descripción (opcional)</label><input id="mat-desc-${esc(c.id)}" maxlength="500" placeholder="Qué contiene el archivo"></div><div class="field"><label for="mat-file-${esc(c.id)}">Archivo (máximo 50 MB)</label><input id="mat-file-${esc(c.id)}" type="file" accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.png,.jpg,.jpeg,.txt,.zip,.mp4,.webm,application/pdf,video/mp4,video/webm"><small style="font-size:11px;color:var(--muted)">Vista previa para PDF, MP4 y WebM. Los videos se guardan sin comprimir; máximo 50 MB.</small></div><button class="btn btn-primary btn-small" type="button" onclick="subirMaterial('${esc(c.id)}')">↑ Guardar en biblioteca</button><div class="material-list"><strong style="font-size:12px;color:var(--dark)">Materiales en biblioteca (${materials.length})</strong>${materialRows}</div></div></article>`;
       }).join('');
     }
     $('course-form').addEventListener('submit', event => {
@@ -841,7 +960,7 @@
       if (!fileInput.files.length) return notify('Seleccioná el archivo que querés subir.', 'error');
       if (!session || session.role !== 'ADMIN') return showLogin();
       const file = fileInput.files[0];
-      if (file.size > 8 * 1024 * 1024) return notify('El archivo supera los 8 MB. Comprimilo o dividilo antes de subirlo.', 'error');
+      if (file.size > 50 * 1024 * 1024) return notify('El archivo supera los 50 MB. Comprimilo moderadamente o dividilo antes de subirlo.', 'error');
       const form = new FormData();
       form.append('cursoId', courseId);
       form.append('titulo', title);
@@ -1037,7 +1156,7 @@
     // Botones de modal expuestos al HTML generado de manera segura: IDs internos generados por el servidor.
     window.gestionarAlumno=gestionarAlumno; window.alternarAlumno=alternarAlumno; window.eliminarAlumno=eliminarAlumno; window.editarCurso=editarCurso; window.alternarCurso=alternarCurso; window.eliminarCurso=eliminarCurso;
     window.crearGrupo=crearGrupo; window.editarGrupo=editarGrupo; window.alternarGrupo=alternarGrupo; window.eliminarGrupo=eliminarGrupo; window.programarMaterial=programarMaterial; window.habilitarMaterialAhora=habilitarMaterialAhora; window.quitarProgramacionMaterial=quitarProgramacionMaterial;
-    window.subirMaterial=subirMaterial; window.eliminarMaterial=eliminarMaterial; window.eliminarEvento=eliminarEvento; window.abrirConversacionAdmin=abrirConversacionAdmin; window.eliminarConversacionAdmin=eliminarConversacionAdmin; window.descargarMaterialUI=descargarMaterialUI;
+    window.subirMaterial=subirMaterial; window.eliminarMaterial=eliminarMaterial; window.eliminarEvento=eliminarEvento; window.abrirConversacionAdmin=abrirConversacionAdmin; window.eliminarConversacionAdmin=eliminarConversacionAdmin; window.descargarMaterialUI=descargarMaterialUI; window.vistaPreviaMaterialUI=vistaPreviaMaterialUI;
     window.showStudentTab=showStudentTab;
 
 
