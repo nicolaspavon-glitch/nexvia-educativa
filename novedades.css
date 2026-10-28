@@ -339,3 +339,66 @@
   .nx-news-arrow,
   .nx-news-dot { transition: none !important; }
 }
+
+/* Ajuste de proporciones: la imagen conserva su formato y no se recortan los bordes.
+   Este archivo se comparte entre la portada pública y el Aula Virtual. */
+.nx-news-carousel {
+  height: auto;
+  min-height: 0;
+}
+.nx-news-viewport {
+  height: auto;
+  aspect-ratio: 1.24 / 1;
+}
+.nx-news-slide {
+  grid-template-rows: auto auto;
+  align-content: start;
+}
+.nx-news-photo {
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  aspect-ratio: 16 / 9;
+  background: #f5f8fc;
+}
+.nx-news-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  transform: none;
+}
+.nx-news-slide.is-current .nx-news-photo img { transform: none; }
+
+/* En escritorio, la portada pública conserva protagonismo y el aula es más compacta. */
+@media (min-width: 901px) {
+  .nx-news-carousel[data-variant="featured"] .nx-news-viewport {
+    aspect-ratio: 1.24 / 1;
+  }
+  .nx-news-carousel--compact {
+    max-width: 700px;
+  }
+  .nx-news-carousel--compact .nx-news-viewport {
+    aspect-ratio: 1.28 / 1;
+  }
+}
+
+/* En tablets, evitar que la tarjeta ocupe un ancho excesivo cuando queda apilada. */
+@media (min-width: 561px) and (max-width: 900px) {
+  .nx-news-carousel[data-variant="featured"] {
+    max-width: 760px;
+    margin-inline: auto;
+  }
+  .nx-news-carousel--compact {
+    max-width: 700px;
+  }
+}
+
+/* En celulares, la tarjeta se adapta al ancho disponible sin cambiar la proporción de la imagen. */
+@media (max-width: 560px) {
+  .nx-news-carousel { height: auto; }
+  .nx-news-carousel .nx-news-viewport { aspect-ratio: 1.02 / 1; }
+  .nx-news-carousel--compact .nx-news-viewport { aspect-ratio: 1.10 / 1; }
+  .nx-news-photo { aspect-ratio: 16 / 9; }
+}
+
