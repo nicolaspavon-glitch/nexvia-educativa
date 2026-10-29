@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://nexvia-educativa.pages.dev/sitemap.xml
