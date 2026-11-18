@@ -19,24 +19,8 @@
          ========================================================= -->
 
     <title>Nexvia Educativa | Cursos de Formación Profesional</title>
-    <meta property="og:title" content="Nexvia Educativa | Cursos de Formación Profesional">
 
-    <!-- SEO: descripción para los resultados de búsqueda -->
-    <meta name="description" content="Capacitate online con Nexvia Educativa. Cursos de Electricidad Domiciliaria e Higiene y Seguridad, con material de estudio, acompañamiento y certificado de finalización.">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://nexvia-educativa.pages.dev/">
-
-    <!-- Vista previa al compartir la página -->
-    <meta property="og:type" content="website">
-    <meta property="og:locale" content="es_AR">
-    <meta property="og:site_name" content="Nexvia Educativa">
-    <meta property="og:title" content="Nexvia Educativa | Cursos Online de Electricidad y Seguridad">
-    <meta property="og:description" content="Cursos online de Electricidad Domiciliaria e Higiene y Seguridad, con material de estudio y acompañamiento.">
-    <meta property="og:url" content="https://nexvia-educativa.pages.dev/">
-    <meta property="og:image" content="https://nexvia-educativa.pages.dev/imagenes/Birrete.png">
-    <meta property="og:image:alt" content="Estudiantes celebrando su formación con Nexvia Educativa">
-    <meta name="twitter:card" content="summary_large_image">
-
+    <meta name="description" content="Nexvia Educativa ofrece cursos online de formación profesional, con aula virtual, materiales de estudio, acompañamiento y certificación privada de finalización.">
 
     <!-- Conectamos nuestro archivo de diseño CSS -->
     <link rel="stylesheet" href="estilos.css">
@@ -537,6 +521,39 @@
     </style>
 
 
+
+
+    <!-- Acceso visible y discreto a gestiones del consumidor -->
+    <style id="nexvia-consumer-access-styles">
+      .nexvia-consumer-access {
+        display:flex; justify-content:flex-end; align-items:center;
+        padding:6px clamp(16px,4vw,54px); background:#fff;
+        border-bottom:1px solid #e8edf3;
+      }
+      .nexvia-consumer-access a {
+        display:inline-flex; align-items:center; justify-content:center;
+        padding:6px 10px; border:1px solid #dce3eb; border-radius:6px;
+        background:#f8fafc; color:#475467; text-decoration:none;
+        font-weight:600; font-size:12px; line-height:1.35; white-space:nowrap;
+        transition:background .18s,border-color .18s,color .18s;
+      }
+      .nexvia-consumer-access a:hover {
+        background:#fff; border-color:#b8c9dd; color:#1557a6;
+      }
+      .nexvia-legal-links {
+        display:flex; flex-wrap:wrap; justify-content:center; align-items:center;
+        gap:10px 18px; padding:12px 16px;
+      }
+      .nexvia-legal-links a {
+        color:inherit; text-decoration:underline; text-underline-offset:3px;
+      }
+      .nexvia-legal-links a:hover { color:#2f8fe6; }
+      @media(max-width:600px) {
+        .nexvia-consumer-access { padding:6px 4%; }
+        .nexvia-legal-links { gap:9px 14px; font-size:13px; }
+      }
+    </style>
+
 </head>
 
 
@@ -607,7 +624,7 @@
 </nav>
 
             <!-- BOTÓN DE INSCRIPCIÓN -->
-            <a href="#inscripcion" class="boton boton-nav">
+            <a href="inscripcion.html" class="boton boton-nav">
                 Inscribirme
             </a>
 
@@ -619,6 +636,12 @@
         </div>
 
     </header>
+
+    <!-- Acceso visible a la gestión de arrepentimiento -->
+    <div class="nexvia-consumer-access">
+        <a href="arrepentimiento.html">Botón de arrepentimiento</a>
+    </div>
+
 
 
 
@@ -1361,7 +1384,7 @@ Este certificado acredita la realización y finalización del curso, pero no con
                 <!-- ESTE BOTÓN MÁS ADELANTE LO CONECTAREMOS
                      CON EL FORMULARIO REAL DE INSCRIPCIÓN -->
 
-                <a href="#contacto" class="boton boton-blanco">
+                <a href="inscripcion.html" class="boton boton-blanco">
                     Quiero inscribirme
                 </a>
 
@@ -1470,6 +1493,14 @@ Este certificado acredita la realización y finalización del curso, pero no con
 
         </div>
 
+
+
+
+            <nav class="nexvia-legal-links" aria-label="Información legal de Nexvia">
+                <a href="terminos-y-condiciones.html">Términos y condiciones de contratación</a>
+                <a href="politica-de-privacidad.html">Política de privacidad</a>
+                <a href="arrepentimiento.html">Botón de arrepentimiento</a>
+            </nav>
 
         <div class="footer-bottom">
 
